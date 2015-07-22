@@ -5,11 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
 <!DOCTYPE html>
 <html>
 	<head>
             <link rel="stylesheet" href="${Constants.URL}css/style.css">
             <script type="text/javascript" src="${Constants.URL}js/jquery-1.9.1.min.js"></script>
+            <script type="text/javascript" src="${Constants.URL}js/scripts.js"></script>
 	</head>
 	<body>
 		<header>
@@ -28,44 +31,23 @@
 			</div>
 		</header>
 		<main>
-			<div class="docsList">
-				<ul id="mainList">
-					<li id="1" onclick="changeDoc('1')">Image(jpg jpeg png)
-						<ul id="mainList">
-							<li id="1" onclick="changeDoc('1')">Document 1</li>
-							<li id="2" onclick="changeDoc('2')">Document 2
-								<ul id="mainList">
-									<li id="1" onclick="changeDoc('1')">Document 1</li>
-									<li id="2" onclick="changeDoc('2')">Document 2</li>
-									<li id="3" onclick="changeDoc('3')">Document 3
-										<ul id="mainList">
-											<li id="1" onclick="changeDoc('1')">Document 1</li>
-											<li id="2" onclick="changeDoc('2')">Document 2</li>
-											<li id="3" onclick="changeDoc('3')">Document 3</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li id="3" onclick="changeDoc('3')">Document 3</li>
-						</ul>
-					</li>
-					<li id="2" onclick="changeDoc('2')">PDF file</li>
-					<li id="3" onclick="changeDoc('3')">TXT file</li>
-				</ul>
-			</div>
-			<div class="docPreview">
-				<img id="d1" class="displayNone" src="${Constants.URL}files/2.jpg">
-				<object id="d2" class="displayNone" data="${Constants.URL}files/1.pdf" type="application/pdf" width="100%" height="99.5%">
-					<a href="myfile.pdf"></a>
-				</object>
-				<object id="d3" class="displayNone" data="${Constants.URL}files/file.txt">
-				</object>
+                    <div class="docsList">
+                        <div id="listContainer">
+                            <div class="listControl">
+                                <a id="expandList">Expand All</a>
+                                <a id="collapseList">Collapse All</a>
+                            </div>
+                            ${listHtml}
+                        </div>
 			</div>
 			<div class="docInfo">
-				<div class="docInfoBlock">Title: Document1.jpg</div>
-				<div class="docInfoBlock">Uploader: Alex</div>
-				<div class="docInfoBlock">Date: 18.04.2015</div>
-				<div class="docInfoBlock">Hashtags: document, important</div>
+			</div>
+			<div class="docPreview">
+				<img id="imagePreview" class="displayNone" src="${Constants.URL}files/2.jpg">
+				<object id="pdfPreview" class="displayNone" data="${Constants.URL}files/1.pdf" type="application/pdf" width="100%" height="100%">
+				</object>
+				<object id="txtPreview" class="displayNone" data="${Constants.URL}files/file.txt">
+				</object>
 			</div>
 		</main>
 		<footer>
@@ -73,27 +55,46 @@
 	</body>
 </html>
 <script>
+    var sectionId = null;
 	$('main').height(window.innerHeight-$('header').height()-$('footer').height());
 	
-	//$('.docPreview').width(window.innerWidth-$('.docsList').width()-$('.docInfo').width()-23);
-	
-	function changeDoc(url){
-		$('#d1').addClass('displayNone');
-		$('#d2').addClass('displayNone');
-		$('#d3').addClass('displayNone');
-		$('#d'+url).removeClass('displayNone');
+	function showDocument(url){
+		$('#imagePreview').addClass('displayNone');
+		$('#pdfPreview').addClass('displayNone');
+		$('#txtPreview').addClass('displayNone');
+                var checkType = url.split('.');
+                switch (checkType[1]){
+                    case 'pdf':
+                        $('#pdfPreview').removeClass('displayNone');
+                        $('#pdfPreview').attr("data", url);
+                        break;
+                    case 'jpg':
+                        $('#imagePreview').removeClass('displayNone');
+                        $('#imagePreview').attr("src", url);
+                        break;
+                    case 'txt':
+                        $('#txtPreview').removeClass('displayNone');
+                        $('#txtPreview').attr("data", url);
+                        break;
+                }
 	}
-	
-	/*
-	$.ajax({
-        async:false,
-        url: 'files/file.txt',
-        dataType: 'text',
-        success: function(data) 
-        {
-        $('.docPreview').append(data);
-            }
-        });
-	*/
-	
+        function getChildDocuments(value){
+            if(sectionId!=null)
+                $('#section'+sectionId).css('font-weight','100');
+            sectionId = value;
+            $('#section'+sectionId).css('font-weight','600');
+            $.ajax({
+                type: "get",
+                url: "${Constants.URL}system/checkLoginPass/",
+                cache: false, 
+                data:'id='+value,
+                success: function(response){
+                    $('.docInfo').html("");
+                    $('.docInfo').append(response);
+                },
+                error: function(response){ 
+                    console.log(response);
+                }
+            });       
+        }
 </script>

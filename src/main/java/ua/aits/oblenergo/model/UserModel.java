@@ -17,6 +17,8 @@ public class UserModel {
     public Integer id;
     public String name;
     public String pass;
+    public String description;
+    public Integer role;
 
     public int getId() {
         return id;
@@ -41,6 +43,22 @@ public class UserModel {
     public void setPass(String pass) {
         this.pass = pass;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
     
     public UserModel getUser(int id) throws SQLException{
         ResultSet result = DB.getResultSet("SELECT * FROM users WHERE id = "+id+";");
@@ -49,6 +67,7 @@ public class UserModel {
         temp.setId(result.getInt("id"));
         temp.setName(result.getString("name"));
         temp.setPass(result.getString("pass"));
+        DB.closeCon();
         return temp;
     }
     
