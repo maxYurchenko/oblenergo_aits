@@ -85,5 +85,14 @@ public class AjaxController {
         user.deleteUser(request.getParameter("id"));
         return "done";
     }
+    
+    @RequestMapping(value = {"/deleteDoc/", "/deleteDoc"}, method = RequestMethod.GET)
+    public @ResponseBody
+    String deleteDoc(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        DocumentModel document = new DocumentModel();
+        document.publishDocument(request.getParameter("id"), request.getParameter("publish"));
+        return "done";
+    }
         
 }

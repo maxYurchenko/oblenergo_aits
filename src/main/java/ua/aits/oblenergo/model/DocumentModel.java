@@ -29,6 +29,7 @@ public class DocumentModel {
     public String type;
     public String keywords;
     public String parentName;
+    public Integer isDelete;
 
     public Integer getId() {
         return id;
@@ -110,6 +111,14 @@ public class DocumentModel {
         this.viewNum = viewNum;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
     public String getType() {
         return type;
     }
@@ -166,6 +175,7 @@ public class DocumentModel {
             temp.setTitle(result.getString("title"));
             temp.setPath(result.getString("path"));
             temp.setValid(result.getInt("valid"));
+            temp.setIsDelete(result.getInt("isDelete"));
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             documentList.add(temp);
         } 
@@ -176,6 +186,13 @@ public class DocumentModel {
     public String addDocument(String id, String title, String section, String date, String file, String isValid, String uploader) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DB.runQuery("INSERT INTO docs (clientId, title, parentId, date, path, valid, uploader) "
                 + "values ('"+id+"', '"+title+"', '"+section+"', '"+date+"', '"+file+"', '"+isValid+"', '"+uploader+"');");
+        DB.closeCon();
+        return "done";
+    }
+    
+    public String publishDocument(String id, String publish) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DB.runQuery("UPDATE docs SET isDelete='"+publish+"' WHERE id='"+id+"';");
+        DB.closeCon();
         return "done";
     }
 }

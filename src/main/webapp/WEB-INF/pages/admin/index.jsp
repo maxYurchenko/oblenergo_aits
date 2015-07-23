@@ -77,6 +77,50 @@
                             </div>
                         </div>
             </form>
+            
+                <div class="tableMainClass">
+                    <table class="table" id="table-pagination" data-height="400" data-pagination="true">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Section</th>
+                                    <th>Date</th>
+                                    <th>Edit</th>
+                                    <c:if test="${user.role == 2}">
+                                        <th style="width: 58px;">Delete</th>
+                                    </c:if>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${documents}" var="document">
+                                    <tr <c:if test="${document.valid==0}">class="inValidDoc display"</c:if>>
+                                        <th>${document.clientId}</th>
+                                        <th>${document.title}</th>
+                                        <th>${document.parentName}</th>
+                                        <th>${document.title}</th>
+                                        <th>Edit</th>
+                                        <c:if test="${user.role == 2}">
+                                            <th class="publishCheckboxBlock" id="publishCheckboxBlock${document.id}" 
+                                                style="width: 58px;" value="${document.id}">
+                                                <c:choose>
+                                                    <c:when test="${document.isDelete == 1}">
+                                                        <input type="checkbox" name="my-checkbox" id="deleteRouteCheckBox${document.id}">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <input type="checkbox" name="my-checkbox" checked
+                                                                                     id="deleteRouteCheckBox${document.id}">
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </th>
+                                        </c:if>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </thead>
+                    </table>
+                </div>
+            
             </div>
     </body>
 </t:mainHeader>
@@ -118,5 +162,43 @@ $('.file').on('change', '#fileInput', function() {
         today = mm+'/'+dd+'/'+yyyy;
         $( "#date" ).val(today);
         $('.selectpicker').selectpicker();
+        $('#table-pagination').DataTable();
+        $("[name='my-checkbox']").bootstrapSwitch();
+        $('#table-pagination_paginate').click(function(){
+            $("[name='my-checkbox']").bootstrapSwitch();
+        });
+        $('#table-pagination').click(function(){
+            $("[name='my-checkbox']").bootstrapSwitch();
+        });
+        $('.dataTables_wrapper').change(function() {
+            $("[name='my-checkbox']").bootstrapSwitch();
+        });
+        $('.dataTables_filter').on('input', function() {
+            $("[name='my-checkbox']").bootstrapSwitch();
+        });
+        $('.publishCheckboxBlock').on('switchChange.bootstrapSwitch', function(event, state) {
+            var isDelete = 0;
+            if(state) {
+                isDelete = 0;
+            }else{
+                isDelete = 1;
+            }
+            var id = $(this).attr("value");
+            $.ajax({
+                type: "get",
+                url: "${Constants.URL}deleteDoc/",
+                cache: false, 
+                data:'id='+id+'&publish='+isDelete,
+                success: function(response){
+                    console.log(response);
+                },
+                error: function(response){ 
+                    console.log(response);
+                }
+            }); 
+        });
     });
+    function deleteRoute(id){
+        console.log(id+" "+isDelete);
+    }
 </script>

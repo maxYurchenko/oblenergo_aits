@@ -33,9 +33,13 @@ public class AdminContontroller {
 			HttpServletResponse response) throws Exception {
                 ModelAndView modelAndView = new ModelAndView("admin/index");
                 List<SectionModel> sections = new LinkedList();
+                List<DocumentModel> documents = new LinkedList();
                 SectionModel sectionClass = new SectionModel();
                 sections = sectionClass.getAllSections();
+                DocumentModel documentClass = new DocumentModel();
+                documents = documentClass.getAllDocuments();
                 modelAndView.addObject("sections", sections);
+                modelAndView.addObject("documents", documents);
                  return modelAndView;
 	}
     @RequestMapping(value = {"/admin/addUser"}, method = RequestMethod.GET)

@@ -9,6 +9,9 @@ header{
 header a{
 	color: white;
 }
+header a:hover{
+	color: white;
+}
 	.logo{
 		float: left;
 		margin: 15px 0 0 20px;
@@ -145,7 +148,16 @@ main{
             margin-top: 20px;
         }
         .inValidDoc{
-            background-color: red !important;
+            background-color: #f2dede !important;
+        }
+        .bootstrap-switch .bootstrap-switch-handle-on, .bootstrap-switch .bootstrap-switch-handle-off, .bootstrap-switch .bootstrap-switch-label{
+            padding: 0;
+        }
+        table.dataTable tbody th, table.dataTable tbody td{
+            padding: 8px 19px !important;
+        }
+        .dataTables_wrapper{
+            margin-bottom: 30px;
         }
 footer{
 	width: 0;
