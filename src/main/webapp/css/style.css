@@ -61,6 +61,7 @@ main{
 		box-sizing: border-box;
 		border-top: none;
                 overflow-y: scroll;
+                padding: 10px;
 	}
         .docInfo table, .docInfo th, .docInfo td {
             border: 1px solid black;
@@ -132,8 +133,43 @@ main{
         .documentsTable{
             cursor: pointer;
         }
+        .adminLinks a{
+            color: black;
+            font-weight: 600;
+            margin: 20px 20px 20px 0;
+        }
+        .adminLinks{
+            margin: 10px 0 20px 0;
+        }
+        .tableMainClass{
+            margin-top: 20px;
+        }
+        .inValidDoc{
+            background-color: red !important;
+        }
 footer{
 	width: 0;
 	height: 0;
 	background: black;
+}
+
+
+.loginPass{
+    margin: 0 auto;
+}
+.loginForm{
+    width: 200px;
+    margin: 0 auto;
+}
+.loginForm input {
+    border: 2px solid white; 
+    width: 200px;
+    padding: 5px;
+}
+.loginForm input:focus {
+    border: 2px solid white; 
+}
+.loginButtons{
+    margin: 0 auto;
+    width: 200px;
 }

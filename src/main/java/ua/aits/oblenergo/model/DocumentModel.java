@@ -144,6 +144,7 @@ public class DocumentModel {
             temp.setTitle(result.getString("title"));
             temp.setPath(result.getString("path"));
             temp.setClientId(result.getString("clientId"));
+            temp.setValid(result.getInt("valid"));
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             temp.setDate(result.getString("date"));
             documentList.add(temp);
@@ -164,10 +165,17 @@ public class DocumentModel {
             temp.setDate(result.getString("date"));
             temp.setTitle(result.getString("title"));
             temp.setPath(result.getString("path"));
+            temp.setValid(result.getInt("valid"));
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             documentList.add(temp);
         } 
         DB.closeCon();
     return documentList;
+    }
+    
+    public String addDocument(String id, String title, String section, String date, String file, String isValid, String uploader) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DB.runQuery("INSERT INTO docs (clientId, title, parentId, date, path, valid, uploader) "
+                + "values ('"+id+"', '"+title+"', '"+section+"', '"+date+"', '"+file+"', '"+isValid+"', '"+uploader+"');");
+        return "done";
     }
 }

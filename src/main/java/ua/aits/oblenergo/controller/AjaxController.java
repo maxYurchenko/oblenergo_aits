@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ua.aits.oblenergo.functions.Constants;
 import ua.aits.oblenergo.functions.DB;
 import ua.aits.oblenergo.model.DocumentModel;
+import ua.aits.oblenergo.model.UserModel;
 
 /**
  *
@@ -24,7 +25,7 @@ import ua.aits.oblenergo.model.DocumentModel;
  */
 @Controller
 public class AjaxController {
-    @RequestMapping(value = {"/system/checkLoginPass/", "/system/checkLoginPass"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/getDocuments/", "/getDocuments"}, method = RequestMethod.GET)
         public @ResponseBody
         String getDocuments(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
@@ -32,15 +33,23 @@ public class AjaxController {
         List<DocumentModel> documentList = new LinkedList<>();
         documentList = documents.getDocumentRow(request.getParameter("id"));
         String html = "<table id=\"docInfoTable\" style=\"width:100%; \">\n" +
-"                                <tr>\n" +
+"                                <thead>"
+                + "<tr>\n" +
 "                                    <td>ID</td>\n" +
 "                                    <td>Title</td>		\n" +
 "                                    <td>Section</td>	\n" +
 "                                    <td>Date</td>\n" +
-"                                </tr>\n";
+"                                    <td>Donload</td>\n" +
+"                                </tr>\n"
+                +"</thead><tbody>";
+        
         for(DocumentModel tempDocs : documentList) {
+            String clas = "";
+            if(tempDocs.valid==0){
+                clas = "inValidDoc";
+            }
             html = html +
-                    "<tr id=\""+tempDocs.id+"\" class=\"documentsTable\">\n"+
+                    "<tr id=\""+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
                         "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.clientId+"</td>\n"+
                         "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.title+"</td>\n"+		
                         "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.parentName+"</td>\n"+
@@ -50,8 +59,31 @@ public class AjaxController {
                         "</a></td>"+
                     "</tr>\n";
         }
-        html = html + "</table>";
+        html = html + "</tbody></table>";
         DB.closeCon();
         return html;
     }
+        
+    @RequestMapping(value = {"/checkLoginPass/", "/checkLoginPass"}, method = RequestMethod.GET)
+    public @ResponseBody
+    String checkLoginPass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        UserModel user = new UserModel();
+        if(user.isExistsUser(request.getParameter("login"), request.getParameter("password"))) {
+            return "true";
+        }
+        else {
+            return "false";
+        }
+    }
+    
+    @RequestMapping(value = {"/deleteUser/", "/deleteUser"}, method = RequestMethod.GET)
+    public @ResponseBody
+    String deleteUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        UserModel user = new UserModel();
+        user.deleteUser(request.getParameter("id"));
+        return "done";
+    }
+        
 }

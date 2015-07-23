@@ -7,27 +7,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
-<html>
-	<head>
-            <link rel="stylesheet" href="${Constants.URL}css/style.css">
-            <script type="text/javascript" src="${Constants.URL}js/jquery-1.9.1.min.js"></script>
-            <script type="text/javascript" src="${Constants.URL}js/scripts.js"></script>
-	</head>
+<t:mainHeader>
 	<body>
 		<header>
                     <div class="logo">
-                        <form class="searchMenuSmall" action="${Constants.URL}search" method="GET" id="searchFormSmall">
-                            <input type="text" name="find" id="searchBoxSmall">
-                            <button type="button" id="searchButtonActiveSmall">
-                                Search
-                            </button>
-                        </form>
                     </div>
 			<div class="login">
-				<a href="#">
-					Alex
-				</a>
+                                <c:if test="${user.role > 0}">
+                                    <a href="${Constants.URL}admin">
+					Admin page
+                                    </a>
+                                </c:if>
 			</div>
 		</header>
 		<main>
@@ -53,7 +45,6 @@
 		<footer>
 		</footer>
 	</body>
-</html>
 <script>
     var sectionId = null;
 	$('main').height(window.innerHeight-$('header').height()-$('footer').height());
@@ -85,12 +76,13 @@
             $('#section'+sectionId).css('font-weight','600');
             $.ajax({
                 type: "get",
-                url: "${Constants.URL}system/checkLoginPass/",
+                url: "${Constants.URL}getDocuments/",
                 cache: false, 
                 data:'id='+value,
                 success: function(response){
                     $('.docInfo').html("");
                     $('.docInfo').append(response);
+                    $('#docInfoTable').DataTable();
                 },
                 error: function(response){ 
                     console.log(response);
@@ -98,3 +90,4 @@
             });       
         }
 </script>
+</t:mainHeader>
