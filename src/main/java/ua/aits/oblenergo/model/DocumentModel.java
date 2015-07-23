@@ -155,6 +155,7 @@ public class DocumentModel {
             temp.setClientId(result.getString("clientId"));
             temp.setValid(result.getInt("valid"));
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
+            temp.setIsDelete(result.getInt("isDelete"));
             temp.setDate(result.getString("date"));
             documentList.add(temp);
         } 

@@ -48,16 +48,18 @@ public class AjaxController {
             if(tempDocs.valid==0){
                 clas = "inValidDoc";
             }
-            html = html +
-                    "<tr id=\""+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
-                        "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.clientId+"</td>\n"+
-                        "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.title+"</td>\n"+		
-                        "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.parentName+"</td>\n"+
-                        "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.date+"</td>\n"+
-                        "<td style='width: 20px;'><a href='"+Constants.URL+tempDocs.path+"' target=\"_blank\" download>\n"+
-                        "<img style='width: 20px;margin-bottom: -3px;' src='"+Constants.URL+"img/dl.png'>"+
-                        "</a></td>"+
-                    "</tr>\n";
+            if(tempDocs.isDelete!=1){
+                html = html +
+                        "<tr id=\""+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
+                            "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.clientId+"</td>\n"+
+                            "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.title+"</td>\n"+		
+                            "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.parentName+"</td>\n"+
+                            "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.date+"</td>\n"+
+                            "<td style='width: 20px;'><a href='"+Constants.URL+tempDocs.path+"' target=\"_blank\" download>\n"+
+                            "<img style='width: 20px;margin-bottom: -3px;' src='"+Constants.URL+"img/dl.png'>"+
+                            "</a></td>"+
+                        "</tr>\n";
+            }
         }
         html = html + "</tbody></table>";
         DB.closeCon();
