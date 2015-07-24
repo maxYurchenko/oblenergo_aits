@@ -12,26 +12,32 @@
 <t:mainHeader>
 	<body>
 		<header>
-                    <div class="logo">
+                    <div class="logout">
+                        <a href="${Constants.URL}logout">Вийти</a>
                     </div>
 			<div class="login">
                                 <c:if test="${user.role > 0}">
                                     <a href="${Constants.URL}admin">
-					Admin page
+					Сторінка адміністратора
                                     </a>
                                 </c:if>
 			</div>
+                    <div class="breadCrumbs">
+                        <ul id="breadCrumbsUl">
+                        </ul>
+                    </div>
 		</header>
 		<main>
                     <div class="docsList">
                         <div id="listContainer">
                             <div class="listControl">
-                                <a id="expandList">Expand All</a>
-                                <a id="collapseList">Collapse All</a>
+                                <a id="expandList">Розгорнути всі</a>
+                                <a id="collapseList">Приховати всі</a>
                             </div>
                             ${listHtml}
                         </div>
-			</div>
+                    </div>
+                    <div class="rightContainerMain">
 			<div class="docInfo">
 			</div>
 			<div class="docPreview">
@@ -40,12 +46,20 @@
 				</object>
 				<object id="txtPreview" class="displayNone" data="${Constants.URL}files/file.txt">
 				</object>
+                                <div class="previewNotAvailableBlock displayNone">
+                                    <div class="previewNotAvailable">
+                                        Попередній перегляд недоступний<br>
+                                        <a id="previewNotAvailableLink" href="" download target="_blank">Завантажити документ</a>
+                                    </div>
+                                </div>
 			</div>
+                    </div>
+                    <div class="clear"></div>
 		</main>
 		<footer>
 		</footer>
 	</body>
-<script>
+<script charset="UTF-8">
     var sectionId = null;
 	$('main').height(window.innerHeight-$('header').height()-$('footer').height());
 	
@@ -53,19 +67,44 @@
 		$('#imagePreview').addClass('displayNone');
 		$('#pdfPreview').addClass('displayNone');
 		$('#txtPreview').addClass('displayNone');
+		$('.previewNotAvailableBlock').addClass('displayNone');
                 var checkType = url.split('.');
                 switch (checkType[1]){
                     case 'pdf':
+                    case 'PDF':
                         $('#pdfPreview').removeClass('displayNone');
                         $('#pdfPreview').attr("data", url);
                         break;
                     case 'jpg':
+                    case 'JPG':
+                    case 'jpeg':
+                    case 'JPEG':
+                    case 'png':
+                    case 'PNG':
                         $('#imagePreview').removeClass('displayNone');
                         $('#imagePreview').attr("src", url);
                         break;
                     case 'txt':
+                    case 'TXT':
                         $('#txtPreview').removeClass('displayNone');
                         $('#txtPreview').attr("data", url);
+                        break;
+                    case 'doc':
+                    case 'DOC':
+                    case 'docx':
+                    case 'DOCX':
+                    case 'xls':
+                    case 'XLS':
+                    case 'XLSX':
+                    case 'xlsx':
+                    case 'tiff':
+                    case 'TIFF':
+                        $('.previewNotAvailableBlock').removeClass('displayNone');
+                        $('#previewNotAvailableLink').attr("href", url);
+                        break;
+                    default:
+                        $('.previewNotAvailableBlock').removeClass('displayNone');
+                        $('#previewNotAvailableLink').attr("href", url);
                         break;
                 }
 	}
@@ -87,7 +126,25 @@
                 error: function(response){ 
                     console.log(response);
                 }
-            });       
+            });     
+            $.ajax({
+                type: "get",
+                url: "${Constants.URL}makeBreadcrumbs/",
+                cache: false, 
+                data:'id='+value,
+                success: function(response){
+                    $('#breadCrumbsUl').html("");
+                    $('#breadCrumbsUl').append(response);
+                },
+                error: function(response){ 
+                    console.log(response);
+                }
+            });
         }
+    jQuery(function($) {
+        $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'horizontal', limit:50, position:'50%'});
+        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'vertical', limit:300, position:'10%'});
+        
+    });
 </script>
 </t:mainHeader>

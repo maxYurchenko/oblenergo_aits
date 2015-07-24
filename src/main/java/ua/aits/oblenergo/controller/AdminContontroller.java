@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,18 +29,23 @@ import ua.aits.oblenergo.model.UserModel;
 public class AdminContontroller {
     UserModel user = new UserModel();
     DocumentModel document = new DocumentModel();
+    SectionModel section = new SectionModel();
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     protected ModelAndView admin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-                ModelAndView modelAndView = new ModelAndView("admin/index");
+                ModelAndView modelAndView = new ModelAndView("admin/addDocument");
                 List<SectionModel> sections = new LinkedList();
                 List<DocumentModel> documents = new LinkedList();
+                List<UserModel> users = new LinkedList();
                 SectionModel sectionClass = new SectionModel();
                 sections = sectionClass.getAllSections();
                 DocumentModel documentClass = new DocumentModel();
+                UserModel userClass = new UserModel();
                 documents = documentClass.getAllDocuments();
+                users = userClass.getAllUsers();
                 modelAndView.addObject("sections", sections);
                 modelAndView.addObject("documents", documents);
+                modelAndView.addObject("users", users);
                  return modelAndView;
 	}
     @RequestMapping(value = {"/admin/addUser"}, method = RequestMethod.GET)
@@ -66,7 +72,7 @@ public class AdminContontroller {
                 modelAndView.addObject("sections", sections);
                 return modelAndView;
 	}
-    @RequestMapping(value = "/system/adduser.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/adduser.do", method = RequestMethod.POST)
     public ModelAndView doAddUser(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         String username = request.getParameter("username");
@@ -76,7 +82,7 @@ public class AdminContontroller {
         String result = user.addUser(username, password, role, descr);
          return new ModelAndView("redirect:" + "/admin/addUser");
     }
-    @RequestMapping(value = "/system/edituser.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/edituser.do", method = RequestMethod.POST)
     public ModelAndView doEditUser(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
@@ -87,7 +93,7 @@ public class AdminContontroller {
         String result = user.editUser(id, username, descr, role, password);
          return new ModelAndView("redirect:" + "/admin/addUser");
     }
-    @RequestMapping(value = "/system/addDocument.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/addDocument.do", method = RequestMethod.POST)
     public ModelAndView doAddDocument(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("documentId");
@@ -100,4 +106,59 @@ public class AdminContontroller {
         String result = document.addDocument(id, title, section, date, file, isValid, uploader);
          return new ModelAndView("redirect:" + "/admin");
     }
+    @RequestMapping(value = {"/admin/addSection"}, method = RequestMethod.GET)
+    protected ModelAndView addSection(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+                ModelAndView modelAndView = new ModelAndView("admin/addSection");
+                List<SectionModel> sections = new LinkedList();
+                sections = section.getAllSections();
+                modelAndView.addObject("sections", sections);
+                return modelAndView;
+	}
+    @RequestMapping(value = {"/admin/editSection/{id}"}, method = RequestMethod.GET)
+    protected ModelAndView editSection(HttpServletRequest request, @PathVariable("id") String id,
+			HttpServletResponse response) throws Exception {
+                ModelAndView modelAndView = new ModelAndView("admin/editSection");
+                List<SectionModel> sections = new LinkedList();
+                sections = section.getAllSections();
+                modelAndView.addObject("section", section.getOneSection(id));
+                modelAndView.addObject("sections", sections);
+                return modelAndView;
+	}
+    @RequestMapping(value = {"/admin/deleteSection/{id}"}, method = RequestMethod.GET)
+    protected ModelAndView deleteSection(HttpServletRequest request, @PathVariable("id") String id,
+			HttpServletResponse response) throws Exception {
+                ModelAndView modelAndView = new ModelAndView("admin/deleteSection");
+                String result = section.deleteSection(id);
+                return new ModelAndView("redirect:" + "/admin/addSection");
+	}
+    @RequestMapping(value = "/admin/addsection.do", method = RequestMethod.POST)
+    public ModelAndView doAddSection(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
+        request.setCharacterEncoding("UTF-8");
+        String title = request.getParameter("sectionName");
+        String parentId = request.getParameter("sectionParentId");
+        String result = section.addSection(title, parentId);
+         return new ModelAndView("redirect:" + "/admin/addSection");
+    }
+    @RequestMapping(value = "/admin/editsection.do", method = RequestMethod.POST)
+    public ModelAndView doEditSection(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
+        request.setCharacterEncoding("UTF-8");
+        String id = request.getParameter("sectionId");
+        String title = request.getParameter("sectionName");
+        String parentId = request.getParameter("sectionParentId");
+        String result = section.editSection(id, title, parentId);
+        return new ModelAndView("redirect:" + "/admin/addSection");
+    }
+    
+    @RequestMapping(value = {"/logout","/logout/"})
+    public ModelAndView logout(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession(false);
+                if (session != null) {
+                    session.invalidate();
+                }
+                
+                return new ModelAndView("redirect:" + "/login");
+	}
 }

@@ -22,6 +22,11 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
         <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <script type="text/javascript" src="${Constants.URL}js/jquery.splitter-0.15.0.js"></script>
+        <link rel="stylesheet" href="${Constants.URL}css/jquery.splitter.css">
+        <link href="${Constants.URL}img/icon.ico" rel="shortcut icon" type="image/x-icon" />
+        <title>Document Flow</title>
         
 
     </head>

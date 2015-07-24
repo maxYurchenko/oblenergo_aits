@@ -18,8 +18,8 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
         <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-        
-
+        <link href="${Constants.URL}img/icon.ico" rel="shortcut icon" type="image/x-icon" />
+        <title>Document Flow</title>
     </head>
 </html>
     <body>

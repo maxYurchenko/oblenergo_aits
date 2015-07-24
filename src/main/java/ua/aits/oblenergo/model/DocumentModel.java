@@ -29,7 +29,9 @@ public class DocumentModel {
     public String type;
     public String keywords;
     public String parentName;
+    public String access;
     public Integer isDelete;
+    public String[] accessList;
 
     public Integer getId() {
         return id;
@@ -142,6 +144,22 @@ public class DocumentModel {
     public void setParentName(String parentName) {
         this.parentName = parentName;
     }
+
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
+    }
+
+    public String[] getAccessList() {
+        return accessList;
+    }
+
+    public void setAccessList(String[] accessList) {
+        this.accessList = accessList;
+    }
     
     public List<DocumentModel> getDocumentRow(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         ResultSet result = DB.getResultSet("select * from docs where parentId = "+id+";");
@@ -157,6 +175,8 @@ public class DocumentModel {
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             temp.setIsDelete(result.getInt("isDelete"));
             temp.setDate(result.getString("date"));
+            temp.setAccess(result.getString("access"));
+            temp.setAccessList(temp.access.replace(" ","").split(","));
             documentList.add(temp);
         } 
         DB.closeCon();
@@ -178,6 +198,8 @@ public class DocumentModel {
             temp.setValid(result.getInt("valid"));
             temp.setIsDelete(result.getInt("isDelete"));
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
+            temp.setAccess(result.getString("access"));
+            temp.setAccessList(temp.access.replace(" ","").split(","));
             documentList.add(temp);
         } 
         DB.closeCon();
@@ -193,6 +215,12 @@ public class DocumentModel {
     
     public String publishDocument(String id, String publish) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DB.runQuery("UPDATE docs SET isDelete='"+publish+"' WHERE id='"+id+"';");
+        DB.closeCon();
+        return "done";
+    }
+    
+    public String isValidDocument(String id, String valid) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DB.runQuery("UPDATE docs SET valid='"+valid+"' WHERE id='"+id+"';");
         DB.closeCon();
         return "done";
     }
