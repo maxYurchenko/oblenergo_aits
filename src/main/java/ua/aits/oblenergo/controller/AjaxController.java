@@ -54,7 +54,7 @@ public class AjaxController {
             if(tempDocs.valid==0){
                 clas = "inValidDoc";
             }
-            if(tempDocs.access.contains(request.getParameter("userId"))){
+            if((tempDocs.access.contains(request.getParameter("userId")))||(request.getParameter("userRole")!="0")){
                 if(tempDocs.isDelete!=1){
                     html = html +
                             "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
