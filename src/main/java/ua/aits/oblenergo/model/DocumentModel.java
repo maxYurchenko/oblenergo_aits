@@ -176,7 +176,6 @@ public class DocumentModel {
             temp.setIsDelete(result.getInt("isDelete"));
             temp.setDate(result.getString("date"));
             temp.setAccess(result.getString("access"));
-            temp.setAccessList(temp.access.replace(" ","").split(","));
             documentList.add(temp);
         } 
         DB.closeCon();
@@ -199,16 +198,42 @@ public class DocumentModel {
             temp.setIsDelete(result.getInt("isDelete"));
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             temp.setAccess(result.getString("access"));
-            temp.setAccessList(temp.access.replace(" ","").split(","));
             documentList.add(temp);
         } 
         DB.closeCon();
     return documentList;
     }
     
-    public String addDocument(String id, String title, String section, String date, String file, String isValid, String uploader) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        DB.runQuery("INSERT INTO docs (clientId, title, parentId, date, path, valid, uploader) "
-                + "values ('"+id+"', '"+title+"', '"+section+"', '"+date+"', '"+file+"', '"+isValid+"', '"+uploader+"');");
+    
+    public DocumentModel getOneDocument(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ResultSet result = DB.getResultSet("select * from docs where id='"+id+"';");
+        result.first();
+        DocumentModel temp = new DocumentModel();
+        temp.setId(result.getInt("id"));
+        temp.setParentId(result.getInt("parentId"));
+        temp.setClientId(result.getString("clientId"));
+        temp.setDate(result.getString("date"));
+        temp.setTitle(result.getString("title"));
+        temp.setPath(result.getString("path"));
+        temp.setValid(result.getInt("valid"));
+        temp.setIsDelete(result.getInt("isDelete"));
+        temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
+        temp.setAccess(result.getString("access"));
+        DB.closeCon();
+    return temp;
+    }
+    
+    public String addDocument(String id, String title, String section, String date, String file, String isValid, String uploader, String access) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DB.runQuery("INSERT INTO docs (clientId, title, parentId, date, path, valid, uploader, access) "
+                + "values ('"+id+"', '"+title+"', '"+section+"', '"+date+"', '"+file+"', '"+isValid+"', '"+uploader+"', '"+access+"');");
+        DB.closeCon();
+        return "done";
+    }
+    
+    public String editDocument(String id, String clientId, String title, String section, String date, String file, String isValid, String uploader, String access) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DB.runQuery("UPDATE docs SET clientId='"+clientId+"', title='"+title+"', parentId='"+section+"', date='"+date+"', "
+                + "path='"+file+"', valid='"+isValid+"', uploader='"+uploader+"', access='"+access+"'"
+                + "WHERE id='"+id+"';");
         DB.closeCon();
         return "done";
     }

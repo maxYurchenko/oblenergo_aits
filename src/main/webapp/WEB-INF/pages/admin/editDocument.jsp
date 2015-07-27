@@ -19,16 +19,17 @@
                     <a href="${Constants.URL}admin/addUser">Редактор користувачів</a>
                 </c:if>
             </div>
-        <form name="addDocument" method="POST" action="${Constants.URL}admin/addDocument.do" id="addDocument">
+        <form name="addDocument" method="POST" action="${Constants.URL}admin/editDocument.do" id="addDocument">
             <div class="row">
                                                     <div class="col-md-4">
                                                 <label for="tlt">Номер:</label>
-                                                <input type="text" name="documentId" class="form-control" id="documentId">
+                                                <input type="text" name="documentId" class="form-control" id="documentId" value="${document.clientId}">
                                                 <label class="displayNone text-danger" id="documentIdValidation">Неправильно заповнене поле</label>
                                               </div>
                                                     <div class="col-md-4">
                                                 <label for="tlt">Назва:</label>
-                                                <input type="text" name="title" class="form-control" id="title">
+                                                <input type="text" name="title" class="form-control" id="title" value="${document.title}">
+                                                <input type="hidden" name="hiddenId" class="form-control" id="hiddenId" value="${document.id}">
                                                 <label class="displayNone text-danger" id="titleValidation">Неправильно заповнене поле</label>
                                               </div>
                                                     <div class="col-md-4" style="margin-top: 25px;">
@@ -42,12 +43,13 @@
             <div class="row">
                                                     <div class="col-md-4">
                                                 <label for="tlt">Дата:</label>
-                                                <input type="text" name="date" class="form-control" id="date">
+                                                <input type="text" name="date" class="form-control" id="date" value="${document.date}">
                                                 <label class="displayNone text-danger" id="dateValidation">Неправильно заповнене поле</label>
                                               </div>
                                                 <input type="hidden" name="accessHidden" class="form-control" id="accessHidden">
                                                     <div>
-                                                <input type="hidden" name="file" class="form-control" id="file">
+                                                        <input type="hidden" name="file" class="form-control" id="file" value="${document.path}">
+                                                <div class="validation"></div>
                                               </div>
                 <div  class="col-md-4" style="margin-top: 25px;">
                                                 <select id="isValid" name="isValid" class="selectpicker">
@@ -105,66 +107,6 @@
                             </div>
                         </div>
             </form>
-            
-                <div class="tableMainClass">
-                    <table class="table" id="table-pagination" data-height="400" data-pagination="true">
-                            <thead>
-                                <tr>
-                                    <th>Номер</th>
-                                    <th>Назва</th>
-                                    <th>Розділ</th>
-                                    <th>Дата</th>
-                                    <th>Редагувати</th>
-                                    <c:if test="${user.role == 2}">
-                                        <th style="width: 58px;">Видалити</th>
-                                    </c:if>
-                                    <th>Дійсний</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${documents}" var="document">
-                                    <c:if test="${document.isDelete==0 || user.role==2}">
-                                        <tr <c:if test="${document.valid==0}">class="inValidDoc display"</c:if>>
-                                            <th>${document.clientId}</th>
-                                            <th>${document.title}</th>
-                                            <th>${document.parentName}</th>
-                                            <th>${document.title}</th>
-                                            <th><a href="${Constants.URL}admin/editDocument/${document.id}">Редагувати</a></th>
-                                            <c:if test="${user.role == 2}">
-                                                <th class="publishCheckboxBlock" id="publishCheckboxBlock${document.id}" 
-                                                    style="width: 58px;" value="${document.id}">
-                                                    <c:choose>
-                                                        <c:when test="${document.isDelete == 1}">
-                                                            <input type="checkbox" name="my-checkbox" id="deleteCheckBox${document.id}">
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <input type="checkbox" name="my-checkbox" checked
-                                                                                         id="deleteCheckBox${document.id}">
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </th>
-                                            </c:if>
-                                            <c:if test="${user.role == 2}">
-                                                <th class="validCheckboxBlock" id="validCheckboxBlock${document.id}" 
-                                                    style="width: 58px;" value="${document.id}">
-                                                    <c:choose>
-                                                        <c:when test="${document.valid == 0}">
-                                                            <input type="checkbox" name="my-checkbox" id="validCheckBox${document.id}">
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <input type="checkbox" name="my-checkbox" checked
-                                                                                         id="validCheckBox${document.id}">
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </th>
-                                            </c:if>
-                                        </tr>
-                                    </c:if>
-                                </c:forEach>
-                            </tbody>
-                        </thead>
-                    </table>
-                </div>
             
             </div>
     </body>
@@ -303,7 +245,12 @@ $('.file').on('change', '#fileInput', function() {
             accessUsersList = accessUsersList.substring(0, accessUsersList.length - 1);
             $('#accessHidden').val(accessUsersList);
         });
+        $('.mutliSelect ul').find('li').each(function() {
+            if('${document.access}'.indexOf($(this).find('input').val())!=-1)
+                $(this).find('input').click();
+        });;
     });
+    
             function validate(){
                 var submit = true;
                 $('#documentIdValidation').addClass('displayNone');
@@ -324,7 +271,6 @@ $('.file').on('change', '#fileInput', function() {
                 }
                 if($('#date').val().length<3){
                     $('#dateValidation').removeClass('displayNone');
-                    console.log($('#date').val());
                     submit = false;
                 }
                 if(submit)

@@ -31,12 +31,13 @@
                                                     <div class="col-md-3">
                                                 <label>Логін:</label>
                                                 <input type="text" name="username" class="form-control" id="username">
-                                                <div class="validation"></div>
+                                                <label class="displayNone text-danger" id="loginValidation">Неправильно заповнене поле</label>
+                                                <label class="displayNone text-danger" id="loginIsTaken">Користувач з таким іменем вже існує</label>
                                               </div>
                                                     <div class="col-md-3">
                                                 <label>Пароль:</label>
                                                 <input type="password" name="password" class="form-control" id="password">
-                                                <div class="validation"></div>
+                                                <label class="displayNone text-danger" id="passValidation">Неправильно заповнене поле</label>
                                               </div>
                                                     <div class="col-md-3">
                                                 <label>Примітки:</label>
@@ -52,7 +53,8 @@
                                               </div>
                </div>
                     <div>
-                        <input class="btn btn-primary btn-mini margintop-button" id="sudmitData" value="Додати користувача" type="submit">
+                        <input onclick="validate()" class="btn btn-primary btn-mini margintop-button" value="Додати користувача" type="button">
+                        <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
                                         </div>
             </form>
         <div class="tableMainClass">
@@ -113,6 +115,41 @@
                     console.log(response);
                 }
             }); 
+        }
+        function validate(){
+            var submit = true;
+            $('#passValidation').addClass('displayNone');
+            $('#loginValidation').addClass('displayNone');
+            $('#loginIsTaken').addClass('displayNone');
+            if($('#username').val().length<5){
+                $('#loginValidation').removeClass('displayNone');
+                submit = false;
+            }
+            if($('#password').val().length<5){
+                $('#passValidation').removeClass('displayNone');
+                submit = false;
+            }
+            $.ajax({
+                type: "get",
+                url: "${Constants.URL}checkUsername/",
+                cache: false,    
+                data:'login='+ $("#username").val(),
+                success: function(response){
+                    console.log(response);
+                    if(response === "false"){
+                        submit = true;
+                    }
+                    else {
+                        submit = false;
+                        $('#loginIsTaken').removeClass('displayNone');
+                    }
+                },
+                error: function(response){      
+                    console.log(response);
+                }
+           });
+            if(submit)
+                $('#sudmitData').click();
         }
     </script>
 </t:mainHeader>

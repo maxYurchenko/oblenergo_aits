@@ -27,6 +27,8 @@
         <link rel="stylesheet" href="${Constants.URL}css/jquery.splitter.css">
         <link href="${Constants.URL}img/icon.ico" rel="shortcut icon" type="image/x-icon" />
         <title>Document Flow</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         
 
     </head>

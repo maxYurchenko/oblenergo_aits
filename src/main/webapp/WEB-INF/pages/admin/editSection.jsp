@@ -30,7 +30,7 @@
                                                 <label>Назва розділу:</label>
                                                 <input type="text" name="sectionName" class="form-control" id="sectionName" value="${section.title}">
                                                 <input type="hidden" name="sectionId" class="form-control" id="sectionId" value="${section.id}">
-                                                <div class="validation"></div>
+                                                <label class="displayNone text-danger" id="titleValidation">Неправильно заповнене поле</label>
                                               </div>
                                                     <div class="col-md-6" style="margin-top: 25px;">
                                                 <select id="sectionParentId" name="sectionParentId" class="selectpicker">
@@ -44,10 +44,25 @@
                                         </div>
                     <div class="col-md-6 text-danger"><strong>При переносі всі підрозділи та файли буде також перенесено</strong></div>
                </div>
+                    <div>
+                        <input onclick="validate()" class="btn btn-primary btn-mini margintop-button" value="Редагувати розділ" type="button">
+                        <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
+                                        </div>
             </form>
         <script>
             $( document ).ready(function() {
                 $('.selectpicker').selectpicker();
+                $("span:contains('${section.parentName}')").click();
             });
+            function validate(){
+                var submit = true;
+                $('#titleValidation').addClass('displayNone');
+                if($('#sectionName').val().length<5){
+                    $('#titleValidation').removeClass('displayNone');
+                    submit = false;
+                }
+                if(submit)
+                    $('#sudmitData').click();
+            }
         </script>
 </t:mainHeader>

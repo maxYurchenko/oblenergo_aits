@@ -68,6 +68,7 @@ public class UserModel {
         UserModel temp = new UserModel();
         while (result.next()) { 
             temp.setName(result.getString("name"));
+            temp.setId(result.getInt("id"));
             temp.setPass(result.getString("pass"));
             temp.setRole(result.getInt("role"));
             temp.setDescription(result.getString("description"));
@@ -90,6 +91,11 @@ public class UserModel {
     
     public Boolean isExistsUser(String login, String password) throws SQLException{
         ResultSet result = DB.getResultSet("select * from users where name = '" + login +"' and pass = '" + password + "';");
+        return result.isBeforeFirst();
+    }
+    
+    public Boolean isExistsUser(String login) throws SQLException{
+        ResultSet result = DB.getResultSet("select * from users where name = '" + login +"';");
         return result.isBeforeFirst();
     }
     

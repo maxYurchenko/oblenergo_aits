@@ -23,6 +23,7 @@
     </head>
 </html>
     <body>
+        <div class="container">
         <form action="${Constants.URL}login.do" method="POST" id="loginForm" name="auth">
             <div class="row">
                 <div class="col-md-4">
@@ -62,6 +63,7 @@
                     </div>
             </div>
         </form>
+            </div>
     </body>
 </html>
 <script>

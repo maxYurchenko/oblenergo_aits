@@ -61,9 +61,14 @@
 	</body>
 <script charset="UTF-8">
     var sectionId = null;
+    var tableId = null; 
 	$('main').height(window.innerHeight-$('header').height()-$('footer').height());
 	
-	function showDocument(url){
+	function showDocument(url, id){
+                if(tableId!=null)
+                    $('#tableTr'+tableId).css('background-color','white');
+                tableId = id;
+                $('#tableTr'+tableId).css('background-color','#d4d4d4');
 		$('#imagePreview').addClass('displayNone');
 		$('#pdfPreview').addClass('displayNone');
 		$('#txtPreview').addClass('displayNone');
@@ -117,7 +122,8 @@
                 type: "get",
                 url: "${Constants.URL}getDocuments/",
                 cache: false, 
-                data:'id='+value,
+                mimeType:"text/html; charset=UTF-8",
+                data:'id='+value+"&userId=${sessionScope.user.id}",
                 success: function(response){
                     $('.docInfo').html("");
                     $('.docInfo').append(response);
@@ -131,6 +137,7 @@
                 type: "get",
                 url: "${Constants.URL}makeBreadcrumbs/",
                 cache: false, 
+                mimeType:"text/html; charset=UTF-8",
                 data:'id='+value,
                 success: function(response){
                     $('#breadCrumbsUl').html("");
@@ -142,7 +149,7 @@
             });
         }
     jQuery(function($) {
-        $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'horizontal', limit:50, position:'50%'});
+        $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'horizontal', limit:0, position:'60%'});
         $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'vertical', limit:300, position:'10%'});
         
     });

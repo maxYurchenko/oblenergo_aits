@@ -120,7 +120,7 @@ main{
             font-weight: 100;
         }
         .displayNone{
-            display: none;
+            display: none !important;
         }
         #listContainer{
         margin-top:15px;
@@ -202,6 +202,12 @@ main{
         }
         .dataTables_wrapper{
             margin-bottom: 30px;
+        }
+        .z-index{
+            z-index: 100;
+        }
+        .marginTop{
+            margin-top: 25px;
         }
 footer{
 	width: 0;

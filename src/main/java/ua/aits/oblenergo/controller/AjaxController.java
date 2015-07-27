@@ -36,7 +36,7 @@ public class AjaxController {
     
     @RequestMapping(value = {"/getDocuments/", "/getDocuments"}, method = RequestMethod.GET)
         public @ResponseBody
-        String getDocuments(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ResponseEntity<String> getDocuments(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
         List<DocumentModel> documentList = new LinkedList<>();
         documentList = document.getDocumentRow(request.getParameter("id"));
@@ -54,26 +54,29 @@ public class AjaxController {
             if(tempDocs.valid==0){
                 clas = "inValidDoc";
             }
-            if(tempDocs.isDelete!=1){
-                html = html +
-                        "<tr id=\""+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
-                            "<td><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'>"+tempDocs.clientId+"</a></td>\n"+
-                            "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.title+"</td>\n"+		
-                            "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.parentName+"</td>\n"+
-                            "<td onclick='showDocument(\""+tempDocs.path+"\")'>"+tempDocs.date+"</td>\n"+
-                        "</tr>\n";
+            if(tempDocs.access.contains(request.getParameter("userId"))){
+                if(tempDocs.isDelete!=1){
+                    html = html +
+                            "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
+                                "<td><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'>"+tempDocs.clientId+"</a></td>\n"+
+                                "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</td>\n"+		
+                                "<td onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.parentName+"</td>\n"+
+                                "<td onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.date+"</td>\n"+
+                            "</tr>\n";
+                }
             }
         }
         html = html + "</tbody></table>";
         DB.closeCon();
+        response.setCharacterEncoding("UTF-8");
         HttpHeaders responseHeaders = new HttpHeaders(); 
         responseHeaders.add("Content-Type", "application/json; charset=utf-8");
-        return html;
+        return new ResponseEntity<>(html, responseHeaders, HttpStatus.CREATED);
     }
         
     @RequestMapping(value = {"/makeBreadcrumbs/", "/makeBreadcrumbs"}, method = RequestMethod.GET)
         public @ResponseBody
-        String makeBreadcrumbs(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ResponseEntity<String> makeBreadcrumbs(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
         SectionModel temp = section.getOneSection(request.getParameter("id"));
         String html = "<li class='activeBreadCrumb' onclick='getChildDocuments("+temp.id.toString()+")'>"+temp.title+"</li>";
@@ -81,7 +84,11 @@ public class AjaxController {
             temp = section.getOneSection(temp.parentId.toString());
             html = "<li onclick='getChildDocuments("+temp.id.toString()+")'>"+temp.title+"</li> > " + html;
         }
-        return html;
+        DB.closeCon();
+        response.setCharacterEncoding("UTF-8");
+        HttpHeaders responseHeaders = new HttpHeaders(); 
+        responseHeaders.add("Content-Type", "application/json; charset=utf-8");
+        return new ResponseEntity<>(html, responseHeaders, HttpStatus.CREATED);
     }
         
     @RequestMapping(value = {"/checkLoginPass/", "/checkLoginPass"}, method = RequestMethod.GET)
@@ -120,6 +127,20 @@ public class AjaxController {
         request.setCharacterEncoding("UTF-8");
         document.isValidDocument(request.getParameter("id"), request.getParameter("valid"));
         return "done";
+    }
+        
+    @RequestMapping(value = {"/checkUsername/", "/checkUsername"}, method = RequestMethod.GET)
+    public @ResponseBody
+    String checkUsername(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        UserModel user = new UserModel();
+        if(user.isExistsUser(request.getParameter("login"))) {
+            //if (user.isExistsUser(request.getParameter("login")))
+            return "true";
+        }
+        else {
+            return "false";
+        }
     }
         
 }

@@ -33,6 +33,7 @@ public class AdminContontroller {
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     protected ModelAndView admin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/addDocument");
                 List<SectionModel> sections = new LinkedList();
                 List<DocumentModel> documents = new LinkedList();
@@ -51,20 +52,23 @@ public class AdminContontroller {
     @RequestMapping(value = {"/admin/addUser"}, method = RequestMethod.GET)
     protected ModelAndView addUser(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-                 ModelAndView modelAndView = new ModelAndView("admin/addUser");
-                 modelAndView.addObject("users", user.getAllUsers());
-                 return modelAndView;
+                request.setCharacterEncoding("UTF-8");
+                ModelAndView modelAndView = new ModelAndView("admin/addUser");
+                modelAndView.addObject("users", user.getAllUsers());
+                return modelAndView;
 	}
     @RequestMapping(value = {"/admin/editUser/{id}"}, method = RequestMethod.GET)
     protected ModelAndView editUser(HttpServletRequest request, @PathVariable("id") String id,
 			HttpServletResponse response) throws Exception {
-                 ModelAndView modelAndView = new ModelAndView("admin/editUser");
-                 modelAndView.addObject("user", user.getUser(id));
-                 return modelAndView;
+                request.setCharacterEncoding("UTF-8");
+                ModelAndView modelAndView = new ModelAndView("admin/editUser");
+                modelAndView.addObject("user", user.getUser(id));
+                return modelAndView;
 	}
     @RequestMapping(value = {"/admin/addDocument"}, method = RequestMethod.GET)
     protected ModelAndView addDocument(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/addDocument");
                 List<SectionModel> sections = new LinkedList();
                 SectionModel sectionClass = new SectionModel();
@@ -103,12 +107,29 @@ public class AdminContontroller {
         String file = request.getParameter("file");
         String isValid = request.getParameter("isValid");
         String uploader = request.getParameter("uploader");
-        String result = document.addDocument(id, title, section, date, file, isValid, uploader);
-         return new ModelAndView("redirect:" + "/admin");
+        String access = request.getParameter("accessHidden");
+        String result = document.addDocument(id, title, section, date, file, isValid, uploader, access);
+        return new ModelAndView("redirect:" + "/admin");
+    }
+    @RequestMapping(value = "/admin/editDocument.do", method = RequestMethod.POST)
+    public ModelAndView doEditDocument(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
+        request.setCharacterEncoding("UTF-8");
+        String clientId = request.getParameter("documentId");
+        String id = request.getParameter("hiddenId");
+        String title = request.getParameter("title");
+        String section = request.getParameter("section");
+        String date = request.getParameter("date");
+        String file = request.getParameter("file");
+        String isValid = request.getParameter("isValid");
+        String uploader = request.getParameter("uploader");
+        String access = request.getParameter("accessHidden");
+        String result = document.editDocument(id, clientId, title, section, date, file, isValid, uploader, access);
+        return new ModelAndView("redirect:" + "/admin");
     }
     @RequestMapping(value = {"/admin/addSection"}, method = RequestMethod.GET)
     protected ModelAndView addSection(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/addSection");
                 List<SectionModel> sections = new LinkedList();
                 sections = section.getAllSections();
@@ -118,11 +139,22 @@ public class AdminContontroller {
     @RequestMapping(value = {"/admin/editSection/{id}"}, method = RequestMethod.GET)
     protected ModelAndView editSection(HttpServletRequest request, @PathVariable("id") String id,
 			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/editSection");
                 List<SectionModel> sections = new LinkedList();
                 sections = section.getAllSections();
                 modelAndView.addObject("section", section.getOneSection(id));
                 modelAndView.addObject("sections", sections);
+                return modelAndView;
+	}
+    @RequestMapping(value = {"/admin/editDocument/{id}"}, method = RequestMethod.GET)
+    protected ModelAndView editDocument(HttpServletRequest request, @PathVariable("id") String id,
+			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
+                ModelAndView modelAndView = new ModelAndView("admin/editDocument");
+                modelAndView.addObject("users", user.getAllUsers());
+                modelAndView.addObject("sections", section.getAllSections());
+                modelAndView.addObject("document", document.getOneDocument(id));
                 return modelAndView;
 	}
     @RequestMapping(value = {"/admin/deleteSection/{id}"}, method = RequestMethod.GET)

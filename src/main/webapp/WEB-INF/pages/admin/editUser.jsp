@@ -24,12 +24,12 @@
                                                     <div class="col-md-3">
                                                 <label>Логін:</label>
                                                 <input type="text" name="username" class="form-control" id="username" value="${user.name}">
-                                                <div class="validation"></div>
+                                                <label class="displayNone text-danger" id="loginValidation">Неправильно заповнене поле</label>
                                               </div>
                                                     <div class="col-md-3">
                                                 <label>Пароль:</label>
                                                 <input type="text" name="password" class="form-control" id="password" value="${user.pass}">
-                                                <div class="validation"></div>
+                                                <label class="displayNone text-danger" id="passValidation">Неправильно заповнене поле</label>
                                               </div>
                                                     <div class="col-md-3">
                                                 <label>Примітки:</label>
@@ -46,7 +46,8 @@
                                               </div>
                </div>
                     <div>
-                        <input class="btn btn-primary btn-mini margintop-button" id="sudmitData" value="Редагувати користувача" type="submit">
+                        <input onclick="validate()" class="btn btn-primary btn-mini margintop-button" value="Додати користувача" type="button">
+                        <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
                                         </div>
             </form>
         </div>
@@ -55,6 +56,39 @@
         $( document ).ready(function() {
             $('.selectpicker').selectpicker();
         });
-        console.log("${user.id}");
+        function validate(){
+            var submit = true;
+            $('#passValidation').addClass('displayNone');
+            $('#loginValidation').addClass('displayNone');
+            if($('#username').val().length<5){
+                $('#loginValidation').removeClass('displayNone');
+                submit = false;
+            }
+            if($('#password').val().length<5){
+                $('#passValidation').removeClass('displayNone');
+                submit = false;
+            }
+            $.ajax({
+                type: "get",
+                url: "${Constants.URL}checkUsername/",
+                cache: false,    
+                data:'login='+ $("#username").val()+'&current=${id}',
+                success: function(response){
+                    console.log(response);
+                    if(response === "false"){
+                        submit = true;
+                    }
+                    else {
+                        submit = false;
+                        $('#loginIsTaken').removeClass('displayNone');
+                    }
+                },
+                error: function(response){      
+                    console.log(response);
+                }
+           });
+            if(submit)
+                $('#sudmitData').click();
+        }
     </script>
 </t:mainHeader>
