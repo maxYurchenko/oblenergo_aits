@@ -22,6 +22,15 @@ public class UserModel {
     public String pass;
     public String description;
     public Integer role;
+    public Integer groupAccess;
+
+    public Integer getGroupAccess() {
+        return groupAccess;
+    }
+
+    public void setGroupAccess(Integer groupAccess) {
+        this.groupAccess = groupAccess;
+    }
 
     public int getId() {
         return id;
@@ -71,6 +80,7 @@ public class UserModel {
             temp.setId(result.getInt("id"));
             temp.setPass(result.getString("pass"));
             temp.setRole(result.getInt("role"));
+            temp.setGroupAccess(result.getInt("groupId"));
             temp.setDescription(result.getString("description"));
         }
         return temp;
@@ -83,6 +93,7 @@ public class UserModel {
             temp.setName(result.getString("name"));
             temp.setPass(result.getString("pass"));
             temp.setRole(result.getInt("role"));
+            temp.setGroupAccess(result.getInt("groupId"));
             temp.setDescription(result.getString("description"));
             temp.setId(Integer.parseInt(id));
         }
@@ -112,6 +123,7 @@ public class UserModel {
             temp.setId(result.getInt("id"));
             temp.setName(result.getString("name"));
             temp.setRole(result.getInt("role"));
+            temp.setGroupAccess(result.getInt("groupId"));
             temp.setDescription(result.getString("description"));
             usersList.add(temp);
         } 
@@ -131,4 +143,27 @@ public class UserModel {
         return "done";
     }
     
-}
+    public String addUserGroup(String id, String groupId)  throws SQLException{ 
+        DB.runQuery("UPDATE users SET groupId='"+groupId+"' WHERE id='"+id+"'");
+        DB.closeCon();
+        return "done";
+    }
+    
+    public static String getUsersForGroup(String groupId)  throws SQLException{ 
+        ResultSet result = DB.getResultSet("select * from users WHERE groupId='"+groupId+"';");
+        String names = "";
+        while (result.next()) { 
+            names = names + result.getString("name") + ", ";
+        }
+        if(names.length()>2)
+            names = names.substring(0, names.length()-2);
+        DB.closeCon();
+        return names;
+    }
+    
+    public String groupDeleted(String groupId) throws SQLException{ 
+        DB.runQuery("UPDATE users SET groupId='0' WHERE groupId='"+groupId+"'");
+        DB.closeCon();
+        return "done";
+    }
+} 

@@ -21,6 +21,7 @@
                 <a href="${Constants.URL}admin/addSection">Редактор розділів</a>
                 <c:if test="${user.role == 2}">
                     <a href="${Constants.URL}admin/addUser">Редактор користувачів</a>
+                    <a href="${Constants.URL}admin/addUserGroup">Редактор груп</a>
                 </c:if>
             </div>
         <form name="userAdd" method="POST" action="${Constants.URL}admin/adduser.do" id="addUser">
@@ -137,7 +138,8 @@
                 success: function(response){
                     console.log(response);
                     if(response === "false"){
-                        submit = true;
+                        if(submit)
+                            $('#sudmitData').click();
                     }
                     else {
                         submit = false;
@@ -148,8 +150,6 @@
                     console.log(response);
                 }
            });
-            if(submit)
-                $('#sudmitData').click();
         }
     </script>
 </t:mainHeader>

@@ -22,6 +22,7 @@ import ua.aits.oblenergo.functions.Constants;
 import ua.aits.oblenergo.functions.DB;
 import ua.aits.oblenergo.model.DocumentModel;
 import ua.aits.oblenergo.model.SectionModel;
+import ua.aits.oblenergo.model.UserGroupModel;
 import ua.aits.oblenergo.model.UserModel;
 
 /**
@@ -33,6 +34,7 @@ public class AjaxController {
     private Object session;
     DocumentModel document = new DocumentModel();
     SectionModel section = new SectionModel();
+    UserGroupModel userGroup = new UserGroupModel();
     
     @RequestMapping(value = {"/getDocuments/", "/getDocuments"}, method = RequestMethod.GET)
         public @ResponseBody
@@ -54,7 +56,10 @@ public class AjaxController {
             if(tempDocs.valid==0){
                 clas = "inValidDoc";
             }
-            if((tempDocs.access.contains(request.getParameter("userId")))||(request.getParameter("userRole")!="0")){
+            String[] accessList = tempDocs.access.split(",");
+            String[] acessGroupList = tempDocs.accessGroup.split(",");
+            if((Arrays.asList(accessList).contains(request.getParameter("userId")))||(!request.getParameter("userRole").equals("0"))
+                    ||Arrays.asList(acessGroupList).contains(request.getParameter("userGroup"))){
                 if(tempDocs.isDelete!=1){
                     html = html +
                             "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
@@ -136,6 +141,18 @@ public class AjaxController {
         UserModel user = new UserModel();
         if(user.isExistsUser(request.getParameter("login"))) {
             //if (user.isExistsUser(request.getParameter("login")))
+            return "true";
+        }
+        else {
+            return "false";
+        }
+    }
+        
+    @RequestMapping(value = {"/checkGroupName/", "/checkGroupName"}, method = RequestMethod.GET)
+    public @ResponseBody
+    String checkGroupName(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        if(userGroup.checkAvailability(request.getParameter("title"))) {
             return "true";
         }
         else {

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ua.aits.oblenergo.model.DocumentModel;
 import ua.aits.oblenergo.model.SectionModel;
+import ua.aits.oblenergo.model.UserGroupModel;
 import ua.aits.oblenergo.model.UserModel;
 
 /**
@@ -30,23 +31,16 @@ public class AdminContontroller {
     UserModel user = new UserModel();
     DocumentModel document = new DocumentModel();
     SectionModel section = new SectionModel();
+    UserGroupModel userGroup = new UserGroupModel();
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     protected ModelAndView admin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/addDocument");
-                List<SectionModel> sections = new LinkedList();
-                List<DocumentModel> documents = new LinkedList();
-                List<UserModel> users = new LinkedList();
-                SectionModel sectionClass = new SectionModel();
-                sections = sectionClass.getAllSections();
-                DocumentModel documentClass = new DocumentModel();
-                UserModel userClass = new UserModel();
-                documents = documentClass.getAllDocuments();
-                users = userClass.getAllUsers();
-                modelAndView.addObject("sections", sections);
-                modelAndView.addObject("documents", documents);
-                modelAndView.addObject("users", users);
+                modelAndView.addObject("sections", section.getAllSections());
+                modelAndView.addObject("documents", document.getAllDocuments());
+                modelAndView.addObject("users", user.getAllUsers());
+                modelAndView.addObject("groups", userGroup.getAllGroups());
                  return modelAndView;
 	}
     @RequestMapping(value = {"/admin/addUser"}, method = RequestMethod.GET)
@@ -63,17 +57,6 @@ public class AdminContontroller {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/editUser");
                 modelAndView.addObject("user", user.getUser(id));
-                return modelAndView;
-	}
-    @RequestMapping(value = {"/admin/addDocument"}, method = RequestMethod.GET)
-    protected ModelAndView addDocument(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-                request.setCharacterEncoding("UTF-8");
-                ModelAndView modelAndView = new ModelAndView("admin/addDocument");
-                List<SectionModel> sections = new LinkedList();
-                SectionModel sectionClass = new SectionModel();
-                sections = sectionClass.getAllSections();
-                modelAndView.addObject("sections", sections);
                 return modelAndView;
 	}
     @RequestMapping(value = "/admin/adduser.do", method = RequestMethod.POST)
@@ -108,7 +91,8 @@ public class AdminContontroller {
         String isValid = request.getParameter("isValid");
         String uploader = request.getParameter("uploader");
         String access = request.getParameter("accessHidden");
-        String result = document.addDocument(id, title, section, date, file, isValid, uploader, access);
+        String accessGroup = request.getParameter("accessGroupHidden");
+        String result = document.addDocument(id, title, section, date, file, isValid, uploader, access, accessGroup);
         return new ModelAndView("redirect:" + "/admin");
     }
     @RequestMapping(value = "/admin/editDocument.do", method = RequestMethod.POST)
@@ -123,7 +107,8 @@ public class AdminContontroller {
         String isValid = request.getParameter("isValid");
         String uploader = request.getParameter("uploader");
         String access = request.getParameter("accessHidden");
-        String result = document.editDocument(id, clientId, title, section, date, file, isValid, uploader, access);
+        String groups = request.getParameter("accessGroupHidden");
+        String result = document.editDocument(id, clientId, title, section, date, file, isValid, uploader, access, groups);
         return new ModelAndView("redirect:" + "/admin");
     }
     @RequestMapping(value = {"/admin/addSection"}, method = RequestMethod.GET)
@@ -155,6 +140,7 @@ public class AdminContontroller {
                 modelAndView.addObject("users", user.getAllUsers());
                 modelAndView.addObject("sections", section.getAllSections());
                 modelAndView.addObject("document", document.getOneDocument(id));
+                modelAndView.addObject("groups", userGroup.getAllGroups());
                 return modelAndView;
 	}
     @RequestMapping(value = {"/admin/deleteSection/{id}"}, method = RequestMethod.GET)
@@ -181,6 +167,39 @@ public class AdminContontroller {
         String result = section.editSection(id, title, parentId);
         return new ModelAndView("redirect:" + "/admin/addSection");
     }
+    @RequestMapping(value = {"/admin/addUserGroup"}, method = RequestMethod.GET)
+    protected ModelAndView addUserGroup(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
+                ModelAndView modelAndView = new ModelAndView("admin/addUserGroup");
+                List<UserModel> users = new LinkedList();
+                users = user.getAllUsers();
+                List<UserGroupModel> groupsList = new LinkedList();
+                groupsList = userGroup.getAllGroups();
+                modelAndView.addObject("groups", groupsList);
+                modelAndView.addObject("users", users);
+                return modelAndView;
+	}
+    
+    @RequestMapping(value = "/admin/addusergroup.do", method = RequestMethod.POST)
+    public ModelAndView doAddUserGroup(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
+        request.setCharacterEncoding("UTF-8");
+        String title = request.getParameter("groupName");
+        String groupId = userGroup.addUserGroups(title);
+        String[] access = request.getParameter("accessHidden").split(",");
+        for(String userId : access) {
+            user.addUserGroup(userId, groupId);
+        }
+        return new ModelAndView("redirect:" + "/admin/addUserGroup");
+    }
+    @RequestMapping(value = {"/admin/deleteUserGroup/{id}"}, method = RequestMethod.GET)
+    protected ModelAndView deleteUserGroup(HttpServletRequest request, @PathVariable("id") String id,
+			HttpServletResponse response) throws Exception {
+                ModelAndView modelAndView = new ModelAndView("admin/deleteSection");
+                userGroup.deleteGroup(id);
+                user.groupDeleted(id);
+                return new ModelAndView("redirect:" + "/admin/addUserGroup");
+	}
     
     @RequestMapping(value = {"/logout","/logout/"})
     public ModelAndView logout(HttpServletRequest request,

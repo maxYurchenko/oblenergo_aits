@@ -31,7 +31,15 @@ public class DocumentModel {
     public String parentName;
     public String access;
     public Integer isDelete;
-    public String[] accessList;
+    public String accessGroup;
+
+    public String getAccessGroup() {
+        return accessGroup;
+    }
+
+    public void setAccessGroup(String accessGroup) {
+        this.accessGroup = accessGroup;
+    }
 
     public Integer getId() {
         return id;
@@ -152,14 +160,6 @@ public class DocumentModel {
     public void setAccess(String access) {
         this.access = access;
     }
-
-    public String[] getAccessList() {
-        return accessList;
-    }
-
-    public void setAccessList(String[] accessList) {
-        this.accessList = accessList;
-    }
     
     public List<DocumentModel> getDocumentRow(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         ResultSet result = DB.getResultSet("select * from docs where parentId = "+id+";");
@@ -176,6 +176,7 @@ public class DocumentModel {
             temp.setIsDelete(result.getInt("isDelete"));
             temp.setDate(result.getString("date"));
             temp.setAccess(result.getString("access"));
+            temp.setAccessGroup(result.getString("groups"));
             documentList.add(temp);
         } 
         DB.closeCon();
@@ -198,6 +199,7 @@ public class DocumentModel {
             temp.setIsDelete(result.getInt("isDelete"));
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             temp.setAccess(result.getString("access"));
+            temp.setAccessGroup(result.getString("groups"));
             documentList.add(temp);
         } 
         DB.closeCon();
@@ -219,21 +221,22 @@ public class DocumentModel {
         temp.setIsDelete(result.getInt("isDelete"));
         temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
         temp.setAccess(result.getString("access"));
+        temp.setAccessGroup(result.getString("groups"));
         DB.closeCon();
     return temp;
     }
     
-    public String addDocument(String id, String title, String section, String date, String file, String isValid, String uploader, String access) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        DB.runQuery("INSERT INTO docs (clientId, title, parentId, date, path, valid, uploader, access) "
-                + "values ('"+id+"', '"+title+"', '"+section+"', '"+date+"', '"+file+"', '"+isValid+"', '"+uploader+"', '"+access+"');");
+    public String addDocument(String id, String title, String section, String date, String file, String isValid, String uploader, String access, String groups) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DB.runQuery("INSERT INTO docs (clientId, title, parentId, date, path, valid, uploader, access, groups) "
+                + "values ('"+id+"', '"+title+"', '"+section+"', '"+date+"', '"+file+"', '"+isValid+"', '"+uploader+"', '"+access+"', '"+groups+"');");
         DB.closeCon();
         return "done";
     }
     
-    public String editDocument(String id, String clientId, String title, String section, String date, String file, String isValid, String uploader, String access) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public String editDocument(String id, String clientId, String title, String section, String date, String file, String isValid, String uploader, String access, String groups) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DB.runQuery("UPDATE docs SET clientId='"+clientId+"', title='"+title+"', parentId='"+section+"', date='"+date+"', "
                 + "path='"+file+"', valid='"+isValid+"', uploader='"+uploader+"', access='"+access+"'"
-                + "WHERE id='"+id+"';");
+                + ", groups='"+groups+"' WHERE id='"+id+"';");
         DB.closeCon();
         return "done";
     }

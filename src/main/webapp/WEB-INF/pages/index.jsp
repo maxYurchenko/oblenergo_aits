@@ -123,7 +123,7 @@
                 url: "${Constants.URL}getDocuments/",
                 cache: false, 
                 mimeType:"text/html; charset=UTF-8",
-                data:'id='+value+"&userId=${sessionScope.user.id}&userRole=${sessionScope.user.role}",
+                data:'id='+value+"&userId=${sessionScope.user.id}&userRole=${sessionScope.user.role}&userGroup=${sessionScope.user.groupAccess}",
                 success: function(response){
                     $('.docInfo').html("");
                     $('.docInfo').append(response);

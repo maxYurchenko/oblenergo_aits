@@ -17,15 +17,22 @@
                 <a href="${Constants.URL}admin/addSection">Редактор розділів</a>
                 <c:if test="${user.role == 2}">
                     <a href="${Constants.URL}admin/addUser">Редактор користувачів</a>
+                    <a href="${Constants.URL}admin/addUserGroup">Редактор груп</a>
                 </c:if>
             </div>
         <form name="addDocument" method="POST" action="${Constants.URL}admin/editDocument.do" id="addDocument">
             <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-2">
                                                 <label for="tlt">Номер:</label>
                                                 <input type="text" name="documentId" class="form-control" id="documentId" value="${document.clientId}">
                                                 <label class="displayNone text-danger" id="documentIdValidation">Неправильно заповнене поле</label>
                                               </div>
+                <div  class="col-md-2" style="margin-top: 25px;">
+                                                <select id="isValid" name="isValid" class="selectpicker">
+                                                    <option value="1">Дійсний</option>
+                                                    <option value="0">Не дійсний</option>
+                                                </select>
+                </div>
                                                     <div class="col-md-4">
                                                 <label for="tlt">Назва:</label>
                                                 <input type="text" name="title" class="form-control" id="title" value="${document.title}">
@@ -47,16 +54,11 @@
                                                 <label class="displayNone text-danger" id="dateValidation">Неправильно заповнене поле</label>
                                               </div>
                                                 <input type="hidden" name="accessHidden" class="form-control" id="accessHidden">
+                                                <input type="hidden" name="accessGroupHidden" class="form-control" id="accessGroupHidden">
                                                     <div>
                                                         <input type="hidden" name="file" class="form-control" id="file" value="${document.path}">
                                                 <div class="validation"></div>
                                               </div>
-                <div  class="col-md-4" style="margin-top: 25px;">
-                                                <select id="isValid" name="isValid" class="selectpicker">
-                                                    <option value="1">Дійсний</option>
-                                                    <option value="0">Не дійсний</option>
-                                                </select>
-                </div>
                 
             
                 <div  class="col-md-4 z-index" style="margin-top: 25px;">
@@ -64,7 +66,7 @@
 
                         <dt>
                         <a href="#">
-                          <span class="hida">Доступ</span>    
+                          <span class="hida">Доступ користувачів</span>    
                           <p class="multiSel"></p>  
                         </a>
                         </dt>
@@ -76,6 +78,28 @@
                                         <c:if test="${user.role != 2}">
                                             <li><input type="checkbox" value="${user.id}" />${user.name}</li>
                                         </c:if>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            
+                <div  class="col-md-4 z-index" style="margin-top: 25px;">
+                    <dl class="groupsList"> 
+
+                        <dt>
+                        <a href="#">
+                          <span class="hida">Доступ груп</span>    
+                          <p class="multiSel"></p>  
+                        </a>
+                        </dt>
+
+                        <dd>
+                            <div class="mutliSelect">
+                                <ul>
+                                    <c:forEach items="${groups}" var="group">
+                                        <li><input type="checkbox" value="${group.id}" />${group.title}</li>
                                     </c:forEach>
                                 </ul>
                             </div>
@@ -205,6 +229,7 @@ $('.file').on('change', '#fileInput', function() {
                 }
             }); 
         });
+        
         $(".usersList dt a").on('click', function () {
           $(".usersList dd ul").slideToggle('fast');
         });
@@ -214,7 +239,7 @@ $('.file').on('change', '#fileInput', function() {
         });
 
         function getSelectedValue(id) {
-             return $("#" + id).find("dt a span.value").html();
+             return $("#" + id).find(".usersList dt a span.value").html();
         }
 
         $(document).bind('click', function (e) {
@@ -223,8 +248,8 @@ $('.file').on('change', '#fileInput', function() {
         });
 
 
-        $('.mutliSelect input[type="checkbox"]').on('click', function () {
-            var title = $(this).closest('.mutliSelect').find('input[type="checkbox"]').val(),
+        $('.usersList .mutliSelect input[type="checkbox"]').on('click', function () {
+            var title = $(this).closest('.usersList .mutliSelect').find('.usersList input[type="checkbox"]').val(),
                 title = $(this).val() + ",";
 
             if ($(this).is(':checked')) {
@@ -233,9 +258,9 @@ $('.file').on('change', '#fileInput', function() {
                 //$(".hida").hide();
             } 
             else {
-                $('span[title="' + title + '"]').remove();
+                $('.usersList span[title="' + title + '"]').remove();
                 var ret = $(".hida");
-                $('.dropdown dt a').append(ret);
+                $('.usersList .dropdown dt a').append(ret);
 
             }
             var accessUsersList = "";
@@ -244,11 +269,56 @@ $('.file').on('change', '#fileInput', function() {
             });
             accessUsersList = accessUsersList.substring(0, accessUsersList.length - 1);
             $('#accessHidden').val(accessUsersList);
+            console.log(accessUsersList);
         });
-        $('.mutliSelect ul').find('li').each(function() {
+        $(".groupsList dt a").on('click', function () {
+          $(".groupsList dd ul").slideToggle('fast');
+        });
+
+        $(".groupsList dd ul li a").on('click', function () {
+            $(".groupsList dd ul").hide();
+        });
+
+        function getSelectedValue(id) {
+             return $("#" + id).find(".groupsList dt a span.value").html();
+        }
+
+        $(document).bind('click', function (e) {
+            var $clicked = $(e.target);
+            if (!$clicked.parents().hasClass("groupsList")) $(".groupsList dd ul").hide();
+        });
+
+
+        $('.groupsList .mutliSelect input[type="checkbox"]').on('click', function () {
+            var title = $(this).closest('.groupsList .mutliSelect').find('.groupsList input[type="checkbox"]').val(),
+                title = $(this).val() + ",";
+
+            if ($(this).is(':checked')) {
+                var html = '<span class="accessGroupsList" title="' + title + '">' + title + '</span>';
+                $('.groupsList .multiSel').append(html);
+                //$(".hida").hide();
+            } 
+            else {
+                $('.groupsList span[title="' + title + '"]').remove();
+                var ret = $(".hida");
+                $('.groupsList .dropdown dt a').append(ret);
+
+            }
+            var accessGroupsList = "";
+            $('.accessGroupsList').each(function(){
+                accessGroupsList+=$(this).html();
+            });
+            accessGroupsList = accessGroupsList.substring(0, accessGroupsList.length - 1);
+            $('#accessGroupHidden').val(accessGroupsList);
+        });
+        $('.groupsList .mutliSelect ul').find('li').each(function() {
+            if("${document.accessGroup}".indexOf($(this).find('input').val())!=-1)
+                $(this).find('input').click();
+        });
+        $('.usersList .mutliSelect ul').find('li').each(function() {
             if('${document.access}'.indexOf($(this).find('input').val())!=-1)
                 $(this).find('input').click();
-        });;
+        });
     });
     
             function validate(){

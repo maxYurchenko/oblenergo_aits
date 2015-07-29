@@ -272,6 +272,7 @@ footer{
 }
 .usersList dd ul {
     background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+    z-index: 100;
     color:black;
     display:none;
     left:0px;
@@ -293,6 +294,66 @@ footer{
     display:block;
 }
 .usersList dd ul li a:hover {
+    background-color:#fff;
+}
+
+.groupsList dd, .groupsList dt {
+    margin:0px;
+    padding:0px;
+}
+.groupsList ul {
+    margin: -1px 0 0 0;
+}
+.groupsList dd {
+    position:relative;
+}
+.groupsList a, 
+.groupsList a:visited {
+    color:#fff;
+    text-decoration:none;
+    outline:none;
+    font-size: 14px;
+    color: black;
+    height: 34px;
+    border-radius: 5px;
+}
+.groupsList dt a {
+    background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+    display:block;
+    padding: 5px 0px 0px 15px;
+    min-height: 25px;
+    line-height: 24px;
+    overflow: hidden;
+    width:100%;
+}
+.groupsList dt a span, .multiSel span {
+    cursor:pointer;
+    display:inline-block;
+    padding: 0 3px 2px 0;
+}
+.groupsList dd ul {
+    background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+    color:black;
+    display:none;
+    left:0px;
+    padding: 2px 15px 2px 5px;
+    position:absolute;
+    top:2px;
+    width:100%;
+    list-style:none;
+    height: 100px;
+    overflow: auto;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.groupsList span.value {
+    display:none;
+}
+.groupsList dd ul li a {
+    padding:10px;
+    display:block;
+}
+.groupsList dd ul li a:hover {
     background-color:#fff;
 }
 dt{
