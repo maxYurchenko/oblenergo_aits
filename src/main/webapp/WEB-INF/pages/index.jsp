@@ -30,7 +30,7 @@
                     </div>
 			<div class="login">
             <div class="adminLinks">
-                <a href="${Constants.URL}index">Список документів</a>
+                <a style="border-bottom: 3px solid #428bca;" href="${Constants.URL}index">Список документів</a>
                 <c:if test="${user.role > 0}">
                     <a href="${Constants.URL}admin">Редактор документів</a>
                     <a href="${Constants.URL}admin/sections">Редактор розділів</a>
