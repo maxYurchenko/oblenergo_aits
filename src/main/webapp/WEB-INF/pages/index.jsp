@@ -10,17 +10,36 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <t:mainHeader>
+    <style>
+        #expList .collapsed {
+            background-image: url("${Constants.URL}/img/folder_closed.png");
+            background-size: 15px 15px;
+            background-position: 0px 0px; 
+        }
+        #expList .expanded {
+            background-image: url("${Constants.URL}/img/folder_open.png");
+            background-size: 15px 15px;
+            background-position: 0px 0px; 
+        }
+    </style>
 	<body>
-		<header>
+		<header style="height: 75px;">
                     <div class="logout">
-                        <a href="${Constants.URL}logout">Вийти</a>
+                        ${sessionScope.user.name}
+                        <a href="${Constants.URL}logout"><img src="${Constants.URL}img/shutdown.png"></a>
                     </div>
 			<div class="login">
-                                <c:if test="${user.role > 0}">
-                                    <a href="${Constants.URL}admin">
-					Сторінка адміністратора
-                                    </a>
-                                </c:if>
+            <div class="adminLinks">
+                <a href="${Constants.URL}index">Список документів</a>
+                <c:if test="${user.role > 0}">
+                    <a href="${Constants.URL}admin">Редактор документів</a>
+                    <a href="${Constants.URL}admin/sections">Редактор розділів</a>
+                </c:if>
+                <c:if test="${user.role == 2}">
+                    <a href="${Constants.URL}admin/users">Редактор користувачів</a>
+                    <a href="${Constants.URL}admin/userGroups">Редактор груп</a>
+                </c:if>
+            </div>
 			</div>
                     <div class="breadCrumbs">
                         <ul id="breadCrumbsUl">
@@ -31,8 +50,10 @@
                     <div class="docsList">
                         <div id="listContainer">
                             <div class="listControl">
-                                <a id="expandList">Розгорнути всі</a>
-                                <a id="collapseList">Приховати всі</a>
+                                <input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
+                                       id="expandList" value="Розгорнути" type="button">
+                                <input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
+                                       id="collapseList" value="Згорнути" type="button">
                             </div>
                             ${listHtml}
                         </div>
@@ -128,6 +149,7 @@
                     $('.docInfo').html("");
                     $('.docInfo').append(response);
                     $('#docInfoTable').DataTable();
+                    var text = $('#docInfoTable_filter label').html();
                 },
                 error: function(response){ 
                     console.log(response);
@@ -150,7 +172,7 @@
         }
     jQuery(function($) {
         $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'horizontal', limit:0, position:'60%'});
-        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'vertical', limit:300, position:'10%'});
+        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'vertical', limit:300, position:'25%'});
         
     });
 </script>

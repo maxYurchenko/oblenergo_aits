@@ -12,16 +12,16 @@
         <link rel="stylesheet" href="${Constants.URL}css/bootstrap-switch.css">
         <link rel="stylesheet" href="${Constants.URL}css/style.css">
         <script type="text/javascript" src="${Constants.URL}js/jquery-1.9.1.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="${Constants.URL}js/jquery.min.js"></script>
         <script type="text/javascript" src="${Constants.URL}js/scripts.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="${Constants.URL}css/bootstrap.min.css">
+        <link rel="stylesheet" href="${Constants.URL}css/bootstrap-theme.min.css">
+        <script src="${Constants.URL}js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${Constants.URL}js/bootstrap-switch.js"></script>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" />
-        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
-        <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="${Constants.URL}css/bootstrap-select.min.css" />
+        <script src="${Constants.URL}js/bootstrap-select.min.js"></script>
+        <link rel="stylesheet" href="${Constants.URL}css/jquery.dataTables.min.css">
+        <script src="${Constants.URL}js/jquery.dataTables.min.js"></script>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         <script type="text/javascript" src="${Constants.URL}js/jquery.splitter-0.15.0.js"></script>
         <link rel="stylesheet" href="${Constants.URL}css/jquery.splitter.css">
@@ -34,6 +34,7 @@
     </head>
     <c:if test="${sessionScope.user == null}">
         <script>window.location.href = "${Constants.URL}login";</script>
+        
     </c:if>
         <jsp:doBody/> 
 </html>

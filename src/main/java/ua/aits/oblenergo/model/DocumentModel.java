@@ -252,4 +252,12 @@ public class DocumentModel {
         DB.closeCon();
         return "done";
     }
+    
+    public Integer getNextAI() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ResultSet result = DB.getResultSet("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA =  \"oblenergo\" AND TABLE_NAME =  \"docs\";");
+        result.first();
+        Integer ai = result.getInt("AUTO_INCREMENT");
+        DB.closeCon();
+        return ai;
+    }
 }

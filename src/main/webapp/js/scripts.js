@@ -5,7 +5,7 @@ function prepareList() {
     $('#expList').find('li:has(ul)')
     .click( function(event) {
         if (this == event.target) {
-            if($(this).children().html()!="\n")
+            //if($(this).children().html()!="\n")
                 $(this).toggleClass('expanded');
             $(this).children('ul').toggle('medium');
         }

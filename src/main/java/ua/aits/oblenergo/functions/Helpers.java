@@ -6,6 +6,7 @@
 package ua.aits.oblenergo.functions;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import ua.aits.oblenergo.model.DocumentModel;
 import ua.aits.oblenergo.model.SectionModel;
@@ -25,7 +26,8 @@ public class Helpers {
         String html = "<ul "+tempId+">\n";
             for(SectionModel temp : tempSection) {
                 if(temp.isDelete!=1){
-                    html = html + "<li class='section' value='"+temp.id+"' id='section"+temp.id+"' onclick='getChildDocuments("+temp.id.toString()+")'>"+temp.title;
+                    html = html + "<li class='section' value='"+temp.id+"' id='section"+temp.id+"' onclick='getChildDocuments("+temp.id.toString()+")'>"
+                            +temp.title+" ("+temp.documents.size()+")";
                     html = html + this.getRowHtml(temp.id.toString());
 
                     /*
@@ -41,5 +43,14 @@ public class Helpers {
             }
         html = html + "</ul>";
         return html;
+    }
+    public List<SectionModel> getSortedSections(String id)throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        List<SectionModel> sectionList = section.getSectionRow(id);
+        List<SectionModel> tempSection = new LinkedList();
+        for(SectionModel temp : sectionList) {
+            tempSection.add(temp);
+            this.getSortedSections(temp.id.toString());
+        }
+        return tempSection;
     }
 }

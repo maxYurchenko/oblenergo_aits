@@ -8,91 +8,101 @@
     <head>
         <link rel="stylesheet" href="${Constants.URL}css/style.css">
         <script type="text/javascript" src="${Constants.URL}js/jquery-1.9.1.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="${Constants.URL}js/jquery.min.js"></script>
         <script type="text/javascript" src="${Constants.URL}js/scripts.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="${Constants.URL}js/select/js/bootstrap-select.js"></script>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" />
-        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
-        <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="${Constants.URL}css/bootstrap.min.css">
+        <link rel="stylesheet" href="${Constants.URL}css/bootstrap-theme.min.css">
+        <script src="${Constants.URL}js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="${Constants.URL}css/bootstrap-select.min.css" />
         <link href="${Constants.URL}img/icon.ico" rel="shortcut icon" type="image/x-icon" />
         <title>Document Flow</title>
     </head>
+    <style>
+        html{
+            overflow-y: hidden;
+        }
+    </style>
 </html>
     <body>
-        <div class="container">
         <form action="${Constants.URL}login.do" method="POST" id="loginForm" name="auth">
-            <div class="row">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                    <div class="loginPass">
-                        <label for="username">Username</label><br>
-                        <input type="text" name="username" class="form-control" id="username">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-            <div class="row" style="margin-top:20px;">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                    <div class="loginPass">
-                        <label for="passwd">Password</label><br>
-                        <input type="password" name="password" class="form-control" id="passwd">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                </div>
-                <div>
-                    <div class="validation"></div>
-                </div>
-            </div>
-            <div class="row" style="margin-top:20px; text-align: center;">
+            <div class="displayTable">
+                <div class="row tableCell">
                     <div class="col-md-4">
                     </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-login cncl btn-danger" type="reset" >Cancel</button>
-                        <button class="btn btn-primary btn-login" id="log-button">Log In</button> 
+                    <div class="col-md-2">
+                        <div class="loginPass">
+                            <label id="loginLabel" for="username">Ім’я користувача</label><br>
+                            <input type="text" name="username" class="form-control" id="username">
+                        </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
+                        <div class="loginPass">
+                            <label for="passwd">Пароль</label><br>
+                            <input type="password" name="password" class="form-control" id="passwd">
+                        </div>
                     </div>
+                        <div class="col-md-2" style="margin-top: 25px;">
+                            <button onclick="trySubmit()" class="btn btn-primary btn-login" id="check-button" type="button">Вхід</button> 
+                            <button class="btn btn-primary btn-login displayNone" id="logInButton" type="submit">Вхід</button> 
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    <div class="col-md-4">
+                        <div class="validation"></div>
+                    </div>
+                </div>
             </div>
         </form>
-            </div>
     </body>
 </html>
 <script>
     $( document ).ready(function() {
-        
-    $(".btn-login.cncl").click(function(){
-        $("#username").val("");
-        $("#passwd").val("");
-    });
-    $("#log-button").click(function(){
-        $(".validation").html("");
-        $.ajax({
-         type: "get",
-         url: "${Constants.URL}checkLoginPass/",
-         cache: false,    
-         data:'login='+ $("#username").val() +'&password='+$("#passwd").val(),
-         success: function(response){
-             console.log(response);
-          if(response === "false"){
-              $(".validation").html("<span style='color:red'>Bad login or password</span>");
-          }
-          else {
-              $("#loginForm").submit();
-          }
-         },
-         error: function(response){      
-          console.log(response);
-         }
+        $(".btn-login.cncl").click(function(){
+            $("#username").val("");
+            $("#passwd").val("");
+        }); 
+        $("#loginLabel").click();
+    
+        $('input').on("keypress", function(e) {
+            if (e.keyCode == 13) {
+                var inputs = $(this).parents("form").eq(0).find(":input");
+                var idx = inputs.index(this);
+                if (idx == inputs.length - 1) {
+                    inputs[0].select()
+                } else {
+                    try{
+                        inputs[idx + 1].focus();
+                        inputs[idx + 1].select();
+                    }catch(err){
+                        $('#log-button').click();
+                    }
+                }
+                return false;
+            }
         });
-    });  
     });
+    function trySubmit(){
+        
+            $(".validation").html("");
+            $.ajax({
+             type: "get",
+             url: "${Constants.URL}checkLoginPass/",
+             cache: false,    
+             data:'login='+ $("#username").val() +'&password='+$("#passwd").val(),
+             success: function(response){
+                 console.log(response);
+              if(response === "false"){
+                  $(".validation").html("<span style='color:red'>Bad login or password</span>");
+              }
+              else {
+                  $("#logInButton").click();
+              }
+             },
+             error: function(response){      
+              console.log(response);
+             }
+            });
+    }
 </script>

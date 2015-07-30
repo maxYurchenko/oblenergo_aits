@@ -8,6 +8,7 @@ package ua.aits.oblenergo.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import ua.aits.oblenergo.functions.Constants;
+import ua.aits.oblenergo.model.DocumentModel;
 
 /**
  *
@@ -25,9 +27,9 @@ import ua.aits.oblenergo.functions.Constants;
 public class FileUploadController {
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public @ResponseBody
-    String uploadFileHandlerRoute(@RequestParam("upload") MultipartFile file, HttpServletRequest request) {
- 
-                String name = file.getOriginalFilename();
+    String uploadFileHandlerRoute(@RequestParam("upload") MultipartFile file, HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        String name = file.getOriginalFilename();
+        String[] nameArr = name.split("\\.");
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
@@ -40,6 +42,9 @@ public class FileUploadController {
                         new FileOutputStream(serverFile))) {
                     stream.write(bytes);
                 }
+                DocumentModel document = new DocumentModel();
+                Integer ai = document.getNextAI();
+                name = ai.toString() + "." + nameArr[1];
                 return name;
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();

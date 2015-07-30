@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import ua.aits.oblenergo.functions.Helpers;
 import ua.aits.oblenergo.model.DocumentModel;
 import ua.aits.oblenergo.model.SectionModel;
 import ua.aits.oblenergo.model.UserGroupModel;
@@ -32,22 +33,23 @@ public class AdminContontroller {
     DocumentModel document = new DocumentModel();
     SectionModel section = new SectionModel();
     UserGroupModel userGroup = new UserGroupModel();
+    Helpers helper = new Helpers();
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     protected ModelAndView admin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
-                ModelAndView modelAndView = new ModelAndView("admin/addDocument");
+                ModelAndView modelAndView = new ModelAndView("admin/Documents");
                 modelAndView.addObject("sections", section.getAllSections());
                 modelAndView.addObject("documents", document.getAllDocuments());
                 modelAndView.addObject("users", user.getAllUsers());
                 modelAndView.addObject("groups", userGroup.getAllGroups());
                  return modelAndView;
 	}
-    @RequestMapping(value = {"/admin/addUser"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/users"}, method = RequestMethod.GET)
     protected ModelAndView addUser(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
-                ModelAndView modelAndView = new ModelAndView("admin/addUser");
+                ModelAndView modelAndView = new ModelAndView("admin/Users");
                 modelAndView.addObject("users", user.getAllUsers());
                 return modelAndView;
 	}
@@ -111,11 +113,11 @@ public class AdminContontroller {
         String result = document.editDocument(id, clientId, title, section, date, file, isValid, uploader, access, groups);
         return new ModelAndView("redirect:" + "/admin");
     }
-    @RequestMapping(value = {"/admin/addSection"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/sections"}, method = RequestMethod.GET)
     protected ModelAndView addSection(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
-                ModelAndView modelAndView = new ModelAndView("admin/addSection");
+                ModelAndView modelAndView = new ModelAndView("admin/Sections");
                 List<SectionModel> sections = new LinkedList();
                 sections = section.getAllSections();
                 modelAndView.addObject("sections", sections);
@@ -167,11 +169,11 @@ public class AdminContontroller {
         String result = section.editSection(id, title, parentId);
         return new ModelAndView("redirect:" + "/admin/addSection");
     }
-    @RequestMapping(value = {"/admin/addUserGroup"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/userGroups"}, method = RequestMethod.GET)
     protected ModelAndView addUserGroup(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
-                ModelAndView modelAndView = new ModelAndView("admin/addUserGroup");
+                ModelAndView modelAndView = new ModelAndView("admin/UserGroups");
                 List<UserModel> users = new LinkedList();
                 users = user.getAllUsers();
                 List<UserGroupModel> groupsList = new LinkedList();

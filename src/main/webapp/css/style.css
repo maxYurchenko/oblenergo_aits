@@ -17,16 +17,16 @@ header a:hover{
 		margin: 15px 20px 0 20px;
 	}
 	.login{
-		float: left;
 		padding: 15px 20px 0 20px;
                 width: 20%;
 	}
         .breadCrumbs{
             width: auto;
             float: left;
-            padding: 15px 20px 0 3px;
+            padding: 0px 20px 0 20px;
             color: white;
             margin-left: -40px;
+            margin-top: -10px;
         }
         .breadCrumbs ul{
             
@@ -58,6 +58,15 @@ header a:hover{
             width: 100px;
             margin-top: 20px;
             margin: 20px;
+        }
+        .logout img{
+            width: 20px;
+            margin-top: -2px;
+            margin-left: 10px;
+        }
+        .logout{
+            color: white;
+            font-weight: 600;
         }
 main{
 	width: 100%;
@@ -101,14 +110,16 @@ main{
             font-weight: 600;
         }
 	.docInfo{
-		float: left;
-		width: 100%;
-		height: 40%;
-                overflow-y: scroll;
                 padding: 10px;
 	}
-        .docInfo table, .docInfo th, .docInfo td {
-            border: 1px solid black;
+        #docInfoTable_filter{
+            width: 80%;
+        }
+        #docInfoTable_filter input{
+            width: 70%;
+        }
+        #docInfoTable_filter label{
+            width: 100%;
         }
         #pdfPreview{
             height: 97%;
@@ -149,12 +160,6 @@ main{
             padding-left: 20px;
             background-repeat: no-repeat;
         }
-        #expList .collapsed {
-            background-image: url(../img/collapsed.png);
-        }
-        #expList .expanded {
-            background-image: url(../img/expanded.png);
-        }
         #expList {
             clear: both;
         }
@@ -181,12 +186,12 @@ main{
             cursor: pointer;
         }
         .adminLinks a{
-            color: black;
             font-weight: 600;
             margin: 20px 20px 20px 0;
         }
         .adminLinks{
-            margin: 10px 0 20px 0;
+            margin: 0px 0 20px 0;
+            width: 790px;
         }
         .tableMainClass{
             margin-top: 20px;
@@ -208,6 +213,22 @@ main{
         }
         .marginTop{
             margin-top: 25px;
+        }
+        .tableHeader{
+            color: #68A4C4;
+            font-weight: 600;
+        }
+        table a{
+            color: #68A4C4;
+        }
+        #breadCrumbsUl li:hover{
+            text-decoration: underline;
+        }
+        .downloadLink{
+            text-align: right;
+        }
+        .tableDate{
+            text-align: center;
         }
 footer{
 	width: 0;
@@ -371,4 +392,17 @@ dt{
     height: 100%;
     float: left;
     width: 80%;
+}
+.displayTable{
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.tableCell{
+    display: table-cell;
+    vertical-align: middle;
+}
+table.dataTable tbody th, table.dataTable tbody td{
+    font-weight: 100;
+    border-top: 1px solid #ddd;
 }
