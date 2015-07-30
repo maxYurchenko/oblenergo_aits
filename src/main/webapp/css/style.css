@@ -35,7 +35,9 @@ header a:hover{
             display: inline;
         }
         .activeBreadCrumb{
-            font-weight: 600;
+            font-weight: 100;
+            text-decoration: underline;
+            pointer-events: none;
         }
         .deleteFrameBlock{
             position: absolute;

@@ -94,7 +94,7 @@
              success: function(response){
                  console.log(response);
               if(response === "false"){
-                  $(".validation").html("<span style='color:red'>Bad login or password</span>");
+                  $(".validation").html("<span style='color:red'>Невірне ім’я користувача або пароль</span>");
               }
               else {
                   $("#logInButton").click();
