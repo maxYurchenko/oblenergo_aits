@@ -10,29 +10,6 @@
 <!DOCTYPE html>
 <t:mainHeader>
     <body>
-		<header>
-                    <div class="logout">
-                        ${sessionScope.user.name}
-                        <a href="${Constants.URL}logout"><img src="${Constants.URL}img/shutdown.png"></a>
-                    </div>
-			<div class="login">
-            <div class="adminLinks">
-                <a href="${Constants.URL}index">Список документів</a>
-                <c:if test="${user.role > 0}">
-                    <a style="border-bottom: 3px solid #428bca;" href="${Constants.URL}admin">Редактор документів</a>
-                    <a href="${Constants.URL}admin/sections">Редактор розділів</a>
-                </c:if>
-                <c:if test="${user.role == 2}">
-                    <a href="${Constants.URL}admin/users">Редактор користувачів</a>
-                    <a href="${Constants.URL}admin/userGroups">Редактор груп</a>
-                </c:if>
-            </div>
-			</div>
-                    <div class="breadCrumbs">
-                        <ul id="breadCrumbsUl">
-                        </ul>
-                    </div>
-		</header>
         <div class="container">
         <form name="addDocument" method="POST" action="${Constants.URL}admin/editDocument.do" id="addDocument">
             <div class="row">
@@ -171,6 +148,7 @@ $('.file').on('change', '#fileInput', function() {
                     });
 });
     $( document ).ready(function() {
+        $('#docsPage').css('border-bottom','3px solid #428bca');
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!

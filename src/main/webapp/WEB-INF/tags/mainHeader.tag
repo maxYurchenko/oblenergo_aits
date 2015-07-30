@@ -36,5 +36,28 @@
         <script>window.location.href = "${Constants.URL}login";</script>
         
     </c:if>
+		<header>
+                    <div class="logout">
+                        ${sessionScope.user.name}
+                        <a href="${Constants.URL}logout"><img src="${Constants.URL}img/shutdown.png"></a>
+                    </div>
+			<div class="login">
+            <div class="adminLinks">
+                <a id="indexPage" href="${Constants.URL}index">Список документів</a>
+                <c:if test="${user.role > 0}">
+                    <a id="docsPage" href="${Constants.URL}admin">Редактор документів</a>
+                    <a id="sectionsPage" href="${Constants.URL}admin/sections">Редактор розділів</a>
+                </c:if>
+                <c:if test="${user.role == 2}">
+                    <a id="usersPage" href="${Constants.URL}admin/users">Редактор користувачів</a>
+                    <a id="groupsPage" href="${Constants.URL}admin/userGroups">Редактор груп</a>
+                </c:if>
+            </div>
+			</div>
+                    <div class="breadCrumbs">
+                        <ul id="breadCrumbsUl">
+                        </ul>
+                    </div>
+		</header>
         <jsp:doBody/> 
 </html>

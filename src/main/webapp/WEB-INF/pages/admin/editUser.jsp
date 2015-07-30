@@ -9,29 +9,6 @@
 <!DOCTYPE html>
 <t:mainHeader>
     <body>
-		<header>
-                    <div class="logout">
-                        ${sessionScope.user.name}
-                        <a href="${Constants.URL}logout"><img src="${Constants.URL}img/shutdown.png"></a>
-                    </div>
-			<div class="login">
-            <div class="adminLinks">
-                <a href="${Constants.URL}index">Список документів</a>
-                <c:if test="${user.role > 0}">
-                    <a href="${Constants.URL}admin">Редактор документів</a>
-                    <a href="${Constants.URL}admin/sections">Редактор розділів</a>
-                </c:if>
-                <c:if test="${user.role == 2}">
-                    <a style="border-bottom: 3px solid #428bca;" href="${Constants.URL}admin/users">Редактор користувачів</a>
-                    <a href="${Constants.URL}admin/userGroups">Редактор груп</a>
-                </c:if>
-            </div>
-			</div>
-                    <div class="breadCrumbs">
-                        <ul id="breadCrumbsUl">
-                        </ul>
-                    </div>
-		</header>
         <div class="container">
         <form name="userEdit" method="POST" action="${Constants.URL}admin/edituser.do" id="editUser">
                 
@@ -69,6 +46,7 @@
     </body>
     <script>
         $( document ).ready(function() {
+            $('#usersPage').css('border-bottom','3px solid #428bca');
             $('.selectpicker').selectpicker();
         });
         function validate(){

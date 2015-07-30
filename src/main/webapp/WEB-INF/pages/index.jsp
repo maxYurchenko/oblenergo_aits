@@ -21,31 +21,11 @@
             background-size: 15px 15px;
             background-position: 0px 0px; 
         }
+        header{
+            height: 75px;
+        }
     </style>
 	<body>
-		<header style="height: 75px;">
-                    <div class="logout">
-                        ${sessionScope.user.name}
-                        <a href="${Constants.URL}logout"><img src="${Constants.URL}img/shutdown.png"></a>
-                    </div>
-			<div class="login">
-            <div class="adminLinks">
-                <a style="border-bottom: 3px solid #428bca;" href="${Constants.URL}index">Список документів</a>
-                <c:if test="${user.role > 0}">
-                    <a href="${Constants.URL}admin">Редактор документів</a>
-                    <a href="${Constants.URL}admin/sections">Редактор розділів</a>
-                </c:if>
-                <c:if test="${user.role == 2}">
-                    <a href="${Constants.URL}admin/users">Редактор користувачів</a>
-                    <a href="${Constants.URL}admin/userGroups">Редактор груп</a>
-                </c:if>
-            </div>
-			</div>
-                    <div class="breadCrumbs">
-                        <ul id="breadCrumbsUl">
-                        </ul>
-                    </div>
-		</header>
 		<main>
                     <div class="docsList">
                         <div id="listContainer">
@@ -171,6 +151,7 @@
             });
         }
     jQuery(function($) {
+        $('#indexPage').css('border-bottom','3px solid #428bca');
         $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'horizontal', limit:0, position:'60%'});
         $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'vertical', limit:300, position:'30%'});
         

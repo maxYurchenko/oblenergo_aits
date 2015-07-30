@@ -29,7 +29,6 @@ public class Helpers {
                     html = html + "<li class='section' value='"+temp.id+"' id='section"+temp.id+"' onclick='getChildDocuments("+temp.id.toString()+")'>"
                             +temp.title+" ("+temp.documents.size()+")";
                     html = html + this.getRowHtml(temp.id.toString());
-
                     /*
                     if(temp.documents.size()>0){html=html+"<ul>\n";}
                     for(DocumentModel tempDocs : temp.documents) {
@@ -37,7 +36,6 @@ public class Helpers {
                     }
                     if(temp.documents.size()>0){html=html+"</ul>\n";}
                     */
-
                     html = html + "</li>";
                 }
             }
@@ -46,10 +44,10 @@ public class Helpers {
     }
     public List<SectionModel> getSortedSections(String id)throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         List<SectionModel> sectionList = section.getSectionRow(id);
-        List<SectionModel> tempSection = new LinkedList();
+        List<SectionModel> tempSection = new LinkedList<>();
         for(SectionModel temp : sectionList) {
             tempSection.add(temp);
-            this.getSortedSections(temp.id.toString());
+            tempSection.addAll(getSortedSections(temp.id.toString()));
         }
         return tempSection;
     }

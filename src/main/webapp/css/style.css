@@ -308,6 +308,7 @@ footer{
     overflow: auto;
     border-radius: 5px;
     border: 1px solid #ccc;
+    padding: 10px;
 }
 .usersList span.value {
     display:none;
