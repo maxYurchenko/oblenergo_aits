@@ -125,13 +125,27 @@
                 success: function(response){
                     $('.docInfo').html("");
                     $('.docInfo').append(response);
-                    $('#docInfoTable').DataTable({
-                        columnDefs: [
-                            { type: 'date-eu', targets: 3 }
-                        ]
-                    });
                     $('header').height(75);
                     var text = $('#docInfoTable_filter label').html();
+                    $('#table-pagination tfoot th').each( function () {
+                        if($(this).text()!=""){
+                            var title = $('#table-pagination thead th').eq( $(this).index() ).text();
+                            $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+$(this).text()+'" />' );
+                        }
+                    } );
+                    var table = $('#table-pagination').DataTable({
+                            columnDefs: [
+                                { type: 'date-eu', targets: 3 }
+                            ]
+                        });
+                    table.columns().every( function () {
+                        var that = this;
+                        $( 'input', this.footer() ).on( 'keyup change', function () {
+                            that
+                                .search( this.value )
+                                .draw();
+                        } );
+                    } );
                 },
                 error: function(response){ 
                     console.log(response);
@@ -156,7 +170,9 @@
         $('#indexPage').css('background','#14A86B');
         $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'horizontal', limit:0, position:'60%'});
         $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'vertical', limit:300, position:'30%'});
-        
+        $('.hsplitter').append('<img src="${Constants.URL}/img/verticalResize.png">');
+        $('.vsplitter').append('<img src="${Constants.URL}/img/horizontalResize.png">');
+        //$('.verticalResize').position($('.splitterMask').position());
     });
 </script>
 </t:mainHeader>

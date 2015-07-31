@@ -12,19 +12,29 @@
 <t:mainHeader>
     <body>
         <div class="container">
+            <div class="row">
+                <div class="col-md-12 marginTop greenText">
+                    <h4>Редагування розділу</h4>
+                </div>
+            </div>
+            <hr>
             <c:if test="${sessionScope.user.role != 2}">
                 <script>window.location.href = "${Constants.URL}login";</script>
             </c:if>
         <form name="userAdd" method="POST" action="${Constants.URL}admin/editsection.do" id="addUser">
                 
                <div class="row">
-                                                    <div class="col-md-6">
-                                                <label>Назва розділу:</label>
+                                                    <div class="col-md-4">
+                                                        <label class="greenText">Назва розділу:<span class="red-star">*</span></label>
                                                 <input type="text" name="sectionName" class="form-control" id="sectionName" value="${section.title}">
                                                 <input type="hidden" name="sectionId" class="form-control" id="sectionId" value="${section.id}">
                                                 <label class="displayNone text-danger" id="titleValidation">Неправильно заповнене поле</label>
                                               </div>
-                                                    <div class="col-md-6" style="margin-top: 25px;">
+               </div>
+            <hr>
+               <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="greenText">Головний розділ:<span class="red-star">*</span></label>
                                                 <select id="sectionParentId" name="sectionParentId" class="selectpicker">
                                                     <option value="0">Головний розділ</option>
                                                     <c:forEach items="${sections}" var="section">
@@ -32,14 +42,21 @@
                                                     </c:forEach>
                                                 </select>
                                               </div>
-                    <div class="col-md-6">
-                                        </div>
+               </div>
+               <div class="row">
                     <div class="col-md-6 text-danger"><strong>При переносі всі підрозділи та файли буде також перенесено</strong></div>
                </div>
-                    <div>
-                        <input onclick="validate()" class="btn btn-primary btn-mini margintop-button" value="Редагувати розділ" type="button">
+            <hr>
+               <div class="row">
+                        <div class="col-md-2">
+                        <input onclick="validate()" class="btn btn-success btn-mini" value="Редагувати розділ" type="button">
                         <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
                                         </div>
+                            <div class="col-md-2">
+                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin/sections">Повернутись до списку</a>
+                            </div>
+               </div>
+        </div>
             </form>
         <script>
             $( document ).ready(function() {

@@ -17,6 +17,7 @@
                     <h4>Додавання документу</h4>
                 </div>
             </div>
+            <hr>
         <form name="addDocument" method="POST" action="${Constants.URL}admin/addDocument.do" id="addDocument">
             <div class="row">
                                                     <div class="col-md-2">
@@ -43,6 +44,7 @@
                                                     <div class="col-md-4">
                                                         <label class="greenText" for="tlt">Розділ документа:<span class="red-star">*</span></label>
                                                 <select id="section" name="section" class="selectpicker">
+                                                    <option selected="true" disabled="disabled">Оберіть розділ</option>  
                                                     <c:forEach items="${sections}" var="section">
                                                         <option value="${section.id}">${section.title}</option>
                                                     </c:forEach>

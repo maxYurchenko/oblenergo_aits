@@ -76,6 +76,12 @@ header a:hover{
         .greenText{
             color: #14A86B;
         }
+        tfoot {
+            display: table-header-group;
+        }
+        table input{
+            width: 100%;
+        }
 main{
 	width: 100%;
 	height: 1000px;
@@ -460,4 +466,32 @@ table.dataTable tbody th, table.dataTable tbody td{
 }
 .containerBig{
     width: 100% !important;
+}
+.tableSearch{
+    width: 250px !important;
+    height: 25px !important;
+    float: right !important;
+    margin-top: -2px !important;
+}
+.individualSearch{
+    width: 100% !important;
+}
+.verticalResize{
+    position: absolute;
+}
+.hsplitter{
+    overflow: visible !important;
+}
+.hsplitter img{
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -5px;
+}
+.vsplitter{
+    overflow: visible !important;
+}
+.vsplitter img{
+    height: 30px;
+    margin-left: -12px;
+    margin-top: -5px;
 }

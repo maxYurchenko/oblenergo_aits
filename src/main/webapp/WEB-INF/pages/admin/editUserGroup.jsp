@@ -12,25 +12,35 @@
 <t:mainHeader>
     <body>
         <div class="container">
+            <div class="row">
+                <div class="col-md-12 marginTop greenText">
+                    <h4>Редагувати користувача</h4>
+                </div>
+            </div>
+            <hr>
             
         <form name="userAdd" method="POST" action="${Constants.URL}admin/editusergroup.do" id="addUser">
                 
                <div class="row">
-                                                    <div class="col-md-6">
-                                                <label>Назва групи:</label>
+                                                    <div class="col-md-4">
+                                                <label class="greenText">Назва групи:<span class="red-star">*</span></label>
                                                 <input type="hidden" name="id" class="form-control" id="id" value="${group.id}">
                                                 <input type="text" name="groupName" class="form-control" id="groupName" value="${group.title}">
                                                 <label class="displayNone text-danger" id="titleValidation">Неправильно заповнене поле</label>
                                                 <label class="displayNone text-danger" id="loginIsTaken">Така група вже існує</label>
                                               </div>
-                                                    <div class="col-md-6" style="margin-top: 25px;">
+               </div>
+            <hr>
+               <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="greenText">Користувачі, що ввійдуть в цю групу:</label>
                                                 <input type="hidden" name="accessHidden" class="form-control" id="accessHidden">
                                                         
                     <dl class="usersList"> 
 
                         <dt>
                         <a href="#">
-                          <span class="hida">Доступ</span>    
+                          <span class="hida">Оберіть користувачів</span>    
                           <p class="multiSel"></p>  
                         </a>
                         </dt>
@@ -49,10 +59,15 @@
                     </dl>
                                               </div>
                </div>
-                    <div>
-                        <input onclick="validate()" class="btn btn-primary btn-mini margintop-button" value="Рендагувати групу" type="button">
+                    <div class="row">
+                        <div class="col-md-2">
+                        <input onclick="validate()" class="btn btn-success btn-mini margintop-button" value="Редагувати групу" type="button">
                         <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
                                         </div>
+                            <div class="col-md-2">
+                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin/userGroups">Повернутись до списку</a>
+                            </div>
+                    </div>
             </form>
         </div>
     </body>

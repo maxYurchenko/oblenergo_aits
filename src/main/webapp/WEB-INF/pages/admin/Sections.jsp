@@ -31,7 +31,7 @@
                     </div>
                 </div>
         <div class="tableMainClass">
-            <table class="table display" id="table-pagination" data-height="400" data-pagination="true">
+            <table class="table table-striped table-bordered" id="table-pagination" data-height="400" data-pagination="true">
                     <thead>
                         <tr class="tableHeader">
                             <th>Ім’я</th>
@@ -40,6 +40,14 @@
                             <th style="width:20px;"></th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr class="tableHeader">
+                            <th>Ім’я</th>
+                            <th>Головна категорія</th>
+                            <th style="width:20px;"></th>
+                            <th style="width:20px;"></th>
+                        </tr>
+                    </tfoot>
                     <tbody>
                         <c:forEach items="${sections}" var="section">
                             <c:if test="${section.isDelete != 1}">
@@ -68,8 +76,22 @@
             $( document ).ready(function() {
                 $('#sectionsPage').css('background','#14A86B');
                 $('.selectpicker').selectpicker();
-                $('#table-pagination').DataTable();
-                //$('.deleteFrameBlock').hide();
+        $('#table-pagination tfoot th').each( function () {
+            if($(this).text()!=""){
+                var title = $('#table-pagination thead th').eq( $(this).index() ).text();
+                $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
+            }
+        } );
+        var table = $('#table-pagination').DataTable();
+        table.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                that
+                    .search( this.value )
+                    .draw();
+            } );
+        } );
             });
             function deleteSection(id){
                 $('.deleteFrameBlock').fadeIn('fast');

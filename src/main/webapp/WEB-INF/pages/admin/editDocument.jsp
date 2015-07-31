@@ -11,36 +11,50 @@
 <t:mainHeader>
     <body>
         <div class="container">
+            <div class="row">
+                <div class="col-md-12 marginTop greenText">
+                    <h4>Редагування документу</h4>
+                </div>
+            </div>
+            <hr>
         <form name="addDocument" method="POST" action="${Constants.URL}admin/editDocument.do" id="addDocument">
             <div class="row">
                                                     <div class="col-md-2">
-                                                <label for="tlt">Номер:</label>
+                                                        <label class="greenText" for="tlt">Номер:<span class="red-star">*</span></label>
                                                 <input type="text" name="documentId" class="form-control" id="documentId" value="${document.clientId}">
                                                 <label class="displayNone text-danger" id="documentIdValidation">Неправильно заповнене поле</label>
                                               </div>
-                <div  class="col-md-2" style="margin-top: 25px;">
+                                                    <div class="col-md-4">
+                                                <label class="greenText"for="tlt">Назва:<span class="red-star">*</span></label>
+                                                <input type="text" name="title" class="form-control" id="title" value="${document.title}">
+                                                <input type="hidden" name="hiddenId" class="form-control" id="hiddenId" value="${document.id}">
+                                                <label class="displayNone text-danger" id="titleValidation">Неправильно заповнене поле</label>
+                                              </div>
+            </div>
+            <hr>
+            <div class="row">
+                
+                <div  class="col-md-2">
+                    <label class="greenText" for="tlt">Чи дійсний документ:<span class="red-star">*</span></label>
                                                 <select id="isValid" name="isValid" class="selectpicker">
                                                     <option value="1">Дійсний</option>
                                                     <option value="0">Не дійсний</option>
                                                 </select>
                 </div>
                                                     <div class="col-md-4">
-                                                <label for="tlt">Назва:</label>
-                                                <input type="text" name="title" class="form-control" id="title" value="${document.title}">
-                                                <input type="hidden" name="hiddenId" class="form-control" id="hiddenId" value="${document.id}">
-                                                <label class="displayNone text-danger" id="titleValidation">Неправильно заповнене поле</label>
-                                              </div>
-                                                    <div class="col-md-4" style="margin-top: 25px;">
+                                                        <label class="greenText" for="tlt">Розділ документа:<span class="red-star">*</span></label>
                                                 <select id="section" name="section" class="selectpicker">
+                                                    <option selected="true" disabled="disabled">Оберіть розділ</option>  
                                                     <c:forEach items="${sections}" var="section">
                                                         <option value="${section.id}">${section.title}</option>
                                                     </c:forEach>
                                                 </select>
                                               </div>
-                </div>
+            </div>
+            <hr>
             <div class="row">
                                                     <div class="col-md-4">
-                                                <label for="tlt">Дата:</label>
+                                                <label class="greenText" for="tlt">Дата:<span class="red-star">*</span></label>
                                                 <input type="text" name="date" class="form-control" id="date" value="${document.date}">
                                                 <label class="displayNone text-danger" id="dateValidation">Неправильно заповнене поле</label>
                                               </div>
@@ -51,14 +65,18 @@
                                                         <input type="hidden" name="file" class="form-control" id="file" value="${document.path}">
                                                 <div class="validation"></div>
                                               </div>
+            </div>
+            <hr>
+            <div class="row">
                 
             
-                <div  class="col-md-4 z-index" style="margin-top: 25px;">
+                <div  class="col-md-4 z-index">
+                    <label class="greenText" for="tlt">Доступ користувачам:</label>
                     <dl class="usersList"> 
 
                         <dt>
                         <a href="#">
-                          <span class="hida">Доступ користувачів</span>    
+                          <span class="hida">Оберіть значення</span>    
                           <p class="multiSel"></p>  
                         </a>
                         </dt>
@@ -77,12 +95,13 @@
                     </dl>
                 </div>
             
-                <div  class="col-md-4 z-index" style="margin-top: 25px;">
+                <div  class="col-md-4 z-index">
+                    <label class="greenText" for="tlt">Доступ групам користувачів:</label>
                     <dl class="groupsList"> 
 
                         <dt>
                         <a href="#">
-                          <span class="hida">Доступ груп</span>    
+                          <span class="hida">Оберіть значення</span>    
                           <p class="multiSel"></p>  
                         </a>
                         </dt>
@@ -102,8 +121,8 @@
                 <div  class="col-md-12">
                     <hr>
                     <div class="row">
-                        <div  class="col-md-12">
-                            Тип документа
+                        <div class="col-md-12">
+                            <label class="greenText" for="tlt">Тип документа:</label>
                         </div>
                     </div>
                     <div class="row">
@@ -163,21 +182,24 @@
                                         
 						<div class="col-md-4">
                                                     <div>
-                                                        <label for="img">Файл документа</label>
+                                                        <label class="greenText" for="img">Файл документа<span class="red-star">*</span></label>
                                                     
                                                         <div id="route-upload-block">
-                                                            <span class="btn btn-primary">
-                                                                <input class="" id="fileInput" type="file" multiple/>
-                                                            </span>
+                                                                <input class="displayNone" id="fileInput" type="file" multiple/>
+                        <input onclick="chooseFile()" class="btn btn-success btn-mini marginTop" value="Обрати файл" type="button">
                                                         </div>
                                                 <label class="displayNone text-danger" id="fileInputValidation">Файл не додано</label>
                                                     </div>
                                                 </div>
                                     </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                        <input onclick="validate()" class="btn marginTop btn-primary btn-mini" value="Редагувати документ" type="button">
+                                                <hr>
+                        <div class="row marginBot">
+                            <div class="col-md-2">
+                        <input onclick="validate()" class="btn btn-success btn-mini" value="Редагувати документ" type="button">
                         <input class="btn btn-primary btn-mini displayNone" id="sudmitData" value="Додати користувача" type="submit">
+                            </div>
+                            <div class="col-md-2">
+                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin">Повернутись до списку</a>
                             </div>
                         </div>
             </form>

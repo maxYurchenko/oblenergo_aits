@@ -60,7 +60,7 @@
                </div>
                     <div class="row">
                         <div class="col-md-2">
-                        <input onclick="validate()" class="btn btn-primary btn-mini margintop-button" value="Додати групу" type="button">
+                        <input onclick="validate()" class="btn btn-success btn-mini margintop-button" value="Додати групу" type="button">
                         <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
                         </div>
                             <div class="col-md-2">

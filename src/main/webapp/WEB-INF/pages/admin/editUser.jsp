@@ -10,38 +10,58 @@
 <t:mainHeader>
     <body>
         <div class="container">
+            <div class="row">
+                <div class="col-md-12 marginTop greenText">
+                    <h4>Редагувати користувача</h4>
+                </div>
+            </div>
+            <hr>
         <form name="userEdit" method="POST" action="${Constants.URL}admin/edituser.do" id="editUser">
                 
-               <div class="row">
+               <div class="row marginTop">
                                                     <div class="col-md-3">
-                                                <label>Логін:</label>
+                                                <label class="greenText">Логін:<span class="red-star">*</span></label>
                                                 <input type="text" name="username" class="form-control" id="username" value="${user.name}">
                                                 <label class="displayNone text-danger" id="loginValidation">Неправильно заповнене поле</label>
                                               </div>
                                                     <div class="col-md-3">
-                                                <label>Пароль:</label>
+                                                <label class="greenText">Пароль:<span class="red-star">*</span></label>
                                                 <input type="text" name="password" class="form-control" id="password" value="${user.pass}">
                                                 <label class="displayNone text-danger" id="passValidation">Неправильно заповнене поле</label>
                                               </div>
-                                                    <div class="col-md-3">
-                                                <label>Примітки:</label>
+               </div>
+<hr>
+               <div class="row marginTop">
+                                                    <div class="col-md-6">
+                                                <label class="greenText">Примітки про користувача</label>
                                                 <input type="text" name="descr" class="form-control" id="descr" value="${user.description}">
                                                 <input type="hidden" name="id" class="form-control" id="id" value="${user.id}">
                                                 <div class="validation"></div>
                                               </div>
-                                                    <div class="col-md-3" style="margin-top: 25px;">
+               </div>
+<hr>
+               <div class="row marginTop">
+                                                    <div class="col-md-3">
+                                                        <label class="greenText">Роль користувача:<span class="red-star">*</span></label>
                                                 <select id="role" name="role" class="selectpicker">
+                                                    <option selected="true" disabled="disabled">Оберіть роль</option>  
                                                     <option value="0">Користувач</option>
                                                     <option value="1">Редактор</option>
                                                     <option value="2">Адміністратор</option>
                                                 </select>
                                               </div>
                </div>
-                    <div>
-                        <input onclick="validate()" class="btn btn-primary btn-mini margintop-button" value="Додати користувача" type="button">
+<hr>
+               <div class="row marginTop">
+                        <div class="col-md-3">
+                        <input onclick="validate()" class="btn btn-success btn-mini" value="Редагувати користувача" type="button">
                         <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
                                         </div>
+                            <div class="col-md-2">
+                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin/users">Повернутись до списку</a>
+                            </div>
             </form>
+               </div>
         </div>
     </body>
     <script>

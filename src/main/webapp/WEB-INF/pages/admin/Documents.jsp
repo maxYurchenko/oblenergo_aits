@@ -33,6 +33,20 @@
                                     <th>Дійсний</th>
                                 </tr>
                             </thead>
+                            <tfoot>
+                                <tr class="tableHeader">
+                                    <th>Номер</th>
+                                    <th>Назва</th>
+                                    <th>Розділ</th>
+                                    <th style="width: 50px;">Дата</th>
+                                    <th>Завантажити</th>
+                                    <th></th>
+                                    <c:if test="${user.role == 2}">
+                                        <th style="width: 58px;"></th>
+                                    </c:if>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                             <tbody>
                                 <c:forEach items="${documents}" var="document">
                                     <c:if test="${document.isDelete==0 || user.role==2}">
@@ -91,11 +105,31 @@
         $('#docsPage').css('background','#14A86B');
         $("[name='my-checkbox']").bootstrapSwitch();
         $('.selectpicker').selectpicker();
-        $('#table-pagination').DataTable({
-            columnDefs: [
-                { type: 'date-eu', targets: 3 }
-            ]
-        });
+        // Setup - add a text input to each footer cell
+    $('#table-pagination tfoot th').each( function () {
+        if($(this).text()!=""){
+            var title = $('#table-pagination thead th').eq( $(this).index() ).text();
+            $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
+        }
+    } );
+ 
+    // DataTable
+    var table = $('#table-pagination').DataTable({
+                        columnDefs: [
+                            { type: 'date-eu', targets: 3 }
+                        ]
+                    });
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            that
+                .search( this.value )
+                .draw();
+        } );
+    } );
         $('#table-pagination_paginate').click(function(){
             $("[name='my-checkbox']").bootstrapSwitch();
         });

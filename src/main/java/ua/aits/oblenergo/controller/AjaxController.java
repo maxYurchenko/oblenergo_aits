@@ -50,7 +50,7 @@ public class AjaxController {
             if(Arrays.asList(userIds).contains(request.getParameter("userId")))
                 groupArray.add(group.id.toString());
         }
-        String html = "<table id=\"docInfoTable\" class=\"display\" style=\"width:100%; \">\n" +
+        String html = "<table id=\"table-pagination\" class=\"table table-striped table-bordered\" style=\"width:100%; \">\n" +
 "                                <thead>"
                 + "<tr class=\"tableHeader\">\n" +
 "                                    <td style='width=\"width:130px\"'>Номер документа</td>\n" +
@@ -59,7 +59,9 @@ public class AjaxController {
 "                                    <td class='tableDate' style='width=\"width:50px\"'>Дата</td>\n" +
 "                                    <td style='width=\"width:100px\"'>Завантажити</td>		\n" +
 "                                </tr>\n"
-                +"</thead><tbody>";
+                +"</thead><tfoot>"
+                + "<tr><th style='width=\"width:130px\"'>Номер документа</td><th>Назва документа</td><th>Тип документа</td><th class='tableDate' style='width=\"width:50px\"'>Дата</td><th style='width=\"width:100px\"'></td></tr>"
+                +"</tfoot><tbody>";
         for(DocumentModel tempDocs : documentList) {
             String clas = "";
             if(tempDocs.valid==0){
