@@ -21,6 +21,7 @@ import ua.aits.oblenergo.functions.Helpers;
 import ua.aits.oblenergo.model.SectionModel;
 import ua.aits.oblenergo.model.UserModel;
 import ua.aits.oblenergo.model.DocumentModel;
+import ua.aits.oblenergo.model.UserGroupModel;
 
 /**
  *
@@ -34,6 +35,7 @@ public class SinglePageController {
     SectionModel sections = new SectionModel();
     Helpers helper = new Helpers();
     DocumentModel documents = new DocumentModel();
+    UserGroupModel userGroup = new UserGroupModel();
     
     @RequestMapping(value = {"/index", "/main", "/home"}, method = RequestMethod.GET)
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
@@ -41,6 +43,7 @@ public class SinglePageController {
                  ModelAndView modelAndView = new ModelAndView("index");
                  modelAndView.addObject("listHtml", helper.getRowHtml("0"));
                  modelAndView.addObject("documents", documents.getAllDocuments());
+                 modelAndView.addObject("groups", userGroup.getAllGroups());
                  return modelAndView;
 	}
     

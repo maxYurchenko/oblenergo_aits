@@ -161,6 +161,14 @@ public class UserModel {
         return names;
     }
     
+    public static String getUsersName(String id)  throws SQLException{ 
+        ResultSet result = DB.getResultSet("select * from users WHERE id='"+id+"';");
+        result.first();
+        String name = result.getString("name");
+        DB.closeCon();
+        return name;
+    }
+    
     public String groupDeleted(String groupId) throws SQLException{ 
         DB.runQuery("UPDATE users SET groupId='0' WHERE groupId='"+groupId+"'");
         DB.closeCon();

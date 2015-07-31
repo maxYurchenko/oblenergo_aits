@@ -24,6 +24,7 @@
         <script src="${Constants.URL}js/jquery.dataTables.min.js"></script>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         <script type="text/javascript" src="${Constants.URL}js/jquery.splitter-0.15.0.js"></script>
+        <script type="text/javascript" src="${Constants.URL}js/date-de.js"></script>
         <link rel="stylesheet" href="${Constants.URL}css/jquery.splitter.css">
         <link href="${Constants.URL}img/icon.ico" rel="shortcut icon" type="image/x-icon" />
         <title>Document Flow</title>

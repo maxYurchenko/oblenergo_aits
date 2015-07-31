@@ -62,7 +62,7 @@
             $('.selectpicker').selectpicker();
             console.log("${userNames}");
             $('li').each(function(){
-                if("${userNames}".indexOf($(this).text())!=-1){
+                if("${group.users}".indexOf($(this).text())!=-1){
                     $(this).find('input').click();
                 }
             });

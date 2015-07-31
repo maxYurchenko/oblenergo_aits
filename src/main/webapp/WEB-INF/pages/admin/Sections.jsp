@@ -64,9 +64,7 @@
             $( document ).ready(function() {
                 $('#sectionsPage').css('border-bottom','3px solid #428bca');
                 $('.selectpicker').selectpicker();
-                $('#table-pagination').DataTable({
-                    "bSort" : false
-                });
+                $('#table-pagination').DataTable();
                 //$('.deleteFrameBlock').hide();
             });
             function deleteSection(id){

@@ -42,6 +42,14 @@ public class AjaxController {
         request.setCharacterEncoding("UTF-8");
         List<DocumentModel> documentList = new LinkedList<>();
         documentList = document.getDocumentRow(request.getParameter("id"));
+        List<UserGroupModel> userGroups = new LinkedList<>();
+        userGroups = userGroup.getAllGroups();
+        List<String> groupArray = new LinkedList<>();
+        for(UserGroupModel group : userGroups) {
+            String[] userIds = group.userId.split(",");
+            if(Arrays.asList(userIds).contains(request.getParameter("userId")))
+                groupArray.add(group.id.toString());
+        }
         String html = "<table id=\"docInfoTable\" class=\"display\" style=\"width:100%; \">\n" +
 "                                <thead>"
                 + "<tr class=\"tableHeader\">\n" +
@@ -57,10 +65,16 @@ public class AjaxController {
             if(tempDocs.valid==0){
                 clas = "inValidDoc";
             }
+            Boolean c = false;
             String[] accessList = tempDocs.access.split(",");
             String[] acessGroupList = tempDocs.accessGroup.split(",");
-            if((Arrays.asList(accessList).contains(request.getParameter("userId")))||(!request.getParameter("userRole").equals("0"))
-                    ||Arrays.asList(acessGroupList).contains(request.getParameter("userGroup"))){
+            for(String temp : groupArray) {
+                if(Arrays.asList(acessGroupList).contains(temp))
+                   c = true; 
+            }
+            Boolean a = Arrays.asList(accessList).contains(request.getParameter("userId"));
+            Boolean b = !request.getParameter("userRole").equals("0");
+            if(a||b||c){
                 if(tempDocs.isDelete!=1){
                     html = html +
                             "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+

@@ -129,7 +129,9 @@
                     $('.docInfo').html("");
                     $('.docInfo').append(response);
                     $('#docInfoTable').DataTable({
-                        "bSort" : false
+                        columnDefs: [
+                            { type: 'date-eu', targets: 3 }
+                        ]
                     });
                     var text = $('#docInfoTable_filter label').html();
                 },

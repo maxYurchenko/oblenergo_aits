@@ -18,6 +18,7 @@ import ua.aits.oblenergo.functions.DB;
 public class UserGroupModel {
     public Integer id;
     public String title;
+    public String userId;
     public String users;
 
     public String getUsers() {
@@ -26,6 +27,14 @@ public class UserGroupModel {
 
     public void setUsers(String users) {
         this.users = users;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 
@@ -45,8 +54,8 @@ public class UserGroupModel {
         this.title = title;
     }
     
-    public String addUserGroups(String title) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        DB.runQuery("INSERT INTO userGroups (title) values ('"+title+"');");
+    public String addUserGroups(String title, String access) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DB.runQuery("INSERT INTO userGroups (title, userId) values ('"+title+"', '"+access+"');");
         ResultSet result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
         result.first();
         Integer temp = result.getInt("id");
@@ -60,14 +69,23 @@ public class UserGroupModel {
             UserGroupModel temp = new UserGroupModel();
             temp.setId(result.getInt("id"));
             temp.setTitle(result.getString("title"));
-            temp.setUsers(UserModel.getUsersForGroup(temp.id.toString()));
+            temp.setUserId(result.getString("userId"));
+            if(!temp.userId.equals("")){
+                String[] temporary = temp.userId.split(",");
+                String names = "";
+                for(String str : temporary) {
+                    names += UserModel.getUsersName(str) + ", ";
+                }
+                names = names.substring(0, names.length()-2);
+                temp.setUsers(names);
+            }
             groupList.add(temp);
         } 
         return groupList;
     }
     
-    public String editGroup(String id, String title)  throws SQLException{ 
-        DB.runQuery("UPDATE userGroups SET title='"+title+"' WHERE id='"+id+"'");
+    public String editGroup(String id, String title, String userId)  throws SQLException{ 
+        DB.runQuery("UPDATE userGroups SET title='"+title+"', userId='"+userId+"' WHERE id='"+id+"'");
         DB.closeCon();
         return "done";
     }
@@ -89,6 +107,16 @@ public class UserGroupModel {
         result.first();
         temp.setId(result.getInt("id"));
         temp.setTitle(result.getString("title"));
+        temp.setUserId(result.getString("userId"));
+        if(!temp.userId.equals("")){
+            String[] temporary = temp.userId.split(",");
+            String names = "";
+            for(String str : temporary) {
+                names += UserModel.getUsersName(str) + ", ";
+            }
+            names = names.substring(0, names.length()-2);
+            temp.setUsers(names);
+        }
         DB.closeCon();
         return temp;
     }

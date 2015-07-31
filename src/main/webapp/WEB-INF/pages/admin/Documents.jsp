@@ -88,7 +88,9 @@
         $("[name='my-checkbox']").bootstrapSwitch();
         $('.selectpicker').selectpicker();
         $('#table-pagination').DataTable({
-            "bSort" : false
+            columnDefs: [
+                { type: 'date-eu', targets: 3 }
+            ]
         });
         $('#table-pagination_paginate').click(function(){
             $("[name='my-checkbox']").bootstrapSwitch();

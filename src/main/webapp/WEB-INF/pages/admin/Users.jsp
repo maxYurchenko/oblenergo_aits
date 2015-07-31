@@ -59,9 +59,7 @@
         $( document ).ready(function() {
             $('#usersPage').css('border-bottom','3px solid #428bca');
             $('.selectpicker').selectpicker();
-            $('#table-pagination').DataTable({
-                "bSort" : false
-            });
+            $('#table-pagination').DataTable();
         });
         function deleteUser(id){
             console.log(id);

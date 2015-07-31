@@ -199,12 +199,8 @@ public class AdminContontroller {
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/UserGroups");
-                List<UserModel> users = new LinkedList();
-                users = user.getAllUsers();
-                List<UserGroupModel> groupsList = new LinkedList();
-                groupsList = userGroup.getAllGroups();
-                modelAndView.addObject("groups", groupsList);
-                modelAndView.addObject("users", users);
+                modelAndView.addObject("groups", userGroup.getAllGroups());
+                modelAndView.addObject("users", user.getAllUsers());
                 return modelAndView;
 	}
     @RequestMapping(value = {"/admin/addUserGroup"}, method = RequestMethod.GET)
@@ -212,12 +208,8 @@ public class AdminContontroller {
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/addUserGroup");
-                List<UserModel> users = new LinkedList();
-                users = user.getAllUsers();
-                List<UserGroupModel> groupsList = new LinkedList();
-                groupsList = userGroup.getAllGroups();
-                modelAndView.addObject("groups", groupsList);
-                modelAndView.addObject("users", users);
+                modelAndView.addObject("groups", userGroup.getAllGroups());
+                modelAndView.addObject("users", user.getAllUsers());
                 return modelAndView;
 	}
     
@@ -225,11 +217,8 @@ public class AdminContontroller {
     public ModelAndView doAddUserGroup(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("groupName");
-        String groupId = userGroup.addUserGroups(title);
-        String[] access = request.getParameter("accessHidden").split(",");
-        for(String userId : access) {
-            user.addUserGroup(userId, groupId);
-        }
+        String access = request.getParameter("accessHidden");
+        String groupId = userGroup.addUserGroups(title, access);
         return new ModelAndView("redirect:" + "/admin/userGroups");
     }
     @RequestMapping(value = {"/admin/deleteUserGroup/{id}"}, method = RequestMethod.GET)
@@ -255,12 +244,8 @@ public class AdminContontroller {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
         String title = request.getParameter("groupName");
-        user.groupDeleted(id);
-        userGroup.editGroup(id, title);
-        String[] access = request.getParameter("accessHidden").split(",");
-        for(String userId : access) {
-            user.addUserGroup(userId, id);
-        }
+        String access = request.getParameter("accessHidden");
+        userGroup.editGroup(id, title, access);
         return new ModelAndView("redirect:" + "/admin/userGroups");
     }
     
