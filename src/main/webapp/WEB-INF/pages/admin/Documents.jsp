@@ -14,13 +14,14 @@
             <a href="${Constants.URL}admin/addDocument" class="btn marginTop btn-primary btn-mini">Додати новий документ</a>
             
                 <div class="tableMainClass">
-                    <table class="table" id="table-pagination" data-height="400" data-pagination="true">
+                    <table style="visibility: hidden" class="table display" id="table-pagination" data-height="400" data-pagination="true">
                             <thead>
                                 <tr class="tableHeader">
                                     <th>Номер</th>
                                     <th>Назва</th>
                                     <th>Розділ</th>
                                     <th style="width: 50px;">Дата</th>
+                                    <th>Завантажити</th>
                                     <th></th>
                                     <c:if test="${user.role == 2}">
                                         <th style="width: 58px;">Видалити</th>
@@ -35,7 +36,8 @@
                                             <th>${document.clientId}</th>
                                             <th>${document.title}</th>
                                             <th>${document.parentName}</th>
-                                            <th>${document.title}</th>
+                                            <th>${document.date}</th>
+                                            <th><a class="cutLink" target='_blank' download href="${Constants.URL}${document.path}">${document.path}</a></th>
                                             <th><a href="${Constants.URL}admin/editDocument/${document.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                             <c:if test="${user.role == 2}">
                                                 <th class="publishCheckboxBlock" id="publishCheckboxBlock${document.id}" 
@@ -78,10 +80,16 @@
 </t:mainHeader>
 <script>
     $( document ).ready(function() {
+        $('table').css('visibility','visible');
+        $('.cutLink').each(function(){
+            $(this).text($(this).text().substring(6, $(this).text().length));
+        });
         $('#docsPage').css('border-bottom','3px solid #428bca');
         $("[name='my-checkbox']").bootstrapSwitch();
         $('.selectpicker').selectpicker();
-        $('#table-pagination').DataTable();
+        $('#table-pagination').DataTable({
+            "bSort" : false
+        });
         $('#table-pagination_paginate').click(function(){
             $("[name='my-checkbox']").bootstrapSwitch();
         });

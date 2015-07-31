@@ -198,6 +198,9 @@ main{
         .tableMainClass{
             margin-top: 20px;
         }
+        .inValidDoc .inValidDoc th, .inValidDoc tr, .inValidDoctr th{
+            background-color: #f2dede !important;
+        }
         .inValidDoc{
             background-color: #f2dede !important;
         }
@@ -217,11 +220,11 @@ main{
             margin-top: 25px;
         }
         .tableHeader{
-            color: #68A4C4;
-            font-weight: 600;
+            //color: #68A4C4;
+            //font-weight: 600;
         }
         table a{
-            color: #68A4C4;
+            color: #428bca;
         }
         #breadCrumbsUl li:hover{
             text-decoration: underline;

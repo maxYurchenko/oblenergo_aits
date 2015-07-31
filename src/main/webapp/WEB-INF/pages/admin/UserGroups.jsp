@@ -17,7 +17,7 @@
             </c:if>
             <a href="${Constants.URL}admin/addUserGroup" class="btn marginTop btn-primary btn-mini">Додати нову групу</a>
         <div class="tableMainClass">
-            <table class="table" id="table-pagination" data-height="400" data-pagination="true">
+            <table class="table display" id="table-pagination" data-height="400" data-pagination="true">
                     <thead>
                         <tr class="tableHeader">
                             <th>Назва</th>
@@ -31,8 +31,8 @@
                                 <tr class="display">
                                     <th>${group.title}</th>
                                     <th>${group.users}</th>
-                                    <th style="width:25px"><a href="${Constants.URL}admin/deleteUserGroup/${group.id}"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
                                     <th style="width:25px"><a href="${Constants.URL}admin/editUserGroup/${group.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
+                                    <th style="width:25px"><a href="${Constants.URL}admin/deleteUserGroup/${group.id}"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
                                 </tr>
                         </c:forEach>
                     </tbody>
@@ -43,7 +43,9 @@
             $( document ).ready(function() {
                 $('#groupsPage').css('border-bottom','3px solid #428bca');
                 $('.selectpicker').selectpicker();
-                $('#table-pagination').DataTable();
+                $('#table-pagination').DataTable({
+                    "bSort" : false
+                });
                 //$('.deleteFrameBlock').hide();
             });
             

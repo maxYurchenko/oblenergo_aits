@@ -67,9 +67,9 @@
 	
 	function showDocument(url, id){
                 if(tableId!=null)
-                    $('#tableTr'+tableId).css('background-color','white');
+                    //$('#tableTr'+tableId).css('background-color',color);
                 tableId = id;
-                $('#tableTr'+tableId).css('background-color','#d4d4d4');
+                //$('#tableTr'+tableId).css('background-color','#d4d4d4');
 		$('#imagePreview').addClass('displayNone');
 		$('#pdfPreview').addClass('displayNone');
 		$('#txtPreview').addClass('displayNone');
@@ -128,7 +128,9 @@
                 success: function(response){
                     $('.docInfo').html("");
                     $('.docInfo').append(response);
-                    $('#docInfoTable').DataTable();
+                    $('#docInfoTable').DataTable({
+                        "bSort" : false
+                    });
                     var text = $('#docInfoTable_filter label').html();
                 },
                 error: function(response){ 

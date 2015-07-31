@@ -17,7 +17,7 @@
             </c:if>
             <a href="${Constants.URL}admin/addUser" class="btn marginTop btn-primary btn-mini">Додати нового користувача</a>
         <div class="tableMainClass">
-            <table class="table" id="table-pagination" data-height="400" data-pagination="true">
+            <table class="table display" id="table-pagination" data-height="400" data-pagination="true">
                     <thead>
                         <tr class="tableHeader">
                             <th>Ім’я</th>
@@ -59,7 +59,9 @@
         $( document ).ready(function() {
             $('#usersPage').css('border-bottom','3px solid #428bca');
             $('.selectpicker').selectpicker();
-            $('#table-pagination').DataTable();
+            $('#table-pagination').DataTable({
+                "bSort" : false
+            });
         });
         function deleteUser(id){
             console.log(id);

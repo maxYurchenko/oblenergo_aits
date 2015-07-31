@@ -176,7 +176,7 @@
                                     </div>
                         <div class="row">
                             <div class="col-md-4">
-                        <input onclick="validate()" class="btn marginTop btn-primary btn-mini" value="Додати документ" type="button">
+                        <input onclick="validate()" class="btn marginTop btn-primary btn-mini" value="Редагувати документ" type="button">
                         <input class="btn btn-primary btn-mini displayNone" id="sudmitData" value="Додати користувача" type="submit">
                             </div>
                         </div>

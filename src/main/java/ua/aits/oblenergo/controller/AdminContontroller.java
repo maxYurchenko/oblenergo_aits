@@ -139,7 +139,7 @@ public class AdminContontroller {
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/Sections");
-                modelAndView.addObject("sections", helper.getSortedSections("0"));
+                modelAndView.addObject("sections", section.getAllSections());
                 return modelAndView;
 	}
     @RequestMapping(value = {"/admin/addSection"}, method = RequestMethod.GET)

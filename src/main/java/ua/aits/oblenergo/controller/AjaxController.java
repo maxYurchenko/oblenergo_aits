@@ -42,7 +42,7 @@ public class AjaxController {
         request.setCharacterEncoding("UTF-8");
         List<DocumentModel> documentList = new LinkedList<>();
         documentList = document.getDocumentRow(request.getParameter("id"));
-        String html = "<table id=\"docInfoTable\" style=\"width:100%; \">\n" +
+        String html = "<table id=\"docInfoTable\" class=\"display\" style=\"width:100%; \">\n" +
 "                                <thead>"
                 + "<tr class=\"tableHeader\">\n" +
 "                                    <td style='width=\"width:130px\"'>Номер документа</td>\n" +

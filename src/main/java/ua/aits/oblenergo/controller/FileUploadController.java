@@ -32,6 +32,9 @@ public class FileUploadController {
         String[] nameArr = name.split("\\.");
         if (!file.isEmpty()) {
             try {
+                DocumentModel document = new DocumentModel();
+                Integer ai = document.getNextAI();
+                name = ai.toString() + "." + nameArr[1];
                 byte[] bytes = file.getBytes();
                 // Creating the directory to store file
                 File dir = new File(Constants.FILE_URL);
@@ -42,9 +45,6 @@ public class FileUploadController {
                         new FileOutputStream(serverFile))) {
                     stream.write(bytes);
                 }
-                DocumentModel document = new DocumentModel();
-                Integer ai = document.getNextAI();
-                name = ai.toString() + "." + nameArr[1];
                 return name;
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
