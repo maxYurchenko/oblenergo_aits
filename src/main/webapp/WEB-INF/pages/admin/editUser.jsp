@@ -46,7 +46,7 @@
     </body>
     <script>
         $( document ).ready(function() {
-            $('#usersPage').css('border-bottom','3px solid #428bca');
+            $('#usersPage').css('background','#14A86B');
             $('.selectpicker').selectpicker();
         });
         function validate(){

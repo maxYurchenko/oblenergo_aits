@@ -10,11 +10,15 @@
 <!DOCTYPE html>
 <t:mainHeader>
     <body>
-        <div class="container">
-            <a href="${Constants.URL}admin/addDocument" class="btn marginTop btn-primary btn-mini">Додати новий документ</a>
+        <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+            <a href="${Constants.URL}admin/addDocument" class="btn marginTop btn-success btn-mini addButton">Додати новий документ</a>
+                    </div>
+                </div>
             
                 <div class="tableMainClass">
-                    <table style="visibility: hidden" class="table display" id="table-pagination" data-height="400" data-pagination="true">
+                    <table style="visibility: hidden" class="table table-striped table-bordered" id="table-pagination" data-height="400" data-pagination="true">
                             <thead>
                                 <tr class="tableHeader">
                                     <th>Номер</th>
@@ -84,7 +88,7 @@
         $('.cutLink').each(function(){
             $(this).text($(this).text().substring(6, $(this).text().length));
         });
-        $('#docsPage').css('border-bottom','3px solid #428bca');
+        $('#docsPage').css('background','#14A86B');
         $("[name='my-checkbox']").bootstrapSwitch();
         $('.selectpicker').selectpicker();
         $('#table-pagination').DataTable({

@@ -11,11 +11,15 @@
 <!DOCTYPE html>
 <t:mainHeader>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <c:if test="${sessionScope.user.role != 2}">
                 <script>window.location.href = "${Constants.URL}login";</script>
             </c:if>
-            <a href="${Constants.URL}admin/addSection" class="btn marginTop btn-primary btn-mini">Додати новий розділ</a>
+                <div class="row">
+                    <div class="col-md-12">
+            <a href="${Constants.URL}admin/addSection" class="btn marginTop btn-success btn-mini">Додати новий розділ</a>
+                    </div>
+                </div>
         
                 <div style="display: none" class="deleteFrameBlock">
                     <div class="deleteSectionConfirm">
@@ -62,7 +66,7 @@
         </div>
         <script>
             $( document ).ready(function() {
-                $('#sectionsPage').css('border-bottom','3px solid #428bca');
+                $('#sectionsPage').css('background','#14A86B');
                 $('.selectpicker').selectpicker();
                 $('#table-pagination').DataTable();
                 //$('.deleteFrameBlock').hide();

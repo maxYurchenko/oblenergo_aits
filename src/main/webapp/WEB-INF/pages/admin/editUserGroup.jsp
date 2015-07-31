@@ -58,7 +58,7 @@
     </body>
     <script>
         $( document ).ready(function() {
-            $('#groupsPage').css('border-bottom','3px solid #428bca');
+            $('#groupsPage').css('background','#14A86B');
             $('.selectpicker').selectpicker();
             console.log("${userNames}");
             $('li').each(function(){

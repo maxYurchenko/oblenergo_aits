@@ -4,7 +4,10 @@ html, body{
 header{
 	width: 100%;
 	height: 50px;
-	background: black;
+	background: #576A90;
+}
+header .row{
+    margin: 0;
 }
 header a{
 	color: white;
@@ -23,10 +26,9 @@ header a:hover{
         .breadCrumbs{
             width: auto;
             float: left;
-            padding: 0px 20px 0 20px;
             color: white;
-            margin-left: -40px;
-            margin-top: -10px;
+            margin-left: -25px;
+            margin-top: 15px;
         }
         .breadCrumbs ul{
             
@@ -69,6 +71,9 @@ header a:hover{
         .logout{
             color: white;
             font-weight: 600;
+        }
+        .greenText{
+            color: #14A86B;
         }
 main{
 	width: 100%;
@@ -189,11 +194,22 @@ main{
         }
         .adminLinks a{
             font-weight: 600;
-            margin: 20px 0px 20px 20px;
+            padding: 20px 10px 17px 10px;
         }
         .adminLinks{
-            margin: 0px 0 20px 0;
+            margin: 0px 0px 0px 5px;
             width: 800px;
+        }
+        .adminLinks a:hover{
+            background-color: rgb(84,182,157) !important;
+            text-decoration: none;
+        }
+        .adminLinks a:focus{
+            background-color: rgb(84,182,157) !important;
+            text-decoration: none;
+            color: white;
+            border: none;
+            outline: none;
         }
         .tableMainClass{
             margin-top: 20px;
@@ -201,7 +217,7 @@ main{
         .inValidDoc .inValidDoc th, .inValidDoc tr, .inValidDoctr th{
             background-color: #f2dede !important;
         }
-        .inValidDoc{
+        .inValidDoc, .inValidDoc .sorting_1{
             background-color: #f2dede !important;
         }
         .bootstrap-switch .bootstrap-switch-handle-on, .bootstrap-switch .bootstrap-switch-handle-off, .bootstrap-switch .bootstrap-switch-label{
@@ -219,6 +235,9 @@ main{
         .marginTop{
             margin-top: 25px;
         }
+        .marginBot{
+            margin-bottom   : 25px;
+        }
         .tableHeader{
             //color: #68A4C4;
             //font-weight: 600;
@@ -234,6 +253,15 @@ main{
         }
         .tableDate{
             text-align: center;
+        }
+        .addButton{
+            font-weight: 700 !important;
+        }
+        .tableHeader{
+            color: #14A86B;
+        }
+        .table.dataTable.no-footer{
+            border-bottom: 3px solid #ddd
         }
 footer{
 	width: 0;
@@ -411,4 +439,20 @@ dt{
 table.dataTable tbody th, table.dataTable tbody td{
     font-weight: 100;
     border-top: 1px solid #ddd;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary{
+    background: #428bca;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active{
+    display: none;
+}
+#table-pagination_next{
+    display: none;
+}
+.red-star{
+    color: #EC1515;
+    margin-left: 5px;
+}
+.containerBig{
+    width: 100% !important;
 }

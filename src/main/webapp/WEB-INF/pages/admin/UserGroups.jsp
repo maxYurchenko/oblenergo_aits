@@ -11,11 +11,15 @@
 <!DOCTYPE html>
 <t:mainHeader>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <c:if test="${sessionScope.user.role != 2}">
                 <script>window.location.href = "${Constants.URL}login";</script>
             </c:if>
-            <a href="${Constants.URL}admin/addUserGroup" class="btn marginTop btn-primary btn-mini">Додати нову групу</a>
+                <div class="row">
+                    <div class="col-md-12">
+            <a href="${Constants.URL}admin/addUserGroup" class="btn marginTop btn-success btn-mini">Додати нову групу</a>
+                    </div>
+                </div>
         <div class="tableMainClass">
             <table class="table display" id="table-pagination" data-height="400" data-pagination="true">
                     <thead>
@@ -41,7 +45,7 @@
         </div>
         <script>
             $( document ).ready(function() {
-                $('#groupsPage').css('border-bottom','3px solid #428bca');
+                $('#groupsPage').css('background','#14A86B');
                 $('.selectpicker').selectpicker();
                 $('#table-pagination').DataTable();
                 //$('.deleteFrameBlock').hide();

@@ -38,7 +38,7 @@
     </body>
     <script>
         $( document ).ready(function() {
-            $('#sectionsPage').css('border-bottom','3px solid #428bca');
+            $('#sectionsPage').css('background','#14A86B');
             $('.selectpicker').selectpicker();
         });
             function validate(){

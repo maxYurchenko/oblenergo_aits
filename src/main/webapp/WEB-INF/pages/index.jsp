@@ -155,7 +155,7 @@
             });
         }
     jQuery(function($) {
-        $('#indexPage').css('border-bottom','3px solid #428bca');
+        $('#indexPage').css('background','#14A86B');
         $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'horizontal', limit:0, position:'60%'});
         $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'vertical', limit:300, position:'30%'});
         

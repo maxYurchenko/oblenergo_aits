@@ -219,7 +219,7 @@ $('.file').on('change', '#fileInput', function() {
         type = type.substring(0, type.length - 1);
         $('#documentType').val(type);
         
-        $('#docsPage').css('border-bottom','3px solid #428bca');
+        $('#docsPage').css('background','#14A86B');
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!

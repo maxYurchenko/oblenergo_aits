@@ -11,11 +11,15 @@
 <!DOCTYPE html>
 <t:mainHeader>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <c:if test="${sessionScope.user.role != 2}">
                 <script>window.location.href = "${Constants.URL}login";</script>
             </c:if>
-            <a href="${Constants.URL}admin/addUser" class="btn marginTop btn-primary btn-mini">Додати нового користувача</a>
+                <div class="row">
+                    <div class="col-md-12">
+            <a href="${Constants.URL}admin/addUser" class="btn marginTop btn-success btn-mini">Додати нового користувача</a>
+                    </div>
+                </div>
         <div class="tableMainClass">
             <table class="table display" id="table-pagination" data-height="400" data-pagination="true">
                     <thead>
@@ -57,7 +61,7 @@
     </body>
     <script>
         $( document ).ready(function() {
-            $('#usersPage').css('border-bottom','3px solid #428bca');
+            $('#usersPage').css('background','#14A86B');
             $('.selectpicker').selectpicker();
             $('#table-pagination').DataTable();
         });

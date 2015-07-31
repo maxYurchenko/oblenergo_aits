@@ -38,6 +38,8 @@
         
     </c:if>
 		<header>
+                    <div class="row">
+                        <div class="col-md-12">
                     <div class="logout">
                         ${sessionScope.user.name}
                         <a href="${Constants.URL}logout"><img src="${Constants.URL}img/shutdown.png"></a>
@@ -54,10 +56,16 @@
                     <a id="groupsPage" href="${Constants.URL}admin/userGroups">Редактор груп</a>
                 </c:if>
             </div>
+                        </div>
 			</div>
+                    </div>
+                    <div class="row breadCrumbs">
+                        <div class="col-md-12">
                     <div class="breadCrumbs">
                         <ul id="breadCrumbsUl">
                         </ul>
+                    </div>
+                        </div>
                     </div>
 		</header>
         <jsp:doBody/> 
