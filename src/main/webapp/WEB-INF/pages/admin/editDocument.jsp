@@ -46,6 +46,7 @@
                                               </div>
                                                 <input type="hidden" name="accessHidden" class="form-control" id="accessHidden">
                                                 <input type="hidden" name="accessGroupHidden" class="form-control" id="accessGroupHidden">
+                                                <input type="hidden" name="documentType" class="form-control" id="documentType">
                                                     <div>
                                                         <input type="hidden" name="file" class="form-control" id="file" value="${document.path}">
                                                 <div class="validation"></div>
@@ -97,8 +98,66 @@
                         </dd>
                     </dl>
                 </div>
+            
+                <div  class="col-md-12">
+                    <hr>
+                    <div class="row">
+                        <div  class="col-md-12">
+                            Тип документа
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div  class="col-md-4">
+                            <div class="checkbox typeCheckbox">
+                                <label>
+                                    <input type="checkbox" value="Правило"> Правило
+                                </label>
+                            </div>
+                            <div class="checkbox typeCheckbox">
+                                <label>
+                                    <input type="checkbox" value="Наказ"> Наказ
+                                </label>
+                            </div>
+                            <div class="checkbox typeCheckbox">
+                                <label>
+                                    <input type="checkbox" value="Типовий договір"> Типовий договір
+                                </label>
+                            </div>
+                        </div>
+                        <div  class="col-md-4">
+                            <div class="checkbox typeCheckbox">
+                                <label>
+                                    <input type="checkbox" value="Закон"> Закон
+                                </label>
+                            </div>
+                            <div class="checkbox typeCheckbox">
+                                <label>
+                                    <input type="checkbox" value="Розпорядження"> Розпорядження
+                                </label>
+                            </div>
+                            <div class="checkbox typeCheckbox">
+                                <label>
+                                    <input type="checkbox" value="Додаток"> Додаток
+                                </label>
+                            </div>
+                        </div>
+                        <div  class="col-md-4">
+                            <div class="checkbox typeCheckbox">
+                                <label>
+                                    <input type="checkbox" value="Службова записка"> Службова записка
+                                </label>
+                            </div>
+                            <div class="checkbox typeCheckbox">
+                                <label>
+                                    <input type="checkbox" value="Роз’яснення"> Роз’яснення
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
             </div>
-                                                <input type="hidden" name="uploader" class="form-control" id="uploader">
+                                                <input type="hidden" name="uploader" class="form-control" id="uploader" value="${document.uploader}">
             
                                     <div class="row add-row file">
                                         
@@ -148,6 +207,18 @@ $('.file').on('change', '#fileInput', function() {
                     });
 });
     $( document ).ready(function() {
+        var type = "";
+        $('.typeCheckbox').each(function(){
+            console.log();
+            if("${document.type}".indexOf($(this).find('input').val())!=-1)
+            {
+                type += $(this).find('input').val() + ',';
+                $(this).find('input').prop('checked', true);
+            }
+        });
+        type = type.substring(0, type.length - 1);
+        $('#documentType').val(type);
+        
         $('#docsPage').css('border-bottom','3px solid #428bca');
         var today = new Date();
         var dd = today.getDate();
@@ -261,7 +332,6 @@ $('.file').on('change', '#fileInput', function() {
             });
             accessUsersList = accessUsersList.substring(0, accessUsersList.length - 1);
             $('#accessHidden').val(accessUsersList);
-            console.log(accessUsersList);
         });
         $(".groupsList dt a").on('click', function () {
           $(".groupsList dd ul").slideToggle('fast');
@@ -314,6 +384,13 @@ $('.file').on('change', '#fileInput', function() {
     });
     
             function validate(){
+                var type = "";
+                $('.typeCheckbox').each(function(){
+                    if($(this).find('input').prop('checked'))
+                        type += $(this).find('input').val() + ',';
+                });
+                type = type.substring(0, type.length - 1);
+                $('#documentType').val(type);
                 var submit = true;
                 $('#documentIdValidation').addClass('displayNone');
                 $('#titleValidation').addClass('displayNone');

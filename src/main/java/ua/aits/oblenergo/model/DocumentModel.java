@@ -177,6 +177,7 @@ public class DocumentModel {
             temp.setDate(result.getString("date"));
             temp.setAccess(result.getString("access"));
             temp.setAccessGroup(result.getString("groups"));
+            temp.setUploader(result.getString("uploader"));
             temp.setType(result.getString("type"));
             documentList.add(temp);
         } 
@@ -201,6 +202,7 @@ public class DocumentModel {
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             temp.setAccess(result.getString("access"));
             temp.setAccessGroup(result.getString("groups"));
+            temp.setUploader(result.getString("uploader"));
             temp.setType(result.getString("type"));
             documentList.add(temp);
         } 
@@ -224,6 +226,7 @@ public class DocumentModel {
         temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
         temp.setAccess(result.getString("access"));
         temp.setAccessGroup(result.getString("groups"));
+        temp.setUploader(result.getString("uploader"));
         temp.setType(result.getString("type"));
         DB.closeCon();
     return temp;
@@ -236,10 +239,10 @@ public class DocumentModel {
         return "done";
     }
     
-    public String editDocument(String id, String clientId, String title, String section, String date, String file, String isValid, String uploader, String access, String groups) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public String editDocument(String id, String clientId, String title, String section, String date, String file, String isValid, String uploader, String access, String groups, String type) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         DB.runQuery("UPDATE docs SET clientId='"+clientId+"', title='"+title+"', parentId='"+section+"', date='"+date+"', "
                 + "path='"+file+"', valid='"+isValid+"', uploader='"+uploader+"', access='"+access+"'"
-                + ", groups='"+groups+"' WHERE id='"+id+"';");
+                + ", groups='"+groups+"', type='"+type+"' WHERE id='"+id+"';");
         DB.closeCon();
         return "done";
     }
