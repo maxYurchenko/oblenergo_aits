@@ -5,6 +5,7 @@ header{
 	width: 100%;
 	height: 50px;
 	background: #576A90;
+        transition: 0.5s;
 }
 header .row{
     margin: 0;
@@ -195,9 +196,10 @@ main{
         .adminLinks a{
             font-weight: 600;
             padding: 20px 10px 17px 10px;
+            margin-left: -4px;
         }
         .adminLinks{
-            margin: 0px 0px 0px 5px;
+            margin: 0px 0px 0px 9px;
             width: 800px;
         }
         .adminLinks a:hover{
@@ -262,6 +264,9 @@ main{
         }
         .table.dataTable.no-footer{
             border-bottom: 3px solid #ddd
+        }
+        .btn-success{
+            font-weight: 700 !important;
         }
 footer{
 	width: 0;

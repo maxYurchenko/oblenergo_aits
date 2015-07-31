@@ -21,9 +21,6 @@
             background-size: 15px 15px;
             background-position: 0px 0px; 
         }
-        header{
-            height: 75px;
-        }
     </style>
 	<body>
 		<main>
@@ -133,6 +130,7 @@
                             { type: 'date-eu', targets: 3 }
                         ]
                     });
+                    $('header').height(75);
                     var text = $('#docInfoTable_filter label').html();
                 },
                 error: function(response){ 
@@ -156,8 +154,8 @@
         }
     jQuery(function($) {
         $('#indexPage').css('background','#14A86B');
-        $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'horizontal', limit:0, position:'60%'});
-        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()).split({orientation:'vertical', limit:300, position:'30%'});
+        $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'horizontal', limit:0, position:'60%'});
+        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'vertical', limit:300, position:'30%'});
         
     });
 </script>

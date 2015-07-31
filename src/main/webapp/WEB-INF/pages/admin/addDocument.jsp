@@ -14,7 +14,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 marginTop greenText">
-                    <h4>Add Document</h4>
+                    <h4>Додавання документу</h4>
                 </div>
             </div>
         <form name="addDocument" method="POST" action="${Constants.URL}admin/addDocument.do" id="addDocument">
@@ -93,7 +93,7 @@
                 </div>
             
                 <div  class="col-md-4 z-index">
-                    <label class="greenText" for="tlt">Доступ групам користувачів:></label>
+                    <label class="greenText" for="tlt">Доступ групам користувачів:</label>
                     <dl class="groupsList"> 
 
                         <dt>

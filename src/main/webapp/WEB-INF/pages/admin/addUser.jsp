@@ -12,55 +12,61 @@
 <t:mainHeader>
     <body>
         <div class="container">
+            <div class="row">
+                <div class="col-md-12 marginTop greenText">
+                    <h4>Додавання користувача</h4>
+                </div>
+            </div>
+            <hr>
             
         <form name="userAdd" method="POST" action="${Constants.URL}admin/adduser.do" id="addUser">
                 
 <input style="display:none;" type="text" name="somefakename" />
 <input style="display:none;" type="password" name="anotherfakename" />
                <div class="row marginTop">
-                   <div class="col-md-4"></div>
-                                                    <div class="col-md-4">
-                                                <label>Логін:</label>
+                                                    <div class="col-md-3">
+                                                        <label class="greenText">Логін:<span class="red-star">*</span></label>
                                                 <input type="text" name="username" class="form-control" id="username">
                                                 <label class="displayNone text-danger" id="loginValidation">Неправильно заповнене поле</label>
                                                 <label class="displayNone text-danger" id="loginIsTaken">Користувач з таким іменем вже існує</label>
                                               </div>
-               </div>
-               <div class="row marginTop">
-                   <div class="col-md-4"></div>
-                                                    <div class="col-md-4">
-                                                <label>Пароль:</label>
+                                                    <div class="col-md-3">
+                                                <label class="greenText">Пароль:<span class="red-star">*</span></label>
                                                 <input type="password" name="password" class="form-control" id="password">
                                                 <label class="displayNone text-danger" id="passValidation">Неправильно заповнене поле</label>
                                               </div>
                </div>
+<hr>
                <div class="row marginTop">
-                   <div class="col-md-4"></div>
-                                                    <div class="col-md-4">
-                                                <label>Примітки:</label>
+                                                    <div class="col-md-6">
+                                                <label class="greenText">Примітки про користувача</label>
                                                 <input type="text" name="descr" class="form-control" id="descr">
                                                 <div class="validation"></div>
                                               </div>
                </div>
+<hr>
                <div class="row marginTop">
-                   <div class="col-md-4"></div>
                                                     <div class="col-md-4">
-                                                <label>Роль:</label>
+                                                <label class="greenText">Роль користувача:<span class="red-star">*</span></label>
                                                 <select id="role" name="role" class="selectpicker">
+                                                    <option selected="true" disabled="disabled">Оберіть роль</option>  
                                                     <option value="0">Користувач</option>
                                                     <option value="1">Редактор</option>
                                                     <option value="2">Адміністратор</option>
                                                 </select>
                                               </div>
                </div>
+<hr>
                <div class="row marginTop">
-                   <div class="col-md-4"></div>
-                   <div class="col-md-4" style="text-align: center">
-                        <input onclick="validate()" class="btn btn-primary btn-mini" value="Додати користувача" type="button">
-                   </div>
+                        <div class="col-md-2">
+                        <input onclick="validate()" class="btn btn-success btn-mini" value="Додати користувача" type="button">
+                        </div>
+                            <div class="col-md-2">
+                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin/users">Повернутись до списку</a>
+                            </div>
+                        </div>
                 </div>
             </form>
-        </div>
     </body>
     <script>
         $( document ).ready(function() {
