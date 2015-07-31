@@ -66,6 +66,12 @@ public class UserGroupModel {
         return groupList;
     }
     
+    public String editGroup(String id, String title)  throws SQLException{ 
+        DB.runQuery("UPDATE userGroups SET title='"+title+"' WHERE id='"+id+"'");
+        DB.closeCon();
+        return "done";
+    }
+    
     public Boolean checkAvailability(String title)  throws SQLException{ 
         ResultSet result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
         return result.isBeforeFirst();
@@ -75,5 +81,15 @@ public class UserGroupModel {
         DB.runQuery("DELETE FROM `userGroups` WHERE id='"+id+"'");
         DB.closeCon();
         return "done";
+    }
+    
+    public UserGroupModel getOneGroup(String id)  throws SQLException{ 
+        ResultSet result = DB.getResultSet("SELECT * FROM `userGroups` WHERE id='"+id+"'");
+        UserGroupModel temp = new UserGroupModel();
+        result.first();
+        temp.setId(result.getInt("id"));
+        temp.setTitle(result.getString("title"));
+        DB.closeCon();
+        return temp;
     }
 }

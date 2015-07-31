@@ -235,11 +235,34 @@ public class AdminContontroller {
     @RequestMapping(value = {"/admin/deleteUserGroup/{id}"}, method = RequestMethod.GET)
     protected ModelAndView deleteUserGroup(HttpServletRequest request, @PathVariable("id") String id,
 			HttpServletResponse response) throws Exception {
-                ModelAndView modelAndView = new ModelAndView("admin/deleteSection");
+                ModelAndView modelAndView = new ModelAndView("admin/deleteUserGroup");
                 userGroup.deleteGroup(id);
                 user.groupDeleted(id);
                 return new ModelAndView("redirect:" + "/admin/userGroups");
 	}
+    @RequestMapping(value = {"/admin/editUserGroup/{id}"}, method = RequestMethod.GET)
+    protected ModelAndView editUserGroup(HttpServletRequest request,@PathVariable("id") String id,
+			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
+                ModelAndView modelAndView = new ModelAndView("admin/editUserGroup");
+                modelAndView.addObject("group", userGroup.getOneGroup(id));
+                modelAndView.addObject("users", user.getAllUsers());
+                modelAndView.addObject("userNames", user.getUsersForGroup(id));
+                return modelAndView;
+	}
+    @RequestMapping(value = "/admin/editusergroup.do", method = RequestMethod.POST)
+    public ModelAndView doEditGroup(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
+        request.setCharacterEncoding("UTF-8");
+        String id = request.getParameter("id");
+        String title = request.getParameter("groupName");
+        user.groupDeleted(id);
+        userGroup.editGroup(id, title);
+        String[] access = request.getParameter("accessHidden").split(",");
+        for(String userId : access) {
+            user.addUserGroup(userId, id);
+        }
+        return new ModelAndView("redirect:" + "/admin/userGroups");
+    }
     
     @RequestMapping(value = {"/logout","/logout/"})
     public ModelAndView logout(HttpServletRequest request,

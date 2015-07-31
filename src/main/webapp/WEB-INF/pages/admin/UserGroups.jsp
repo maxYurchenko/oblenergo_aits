@@ -23,6 +23,7 @@
                             <th>Назва</th>
                             <th>Користувачі в цій групі</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,7 +31,8 @@
                                 <tr class="display">
                                     <th>${group.title}</th>
                                     <th>${group.users}</th>
-                                    <th><a href="${Constants.URL}admin/deleteUserGroup/${group.id}"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
+                                    <th style="width:25px"><a href="${Constants.URL}admin/deleteUserGroup/${group.id}"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
+                                    <th style="width:25px"><a href="${Constants.URL}admin/editUserGroup/${group.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                 </tr>
                         </c:forEach>
                     </tbody>
