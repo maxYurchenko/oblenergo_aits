@@ -47,6 +47,7 @@ public class AjaxController {
                 + "<tr class=\"tableHeader\">\n" +
 "                                    <td style='width=\"width:130px\"'>Номер документа</td>\n" +
 "                                    <td>Назва документа</td>		\n" +
+"                                    <td>Тип документа</td>		\n" +
 "                                    <td class='tableDate' style='width=\"width:50px\"'>Дата</td>\n" +
 "                                    <td style='width=\"width:100px\"'>Завантажити</td>		\n" +
 "                                </tr>\n"
@@ -63,8 +64,9 @@ public class AjaxController {
                 if(tempDocs.isDelete!=1){
                     html = html +
                             "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
-                                "<td>"+tempDocs.clientId+"</td>\n"+
-                                "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</td>\n"+	
+                                "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.clientId+"</td>\n"+
+                                "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</td>\n"+
+                                "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.type+"</td>\n"+	
                                 "<td class='tableDate' onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.date.replace("/", ".")+"</td>\n"+
                                 "<td class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'>"+tempDocs.path.substring(6, tempDocs.path.length())+"</a></td>\n"+
                             "</tr>\n";

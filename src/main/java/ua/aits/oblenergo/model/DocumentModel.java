@@ -177,6 +177,7 @@ public class DocumentModel {
             temp.setDate(result.getString("date"));
             temp.setAccess(result.getString("access"));
             temp.setAccessGroup(result.getString("groups"));
+            temp.setType(result.getString("type"));
             documentList.add(temp);
         } 
         DB.closeCon();
@@ -200,6 +201,7 @@ public class DocumentModel {
             temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             temp.setAccess(result.getString("access"));
             temp.setAccessGroup(result.getString("groups"));
+            temp.setType(result.getString("type"));
             documentList.add(temp);
         } 
         DB.closeCon();
@@ -222,13 +224,14 @@ public class DocumentModel {
         temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
         temp.setAccess(result.getString("access"));
         temp.setAccessGroup(result.getString("groups"));
+        temp.setType(result.getString("type"));
         DB.closeCon();
     return temp;
     }
     
-    public String addDocument(String id, String title, String section, String date, String file, String isValid, String uploader, String access, String groups) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        DB.runQuery("INSERT INTO docs (clientId, title, parentId, date, path, valid, uploader, access, groups) "
-                + "values ('"+id+"', '"+title+"', '"+section+"', '"+date+"', '"+file+"', '"+isValid+"', '"+uploader+"', '"+access+"', '"+groups+"');");
+    public String addDocument(String id, String title, String section, String date, String file, String isValid, String uploader, String access, String groups, String type) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DB.runQuery("INSERT INTO docs (clientId, title, parentId, date, path, valid, uploader, access, groups, type) "
+                + "values ('"+id+"', '"+title+"', '"+section+"', '"+date+"', '"+file+"', '"+isValid+"', '"+uploader+"', '"+access+"', '"+groups+"', '"+type+"');");
         DB.closeCon();
         return "done";
     }

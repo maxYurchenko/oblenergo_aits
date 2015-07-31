@@ -113,7 +113,8 @@ public class AdminContontroller {
         String uploader = request.getParameter("uploader");
         String access = request.getParameter("accessHidden");
         String accessGroup = request.getParameter("accessGroupHidden");
-        String result = document.addDocument(id, title, section, date, file, isValid, uploader, access, accessGroup);
+        String type = request.getParameter("documentType");
+        String result = document.addDocument(id, title, section, date, file, isValid, uploader, access, accessGroup, type);
         return new ModelAndView("redirect:" + "/admin");
     }
     @RequestMapping(value = "/admin/editDocument.do", method = RequestMethod.POST)
