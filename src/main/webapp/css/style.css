@@ -18,7 +18,6 @@ header a:hover{
 }
 	.logout{
 		float: right;
-		margin: 15px 20px 0 20px;
 	}
 	.login{
 		padding: 15px 0 0 0;
@@ -29,7 +28,6 @@ header a:hover{
             float: left;
             color: white;
             margin-left: -25px;
-            margin-top: 15px;
         }
         .breadCrumbs ul{
             
@@ -494,4 +492,55 @@ table.dataTable tbody th, table.dataTable tbody td{
     height: 30px;
     margin-left: -12px;
     margin-top: -5px;
+}
+.dropbox{
+    cursor: pointer;
+    border: 2px dashed rgba(0, 0, 0, 0.3);
+    width: 100%;
+    min-height: 200px;
+    max-height: 500px;
+}
+.dropbox form{
+    width: 100%;
+    height: 200px;
+}
+.dropbox .dz-default{
+    width: 100%;
+    height: 200px;
+    display: table;
+    text-align: center;
+}
+.dropbox span{
+    display: table-cell;
+    vertical-align: middle;
+}
+.dz-preview{
+    float: left;
+    margin-top: 25px;
+}
+.userNameHeader{
+    padding: 15px 20px;
+    cursor: pointer;
+}
+.userNameHeader:hover{
+    background-color: rgb(84,182,157) !important;
+}
+.open{
+    background-color: rgb(20, 168, 107);
+}
+.logout .dropdown-menu{
+    margin: 0;
+    min-width: 0;
+    width: 100%;
+    text-align: center;
+    border-radius: 0;
+}
+.logout .dropdown-menu span{
+    margin-right: 5px;
+}
+table.dataTable thead th, table.dataTable thead td{
+    border-bottom: 2px solid #ddd !important;
+}
+table.dataTable tfoot th, table.dataTable tfoot td{
+    border-top: 1px solid #ddd !important;
 }

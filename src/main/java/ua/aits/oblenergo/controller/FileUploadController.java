@@ -27,7 +27,7 @@ import ua.aits.oblenergo.model.DocumentModel;
 public class FileUploadController {
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public @ResponseBody
-    String uploadFileHandlerRoute(@RequestParam("upload") MultipartFile file, HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    String uploadFileHandler(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         String name = file.getOriginalFilename();
         String[] nameArr = name.split("\\.");
         if (!file.isEmpty()) {
@@ -36,7 +36,6 @@ public class FileUploadController {
                 Integer ai = document.getNextAI();
                 name = ai.toString() + "." + nameArr[1];
                 byte[] bytes = file.getBytes();
-                // Creating the directory to store file
                 File dir = new File(Constants.FILE_URL);
                 
                 File serverFile = new File(dir.getAbsolutePath()

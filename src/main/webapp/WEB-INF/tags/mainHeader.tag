@@ -42,8 +42,16 @@
                     <div class="row">
                         <div class="col-md-12">
                     <div class="logout">
-                        ${sessionScope.user.name}
-                        <a href="${Constants.URL}logout"><img src="${Constants.URL}img/shutdown.png"></a>
+                              <div class="dropdown">
+  <div class="userNameHeader" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    ${sessionScope.user.name}
+    <span class="caret"></span>
+  </div>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <li><a href="${Constants.URL}logout"><span class="glyphicon glyphicon-off"></span>Вийти</a></li>
+  </ul>
+</div>
+                       
                     </div>
 			<div class="login">
             <div class="adminLinks">

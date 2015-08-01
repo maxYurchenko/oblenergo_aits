@@ -61,9 +61,7 @@
                                                 <input type="hidden" name="accessHidden" class="form-control" id="accessHidden">
                                                 <input type="hidden" name="accessGroupHidden" class="form-control" id="accessGroupHidden">
                                                 <input type="hidden" name="documentType" class="form-control" id="documentType">
-                                                    <div>
                                                 <input type="hidden" name="file" class="form-control" id="file">
-                                              </div>
             </div>
             <hr>
             <div class="row">
@@ -177,17 +175,16 @@
             </div>
                                                 <input type="hidden" name="uploader" class="form-control" id="uploader">
             
+            </form>
                                     <div class="row add-row file">
                                         
-						<div class="col-md-4">
-                                                    <div>
-                                                        <label class="greenText" for="img">Файл документа<span class="red-star">*</span></label>
-                                                    
-                                                        <div id="route-upload-block">
-                                                                <input class="displayNone" id="fileInput" type="file" multiple/>
-                        <input onclick="chooseFile()" class="btn btn-success btn-mini marginTop" value="Обрати файл" type="button">
-                                                        </div>
-                                                <label class="displayNone text-danger" id="fileInputValidation">Файл не додано</label>
+						<div class="col-md-12">
+                                                    <label class="greenText" for="img">Файл документа<span class="red-star">*</span></label>
+                                                    <div class="dropbox">
+                            <form action="${Constants.URL}uploadfile" class="dropzone" id="my-awesome-dropzone">
+                                <input type="hidden" name="path" value="${folder}/files" />
+                                <input type="file" name="file" style="display:none" />
+                            </form>
                                                     </div>
                                                 </div>
                                     </div>
@@ -195,37 +192,34 @@
                         <div class="row marginBot">
                             <div class="col-md-2">
                         <input onclick="validate()" class="btn btn-success btn-mini" value="Додати документ" type="button">
-                        <input class="btn btn-primary btn-mini displayNone" id="sudmitData" value="Додати користувача" type="submit">
                             </div>
                             <div class="col-md-2">
                         <a class="btn btn-danger btn-mini" href="${Constants.URL}admin">Повернутись до списку</a>
                             </div>
                         </div>
-            </form>
         </div>
     </body>
     <script>
-$('.file').on('change', '#fileInput', function() {
-        $(".load-route").show();
-        $('#uploader').val("${user.name}");
-        var data = new FormData();
-        data.append('upload', jQuery('#fileInput')[0].files[0]);
-        jQuery.ajax({
-                    url: '${Constants.URL}uploadFile',
-                    data: data,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    type: 'POST',
-                    success: function(data){
-                        $("#fullname-route").val(data);
-                        $("<span class='upload-success'>Uploaded! <span class='route-name'>("+data+")</span> </span>").appendTo("#route-upload-block");
-                        $("#route-upload-block .btn-file").hide();
-                        $('#file').val('files/'+data);
-                    }
-                    });
-});
         $( document ).ready(function() {
+            $("#my-awesome-dropzone").dropzone({ 
+                success: function(file){
+                    jQuery.ajax({
+                        url: '${Constants.URL}nextAI',
+                        type: 'GET',
+                        cache: false, 
+                        mimeType:"text/html; charset=UTF-8",
+                        data:'',
+                        success: function(data){
+                            var temp = file.name.toString();
+                            var temp1 = temp.split(".");
+                            file.name = "files/"+data+"."+temp1[1];
+                            $('#file').val("files/"+data+"."+temp1[1]);
+                        }
+                    });
+                },
+                url: "${Constants.URL}uploadFile",
+                addRemoveLinks: true
+            });
             $('#docsPage').css('background','#14A86B');
             var today = new Date();
             var dd = today.getDate();
@@ -357,7 +351,7 @@ $('.file').on('change', '#fileInput', function() {
                     submit = false;
                 }
                 if(submit)
-                    $('#sudmitData').click();
+                    $('#addDocument').submit();
             }
             function chooseFile(){
                 $('#fileInput').click();

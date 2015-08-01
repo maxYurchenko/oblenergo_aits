@@ -24,6 +24,42 @@ public class SectionModel {
     public String parentName;
     public Integer parentId;
     public Integer isDelete;
+    public String userAccess;
+    public String groupAccess;
+    public String users;
+    public String groups;
+
+    public String getGroups() {
+        return groups;
+    }
+
+    public void setGroups(String groups) {
+        this.groups = groups;
+    }
+
+    public String getUsers() {
+        return users;
+    }
+
+    public void setUsers(String users) {
+        this.users = users;
+    }
+
+    public String getUserAccess() {
+        return userAccess;
+    }
+
+    public void setUserAccess(String userAccess) {
+        this.userAccess = userAccess;
+    }
+
+    public String getGroupAccess() {
+        return groupAccess;
+    }
+
+    public void setGroupAccess(String groupAccess) {
+        this.groupAccess = groupAccess;
+    }
 
     public Integer getIsDelete() {
         return isDelete;
@@ -73,7 +109,7 @@ public class SectionModel {
     public DocumentModel Documents = new DocumentModel();
     
     public List<SectionModel> getAllSections() throws SQLException{
-        ResultSet result = DB.getResultSet("SELECT * FROM sections;");
+        ResultSet result = DB.getResultSet("SELECT * FROM sections WHERE isDelete<>1;");
         List<SectionModel> sections = new LinkedList<>();
         while (result.next()) { 
             SectionModel temp = new SectionModel();
@@ -81,7 +117,27 @@ public class SectionModel {
             temp.setParentId(result.getInt("parentId"));
             temp.setIsDelete(result.getInt("isDelete"));
             temp.setTitle(result.getString("title"));
+            temp.setUserAccess(result.getString("userAccess"));
+            temp.setGroupAccess(result.getString("groupAccess"));
             temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+            if(!temp.userAccess.equals("")){
+                String[] temporary = temp.userAccess.split(",");
+                String names = "";
+                for(String str : temporary) {
+                    names += UserModel.getUsersName(str) + ", ";
+                }
+                names = names.substring(0, names.length()-2);
+                temp.setUsers(names);
+            }
+            if(!temp.groupAccess.equals("")){
+                String[] temporary = temp.groupAccess.split(",");
+                String title = "";
+                for(String str : temporary) {
+                    title += UserGroupModel.getGroupTitle(str) + ", ";
+                }
+                title = title.substring(0, title.length()-2);
+                temp.setGroups(title);
+            }
             sections.add(temp);
         }
         DB.closeCon();
@@ -89,7 +145,7 @@ public class SectionModel {
     }
     
     public List<SectionModel> getSectionRow(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ResultSet result = DB.getResultSet("select * from sections where parentId = "+id+";");
+        ResultSet result = DB.getResultSet("select * from sections where (parentId = "+id+") AND (isDelete<>1);");
         List<SectionModel> menuList = new LinkedList<>();
         while (result.next()) { 
             SectionModel temp = new SectionModel();
@@ -97,6 +153,8 @@ public class SectionModel {
             temp.setParentId(result.getInt("parentId"));
             temp.setTitle(result.getString("title"));
             temp.setIsDelete(result.getInt("isDelete"));
+            temp.setUserAccess(result.getString("userAccess"));
+            temp.setGroupAccess(result.getString("groupAccess"));
             temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
             menuList.add(temp);
         } 
@@ -105,7 +163,7 @@ public class SectionModel {
     }
     
     public static String getParent(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ResultSet result = DB.getResultSet("select * from sections where id = "+id+";");
+        ResultSet result = DB.getResultSet("select * from sections where id = "+id+" AND (isDelete<>1);");
         result.first();
         String title = result.getString("title");
         DB.closeCon();
@@ -113,7 +171,7 @@ public class SectionModel {
     }
     
     public static String getSectionParent(String id) throws SQLException{
-        ResultSet result = DB.getResultSet("select * from sections where id = "+id+";");
+        ResultSet result = DB.getResultSet("select * from sections where id = "+id+" AND (isDelete<>1);");
         String title = "";
         if(id.equals("0")){
             title = "0";
@@ -125,8 +183,9 @@ public class SectionModel {
         return title;
     }
     
-    public String addSection(String sectionName, String parentId) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-         DB.runQuery("INSERT INTO sections (title, parentId) values ('"+sectionName+"', '"+parentId+"');");
+    public String addSection(String sectionName, String parentId, String users, String groups) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+         DB.runQuery("INSERT INTO sections (title, parentId, userAccess, groupAccess) values "
+                 + "('"+sectionName+"', '"+parentId+"', '"+users+"', '"+groups+"');");
          DB.closeCon();
          return "done";
     }
@@ -139,26 +198,30 @@ public class SectionModel {
         temp.setParentId(result.getInt("parentId"));
         temp.setIsDelete(result.getInt("isDelete"));
         temp.setTitle(result.getString("title"));
+        temp.setUserAccess(result.getString("userAccess"));
+        temp.setGroupAccess(result.getString("groupAccess"));
         temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
         DB.closeCon();
         return temp;
     }
     
     public SectionModel getSectionForBreadCrumbs(String id) throws SQLException{
-        ResultSet result = DB.getResultSet("select * from sections where id = "+id+";");
+        ResultSet result = DB.getResultSet("select * from sections where id = "+id+" AND (isDelete<>1);");
         result.first();
         SectionModel temp = new SectionModel();
         temp.setId(result.getInt("id"));
         temp.setParentId(result.getInt("parentId"));
         temp.setIsDelete(result.getInt("isDelete"));
         temp.setTitle(result.getString("title"));
+        temp.setUserAccess(result.getString("userAccess"));
+        temp.setGroupAccess(result.getString("groupAccess"));
         temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
         DB.closeCon();
         return temp;
     }
     
-    public String editSection(String id, String title, String parentId)  throws SQLException{ 
-        DB.runQuery("UPDATE sections SET title='"+title+"', parentId='"+parentId+"' WHERE id='"+id+"'");
+    public String editSection(String id, String title, String parentId, String users, String groups)  throws SQLException{ 
+        DB.runQuery("UPDATE sections SET title='"+title+"', parentId='"+parentId+"', userAccess='"+users+"', groupAccess='"+groups+"' WHERE id='"+id+"'");
         DB.closeCon();
         return "done";
     }

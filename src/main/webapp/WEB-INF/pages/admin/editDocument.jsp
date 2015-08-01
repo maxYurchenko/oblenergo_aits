@@ -176,23 +176,23 @@
                     <hr>
                 </div>
             </div>
+            </form>
                                                 <input type="hidden" name="uploader" class="form-control" id="uploader" value="${document.uploader}">
-            
+            <!--
                                     <div class="row add-row file">
                                         
-						<div class="col-md-4">
-                                                    <div>
-                                                        <label class="greenText" for="img">Файл документа<span class="red-star">*</span></label>
-                                                    
-                                                        <div id="route-upload-block">
-                                                                <input class="displayNone" id="fileInput" type="file" multiple/>
-                        <input onclick="chooseFile()" class="btn btn-success btn-mini marginTop" value="Обрати файл" type="button">
-                                                        </div>
-                                                <label class="displayNone text-danger" id="fileInputValidation">Файл не додано</label>
+						<div class="col-md-12">
+                                                    <label class="greenText" for="img">Файл документа<span class="red-star">*</span></label>
+                                                    <div class="dropbox">
+                            <form action="${Constants.URL}uploadfile" class="dropzone" id="my-awesome-dropzone">
+                                <input type="hidden" name="path" value="${folder}/files" />
+                                <input type="file" name="file" style="display:none" />
+                            </form>
                                                     </div>
                                                 </div>
                                     </div>
                                                 <hr>
+                                        -->
                         <div class="row marginBot">
                             <div class="col-md-2">
                         <input onclick="validate()" class="btn btn-success btn-mini" value="Редагувати документ" type="button">
@@ -202,36 +202,23 @@
                         <a class="btn btn-danger btn-mini" href="${Constants.URL}admin">Повернутись до списку</a>
                             </div>
                         </div>
-            </form>
             
             </div>
     </body>
 </t:mainHeader>
 <script>
-$('.file').on('change', '#fileInput', function() {
-        $(".load-route").show();
-        $('#uploader').val("${user.name}");
-        var data = new FormData();
-        data.append('upload', jQuery('#fileInput')[0].files[0]);
-        jQuery.ajax({
-                    url: '${Constants.URL}uploadFile',
-                    data: data,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    type: 'POST',
-                    success: function(data){
-                        $("#fullname-route").val(data);
-                        $("<span class='upload-success'>Uploaded! <span class='route-name'>("+data+")</span> </span>").appendTo("#route-upload-block");
-                        $("#route-upload-block .btn-file").hide();
-                        $('#file').val('files/'+data);
-                    }
-                    });
-});
     $( document ).ready(function() {
+            /*$("#my-awesome-dropzone").dropzone({ 
+                success: function(file){
+                    var temp = file.name.split(".");
+                    file.name = "files/${document.id}"+temp[1];
+                    $('#file').val("files/${document.id}."+temp[1]);
+                },
+                url: "${Constants.URL}uploadFile",
+                addRemoveLinks: true
+            });*/
         var type = "";
         $('.typeCheckbox').each(function(){
-            console.log();
             if("${document.type}".indexOf($(this).find('input').val())!=-1)
             {
                 type += $(this).find('input').val() + ',';
@@ -257,21 +244,6 @@ $('.file').on('change', '#fileInput', function() {
 
         today = dd+'/'+mm+'/'+yyyy;
         $( "#date" ).val(today);
-        $("[name='my-checkbox']").bootstrapSwitch();
-        $('.selectpicker').selectpicker();
-        $('#table-pagination').DataTable();
-        $('#table-pagination_paginate').click(function(){
-            $("[name='my-checkbox']").bootstrapSwitch();
-        });
-        $('#table-pagination').click(function(){
-            $("[name='my-checkbox']").bootstrapSwitch();
-        });
-        $('.dataTables_wrapper').change(function() {
-            $("[name='my-checkbox']").bootstrapSwitch();
-        });
-        $('.dataTables_filter').on('input', function() {
-            $("[name='my-checkbox']").bootstrapSwitch();
-        });
         $('.publishCheckboxBlock').on('switchChange.bootstrapSwitch', function(event, state) {
             var isDelete = 0;
             if(state) {
@@ -435,6 +407,6 @@ $('.file').on('change', '#fileInput', function() {
                     submit = false;
                 }
                 if(submit)
-                    $('#sudmitData').click();
+                    $('#addDocument').submit();
             }
 </script>

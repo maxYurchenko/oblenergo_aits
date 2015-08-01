@@ -148,6 +148,8 @@ public class AdminContontroller {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/addSection");
                 modelAndView.addObject("sections", helper.getSortedSections("0"));
+                modelAndView.addObject("users", user.getAllUsers());
+                modelAndView.addObject("groups", userGroup.getAllGroups());
                 return modelAndView;
 	}
     @RequestMapping(value = {"/admin/editSection/{id}"}, method = RequestMethod.GET)
@@ -157,6 +159,8 @@ public class AdminContontroller {
                 ModelAndView modelAndView = new ModelAndView("admin/editSection");
                 modelAndView.addObject("section", section.getOneSection(id));
                 modelAndView.addObject("sections", helper.getSortedSections("0"));
+                modelAndView.addObject("users", user.getAllUsers());
+                modelAndView.addObject("groups", userGroup.getAllGroups());
                 return modelAndView;
 	}
     @RequestMapping(value = {"/admin/editDocument/{id}"}, method = RequestMethod.GET)
@@ -182,7 +186,9 @@ public class AdminContontroller {
         request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("sectionName");
         String parentId = request.getParameter("sectionParentId");
-        String result = section.addSection(title, parentId);
+        String userAccess = request.getParameter("accessHidden");
+        String groupAccess = request.getParameter("accessGroupHidden");
+        String result = section.addSection(title, parentId, userAccess, groupAccess);
          return new ModelAndView("redirect:" + "/admin/sections");
     }
     @RequestMapping(value = "/admin/editsection.do", method = RequestMethod.POST)
@@ -191,7 +197,9 @@ public class AdminContontroller {
         String id = request.getParameter("sectionId");
         String title = request.getParameter("sectionName");
         String parentId = request.getParameter("sectionParentId");
-        String result = section.editSection(id, title, parentId);
+        String userAccess = request.getParameter("accessHidden");
+        String groupAccess = request.getParameter("accessGroupHidden");
+        String result = section.editSection(id, title, parentId, userAccess, groupAccess);
         return new ModelAndView("redirect:" + "/admin/sections");
     }
     @RequestMapping(value = {"/admin/userGroups"}, method = RequestMethod.GET)

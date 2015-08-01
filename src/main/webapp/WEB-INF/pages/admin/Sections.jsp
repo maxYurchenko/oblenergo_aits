@@ -36,6 +36,8 @@
                         <tr class="tableHeader">
                             <th>Ім’я</th>
                             <th>Головна категорія</th>
+                            <th>Доступ користувачам</th>
+                            <th>Доступ групам</th>
                             <th style="width:20px;"></th>
                             <th style="width:20px;"></th>
                         </tr>
@@ -44,6 +46,8 @@
                         <tr class="tableHeader">
                             <th>Ім’я</th>
                             <th>Головна категорія</th>
+                            <th>Доступ користувачам</th>
+                            <th>Доступ групам</th>
                             <th style="width:20px;"></th>
                             <th style="width:20px;"></th>
                         </tr>
@@ -63,6 +67,8 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </th>
+                                    <th>${section.users}</th>
+                                    <th>${section.groups}</th>
                                     <th style="width:20px;"><a href="${Constants.URL}admin/editSection/${section.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                     <th style="width:20px;"><a onclick="deleteSection('${section.id}')" href="#"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
                                 </tr>

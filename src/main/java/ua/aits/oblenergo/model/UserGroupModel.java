@@ -120,4 +120,12 @@ public class UserGroupModel {
         DB.closeCon();
         return temp;
     }
+    
+    public static String getGroupTitle(String id)  throws SQLException{ 
+        ResultSet result = DB.getResultSet("select * from userGroups WHERE id='"+id+"';");
+        result.first();
+        String name = result.getString("title");
+        DB.closeCon();
+        return name;
+    }
 }

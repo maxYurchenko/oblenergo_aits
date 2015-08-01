@@ -44,12 +44,26 @@ public class AjaxController {
         documentList = document.getDocumentRow(request.getParameter("id"));
         List<UserGroupModel> userGroups = new LinkedList<>();
         userGroups = userGroup.getAllGroups();
+        SectionModel currentSection = new SectionModel();
+        currentSection = section.getOneSection(request.getParameter("id"));
+        String[] sectionAllowedUsers = currentSection.userAccess.split(",");
+        String[] sectionAllowedGroups = currentSection.groupAccess.split(",");
+        Boolean isUserAllowedForSection = false;
+        Boolean isGroupAllowedForSection = false;
         List<String> groupArray = new LinkedList<>();
         for(UserGroupModel group : userGroups) {
             String[] userIds = group.userId.split(",");
             if(Arrays.asList(userIds).contains(request.getParameter("userId")))
+            {
                 groupArray.add(group.id.toString());
+                if(!sectionAllowedGroups[0].equals(""))
+                    for(String str : sectionAllowedGroups)
+                        if(group.id==Integer.parseInt(str))
+                            isGroupAllowedForSection = true;
+            }
         }
+        isUserAllowedForSection = Arrays.asList(sectionAllowedUsers).contains(request.getParameter("userId"));
+        Boolean isAdmin = !request.getParameter("userRole").equals("0");
         String html = "<table id=\"table-pagination\" class=\"table table-striped table-bordered\" style=\"width:100%; \">\n" +
 "                                <thead>"
                 + "<tr class=\"tableHeader\">\n" +
@@ -62,30 +76,31 @@ public class AjaxController {
                 +"</thead><tfoot>"
                 + "<tr><th style='width=\"width:130px\"'>Номер документа</td><th>Назва документа</td><th>Тип документа</td><th class='tableDate' style='width=\"width:50px\"'>Дата</td><th style='width=\"width:100px\"'></td></tr>"
                 +"</tfoot><tbody>";
-        for(DocumentModel tempDocs : documentList) {
-            String clas = "";
-            if(tempDocs.valid==0){
-                clas = "inValidDoc";
-            }
-            Boolean c = false;
-            String[] accessList = tempDocs.access.split(",");
-            String[] acessGroupList = tempDocs.accessGroup.split(",");
-            for(String temp : groupArray) {
-                if(Arrays.asList(acessGroupList).contains(temp))
-                   c = true; 
-            }
-            Boolean a = Arrays.asList(accessList).contains(request.getParameter("userId"));
-            Boolean b = !request.getParameter("userRole").equals("0");
-            if(a||b||c){
-                if(tempDocs.isDelete!=1){
-                    html = html +
-                            "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
-                                "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.clientId+"</td>\n"+
-                                "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</td>\n"+
-                                "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.type+"</td>\n"+	
-                                "<td class='tableDate' onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.date.replace("/", ".")+"</td>\n"+
-                                "<td class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'>"+tempDocs.path.substring(6, tempDocs.path.length())+"</a></td>\n"+
-                            "</tr>\n";
+        if(isGroupAllowedForSection||isAdmin||isUserAllowedForSection){
+            for(DocumentModel tempDocs : documentList) {
+                String clas = "";
+                if(tempDocs.valid==0){
+                    clas = "inValidDoc";
+                }
+                Boolean isAllowedByGroup = false;
+                String[] accessList = tempDocs.access.split(",");
+                String[] acessGroupList = tempDocs.accessGroup.split(",");
+                for(String temp : groupArray) {
+                    if(Arrays.asList(acessGroupList).contains(temp))
+                       isAllowedByGroup = true; 
+                }
+                Boolean isAllowedByID = Arrays.asList(accessList).contains(request.getParameter("userId"));
+                if(isAllowedByID||isAdmin||isAllowedByGroup){
+                    if(tempDocs.isDelete!=1){
+                        html = html +
+                                "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
+                                    "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.clientId+"</td>\n"+
+                                    "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</td>\n"+
+                                    "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.type+"</td>\n"+	
+                                    "<td class='tableDate' onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.date.replace("/", ".")+"</td>\n"+
+                                    "<td class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'>"+tempDocs.path.substring(6, tempDocs.path.length())+"</a></td>\n"+
+                                "</tr>\n";
+                    }
                 }
             }
         }
@@ -164,6 +179,14 @@ public class AjaxController {
         else {
             return "false";
         }
+    }
+        
+    @RequestMapping(value = {"/nextAI"}, method = RequestMethod.GET)
+    public @ResponseBody
+    String nextAI(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        String temp = document.getNextAI().toString();
+        return temp;
     }
         
     @RequestMapping(value = {"/checkGroupName/", "/checkGroupName"}, method = RequestMethod.GET)
