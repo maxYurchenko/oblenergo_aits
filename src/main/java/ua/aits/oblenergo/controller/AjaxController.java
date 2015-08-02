@@ -76,7 +76,7 @@ public class AjaxController {
                 +"</thead><tfoot>"
                 + "<tr><th style='width=\"width:130px\"'>Номер документа</td><th>Назва документа</td><th>Тип документа</td><th class='tableDate' style='width=\"width:50px\"'>Дата</td><th style='width=\"width:100px\"'></td></tr>"
                 +"</tfoot><tbody>";
-        if(isGroupAllowedForSection||isAdmin||isUserAllowedForSection){
+        //if(isGroupAllowedForSection||isAdmin||isUserAllowedForSection){
             for(DocumentModel tempDocs : documentList) {
                 String clas = "";
                 if(tempDocs.valid==0){
@@ -90,7 +90,7 @@ public class AjaxController {
                        isAllowedByGroup = true; 
                 }
                 Boolean isAllowedByID = Arrays.asList(accessList).contains(request.getParameter("userId"));
-                if(isAllowedByID||isAdmin||isAllowedByGroup){
+                if(isAllowedByID||isAdmin||isAllowedByGroup||isGroupAllowedForSection||isUserAllowedForSection){
                     if(tempDocs.isDelete!=1){
                         html = html +
                                 "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
@@ -103,7 +103,7 @@ public class AjaxController {
                     }
                 }
             }
-        }
+        //}
         html = html + "</tbody></table>";
         DB.closeCon();
         response.setCharacterEncoding("UTF-8");
