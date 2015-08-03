@@ -35,6 +35,7 @@
                                                 <input type="password" name="password" class="form-control" id="password">
                                                 <label class="displayNone text-danger" id="passValidation">Неправильно заповнене поле</label>
                                               </div>
+                                                <input type="hidden" name="role" class="form-control" id="role">
                </div>
 <hr>
                <div class="row marginTop">
@@ -47,13 +48,17 @@
 <hr>
                <div class="row marginTop">
                                                     <div class="col-md-4">
-                                                <label class="greenText">Роль користувача:<span class="red-star">*</span></label>
-                                                <select id="role" name="role" class="selectpicker">
-                                                    <option selected="true" disabled="disabled">Оберіть роль</option>  
-                                                    <option value="0">Користувач</option>
-                                                    <option value="1">Редактор</option>
-                                                    <option value="2">Адміністратор</option>
-                                                </select>
+                                                        <label class="greenText">Роль користувача:<span class="red-star">*</span></label><br>
+                                                
+    <label class="radio-inline">
+      <input id="defaultRole" type="radio" value="0" name="optradio">Користувач
+    </label>
+    <label class="radio-inline">
+      <input type="radio" value="1" name="optradio">Редактор
+    </label>
+    <label class="radio-inline">
+        <input type="radio" value="2" name="optradio">Адміністратор
+    </label>
                                               </div>
                </div>
 <hr>
@@ -72,6 +77,12 @@
         $( document ).ready(function() {
             $('#usersPage').css('background','#14A86B');
             $('.selectpicker').selectpicker();
+            setTimeout(function(){
+                $('#defaultRole').click();
+            }, 100);
+            $('.radio-inline').click(function(){
+                $('#role').val($(this).find('input').val());
+            });
         });
         function validate(){
             var submit = true;

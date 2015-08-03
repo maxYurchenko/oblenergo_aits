@@ -217,6 +217,7 @@
                 url: "${Constants.URL}uploadFile",
                 addRemoveLinks: true
             });*/
+            $('.selectpicker').selectpicker();
         var type = "";
         $('.typeCheckbox').each(function(){
             if("${document.type}".indexOf($(this).find('input').val())!=-1)
@@ -225,11 +226,12 @@
                 $(this).find('input').prop('checked', true);
             }
         });
+        $("span:contains('${document.parentName}')").click();
         type = type.substring(0, type.length - 1);
         $('#documentType').val(type);
         
         $('#docsPage').css('background','#14A86B');
-        var today = new Date();
+        /*var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
         var yyyy = today.getFullYear();
@@ -244,6 +246,7 @@
 
         today = dd+'/'+mm+'/'+yyyy;
         $( "#date" ).val(today);
+        */
         $('.publishCheckboxBlock').on('switchChange.bootstrapSwitch', function(event, state) {
             var isDelete = 0;
             if(state) {

@@ -90,7 +90,9 @@ public class AjaxController {
                        isAllowedByGroup = true; 
                 }
                 Boolean isAllowedByID = Arrays.asList(accessList).contains(request.getParameter("userId"));
-                if(isAllowedByID||isAdmin||isAllowedByGroup||isGroupAllowedForSection||isUserAllowedForSection){
+                Boolean showDoc = false;
+                showDoc = isAllowedByID||isAdmin||isAllowedByGroup||isGroupAllowedForSection||isUserAllowedForSection;
+                if(showDoc){
                     if(tempDocs.isDelete!=1){
                         html = html +
                                 "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+

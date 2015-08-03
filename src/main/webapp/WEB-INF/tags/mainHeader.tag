@@ -56,11 +56,11 @@
 			<div class="login">
             <div class="adminLinks">
                 <a id="indexPage" href="${Constants.URL}index">Список документів</a>
-                <c:if test="${user.role > 0}">
+                <c:if test="${sessionScope.user.role > 0}">
                     <a id="docsPage" href="${Constants.URL}admin">Редактор документів</a>
                     <a id="sectionsPage" href="${Constants.URL}admin/sections">Редактор розділів</a>
                 </c:if>
-                <c:if test="${user.role == 2}">
+                <c:if test="${sessionScope.user.role == 2}">
                     <a id="usersPage" href="${Constants.URL}admin/users">Редактор користувачів</a>
                     <a id="groupsPage" href="${Constants.URL}admin/userGroups">Редактор груп</a>
                 </c:if>
