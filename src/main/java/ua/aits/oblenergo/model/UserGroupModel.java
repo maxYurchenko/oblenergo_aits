@@ -123,8 +123,11 @@ public class UserGroupModel {
     
     public static String getGroupTitle(String id)  throws SQLException{ 
         ResultSet result = DB.getResultSet("select * from userGroups WHERE id='"+id+"';");
-        result.first();
-        String name = result.getString("title");
+        String name = "";
+        try{
+            result.first();
+            name = result.getString("title");
+        }catch(Exception e){}
         DB.closeCon();
         return name;
     }

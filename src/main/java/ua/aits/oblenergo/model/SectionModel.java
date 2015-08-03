@@ -124,18 +124,28 @@ public class SectionModel {
                 String[] temporary = temp.userAccess.split(",");
                 String names = "";
                 for(String str : temporary) {
-                    names += UserModel.getUsersName(str) + ", ";
+                    try{
+                        names += UserModel.getUsersName(str) + ", ";
+                    }catch(Exception e){}
                 }
-                names = names.substring(0, names.length()-2);
+                try{
+                    names = names.substring(0, names.length()-2);
+                }catch(Exception e){}
+                names = names.replace(", ,", ", ");
                 temp.setUsers(names);
             }
             if(!temp.groupAccess.equals("")){
                 String[] temporary = temp.groupAccess.split(",");
                 String title = "";
                 for(String str : temporary) {
-                    title += UserGroupModel.getGroupTitle(str) + ", ";
+                    try{
+                        title += UserGroupModel.getGroupTitle(str) + ", ";
+                    }catch(Exception e){}
                 }
-                title = title.substring(0, title.length()-2);
+                try{
+                    title = title.substring(0, title.length()-2);
+                }catch(Exception e){}
+                title = title.replace(", ,", ", ");
                 temp.setGroups(title);
             }
             sections.add(temp);
