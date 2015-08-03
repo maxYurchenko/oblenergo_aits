@@ -163,8 +163,12 @@ public class UserModel {
     
     public static String getUsersName(String id)  throws SQLException{ 
         ResultSet result = DB.getResultSet("select * from users WHERE id='"+id+"';");
-        result.first();
-        String name = result.getString("name");
+        String name = "";
+        try{
+            result.first();
+            name = result.getString("name");
+        }catch (Exception e){
+        }
         DB.closeCon();
         return name;
     }
