@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import ua.aits.oblenergo.functions.DB;
+import ua.aits.oblenergo.functions.Helpers;
 import ua.aits.oblenergo.model.SectionModel;
 import ua.aits.oblenergo.model.UserModel;
 
@@ -108,7 +109,7 @@ public class SectionModel {
     }
     public DocumentModel Documents = new DocumentModel();
     
-    public List<SectionModel> getAllSections() throws SQLException{
+    public List<SectionModel> getAllSections() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
         ResultSet result = DB.getResultSet("SELECT * FROM sections WHERE isDelete<>1;");
         List<SectionModel> sections = new LinkedList<>();
         while (result.next()) { 
@@ -128,10 +129,7 @@ public class SectionModel {
                         names += UserModel.getUsersName(str) + ", ";
                     }catch(Exception e){}
                 }
-                try{
-                    names = names.substring(0, names.length()-2);
-                }catch(Exception e){}
-                names = names.replace(", ,", ", ");
+                names = Helpers.removeComas(names);
                 temp.setUsers(names);
             }
             if(!temp.groupAccess.equals("")){
@@ -142,10 +140,7 @@ public class SectionModel {
                         title += UserGroupModel.getGroupTitle(str) + ", ";
                     }catch(Exception e){}
                 }
-                try{
-                    title = title.substring(0, title.length()-2);
-                }catch(Exception e){}
-                title = title.replace(", ,", ", ");
+                title = Helpers.removeComas(title);
                 temp.setGroups(title);
             }
             sections.add(temp);

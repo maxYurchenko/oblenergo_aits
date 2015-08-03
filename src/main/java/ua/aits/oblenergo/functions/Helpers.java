@@ -51,4 +51,12 @@ public class Helpers {
         }
         return tempSection;
     }
+    public static String removeComas(String name)throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        name = name.replace(", ,", ", ");
+        if(name.substring(0, 2).equals(", ")){
+            name = name.substring(2, name.length()-2);
+        }
+        name = name.substring(0, name.length()-2);
+        return name;
+    }
 }

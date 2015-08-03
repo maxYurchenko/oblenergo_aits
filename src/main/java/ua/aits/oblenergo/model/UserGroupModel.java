@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import ua.aits.oblenergo.functions.DB;
+import ua.aits.oblenergo.functions.Helpers;
 
 /**
  *
@@ -62,7 +63,7 @@ public class UserGroupModel {
         return temp.toString();
     }
     
-    public List<UserGroupModel> getAllGroups()  throws SQLException{ 
+    public List<UserGroupModel> getAllGroups()  throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{ 
         List<UserGroupModel> groupList = new LinkedList();
         ResultSet result = DB.getResultSet("select * from userGroups;");
         while (result.next()) { 
@@ -76,7 +77,7 @@ public class UserGroupModel {
                 for(String str : temporary) {
                     names += UserModel.getUsersName(str) + ", ";
                 }
-                names = names.substring(0, names.length()-2);
+                names = Helpers.removeComas(names);
                 temp.setUsers(names);
             }
             groupList.add(temp);
