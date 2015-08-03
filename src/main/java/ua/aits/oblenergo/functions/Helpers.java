@@ -53,11 +53,13 @@ public class Helpers {
     }
     public static String removeComas(String name)throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try{
-        name = name.replace(", ,", ", ");
-        if(name.substring(0, 2).equals(", ")){
-            name = name.substring(2, name.length()-2);
-        }
-        name = name.substring(0, name.length()-2);
+            name = name.replace(", ,", ", ");
+            if(name.substring(0, 2).equals(", ")){
+                name = name.substring(2, name.length()-2);
+            }
+            if(name.substring(name.length()-2, name.length()).equals(", ")){
+                name = name.substring(0, name.length()-2);
+            }
         }catch(Exception e){}
         return name;
     }
