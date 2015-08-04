@@ -23,6 +23,15 @@ public class UserModel {
     public String description;
     public Integer role;
     public Integer groupAccess;
+    public String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public Integer getGroupAccess() {
         return groupAccess;
@@ -82,6 +91,7 @@ public class UserModel {
             temp.setRole(result.getInt("role"));
             temp.setGroupAccess(result.getInt("groupId"));
             temp.setDescription(result.getString("description"));
+            temp.setFullName(result.getString("fullName"));
         }
         return temp;
     }
@@ -95,6 +105,7 @@ public class UserModel {
             temp.setRole(result.getInt("role"));
             temp.setGroupAccess(result.getInt("groupId"));
             temp.setDescription(result.getString("description"));
+            temp.setFullName(result.getString("fullName"));
             temp.setId(Integer.parseInt(id));
         }
         return temp;
@@ -110,8 +121,8 @@ public class UserModel {
         return result.isBeforeFirst();
     }
     
-    public String addUser(String username, String password, String role, String descr) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-         DB.runQuery("INSERT INTO users (name, pass, description, role) values ('"+username+"', '"+password+"', '"+descr+"', "+role+");");
+    public String addUser(String username, String password, String role, String descr, String fullName) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+         DB.runQuery("INSERT INTO users (name, pass, description, role, fullName) values ('"+username+"', '"+password+"', '"+descr+"', "+role+", "+fullName+");");
          return "done";
     }
     
@@ -125,6 +136,7 @@ public class UserModel {
             temp.setRole(result.getInt("role"));
             temp.setGroupAccess(result.getInt("groupId"));
             temp.setDescription(result.getString("description"));
+            temp.setFullName(result.getString("fullName"));
             usersList.add(temp);
         } 
         DB.closeCon();
@@ -137,8 +149,8 @@ public class UserModel {
         return "done";
     }
     
-    public String editUser(String id, String name, String description, String role, String pass)  throws SQLException{ 
-        DB.runQuery("UPDATE users SET name='"+name+"', pass='"+pass+"', description = '"+description+"', role = '"+role+"' WHERE id='"+id+"'");
+    public String editUser(String id, String name, String description, String role, String pass, String fullName)  throws SQLException{ 
+        DB.runQuery("UPDATE users SET name='"+name+"', pass='"+pass+"', description = '"+description+"', role = '"+role+"', fullName = '"+fullName+"' WHERE id='"+id+"'");
         DB.closeCon();
         return "done";
     }
@@ -185,7 +197,7 @@ public class UserModel {
         while (result.next()) { 
             counter++;
         }
-        if(counter>0){
+        if(counter>1){
             return "false";
         }else{
             return "true";

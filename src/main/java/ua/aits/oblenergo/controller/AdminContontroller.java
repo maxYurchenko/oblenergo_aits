@@ -22,6 +22,7 @@ import ua.aits.oblenergo.model.DocumentModel;
 import ua.aits.oblenergo.model.SectionModel;
 import ua.aits.oblenergo.model.UserGroupModel;
 import ua.aits.oblenergo.model.UserModel;
+import ua.aits.oblenergo.model.typeModel;
 
 /**
  *
@@ -34,6 +35,7 @@ public class AdminContontroller {
     SectionModel section = new SectionModel();
     UserGroupModel userGroup = new UserGroupModel();
     Helpers helper = new Helpers();
+    typeModel type = new typeModel();
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     protected ModelAndView admin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -54,6 +56,7 @@ public class AdminContontroller {
                 modelAndView.addObject("documents", document.getAllDocuments());
                 modelAndView.addObject("users", user.getAllUsers());
                 modelAndView.addObject("groups", userGroup.getAllGroups());
+                modelAndView.addObject("types", type.getAllTypes());
                  return modelAndView;
 	}
     @RequestMapping(value = {"/admin/users"}, method = RequestMethod.GET)
@@ -87,7 +90,8 @@ public class AdminContontroller {
         String password = request.getParameter("password");
         String descr = request.getParameter("descr");
         String role = request.getParameter("role");
-        String result = user.addUser(username, password, role, descr);
+        String fullName = request.getParameter("fullName");
+        String result = user.addUser(username, password, role, descr, fullName);
          return new ModelAndView("redirect:" + "/admin/users");
     }
     @RequestMapping(value = "/admin/edituser.do", method = RequestMethod.POST)
@@ -98,7 +102,8 @@ public class AdminContontroller {
         String password = request.getParameter("password");
         String descr = request.getParameter("descr");
         String role = request.getParameter("role");
-        String result = user.editUser(id, username, descr, role, password);
+        String fullName = request.getParameter("fullName");
+        String result = user.editUser(id, username, descr, role, password, fullName);
          return new ModelAndView("redirect:" + "/admin/users");
     }
     @RequestMapping(value = "/admin/addDocument.do", method = RequestMethod.POST)
@@ -114,7 +119,8 @@ public class AdminContontroller {
         String access = request.getParameter("accessHidden");
         String accessGroup = request.getParameter("accessGroupHidden");
         String type = request.getParameter("documentType");
-        String result = document.addDocument(id, title, section, date, file, isValid, uploader, access, accessGroup, type);
+        String tags = request.getParameter("documentTags");
+        String result = document.addDocument(id, title, section, date, file, isValid, uploader, access, accessGroup, type, tags);
         return new ModelAndView("redirect:" + "/admin");
     }
     @RequestMapping(value = "/admin/editDocument.do", method = RequestMethod.POST)
@@ -131,7 +137,8 @@ public class AdminContontroller {
         String access = request.getParameter("accessHidden");
         String groups = request.getParameter("accessGroupHidden");
         String type = request.getParameter("documentType");
-        String result = document.editDocument(id, clientId, title, section, date, file, isValid, uploader, access, groups, type);
+        String tags = request.getParameter("documentTags");
+        String result = document.editDocument(id, clientId, title, section, date, file, isValid, uploader, access, groups, type, tags);
         return new ModelAndView("redirect:" + "/admin");
     }
     @RequestMapping(value = {"/admin/sections"}, method = RequestMethod.GET)
@@ -172,6 +179,7 @@ public class AdminContontroller {
                 modelAndView.addObject("sections", helper.getSortedSections("0"));
                 modelAndView.addObject("document", document.getOneDocument(id));
                 modelAndView.addObject("groups", userGroup.getAllGroups());
+                modelAndView.addObject("types", type.getAllTypes());
                 return modelAndView;
 	}
     @RequestMapping(value = {"/admin/deleteSection/{id}"}, method = RequestMethod.GET)
@@ -255,6 +263,53 @@ public class AdminContontroller {
         String access = request.getParameter("accessHidden");
         userGroup.editGroup(id, title, access);
         return new ModelAndView("redirect:" + "/admin/userGroups");
+    }
+    @RequestMapping(value = {"/admin/types"}, method = RequestMethod.GET)
+    protected ModelAndView types(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
+                ModelAndView modelAndView = new ModelAndView("admin/types");
+                modelAndView.addObject("types", type.getAllTypes());
+                return modelAndView;
+	}
+    @RequestMapping(value = {"/admin/editType/{id}"}, method = RequestMethod.GET)
+    protected ModelAndView editType(HttpServletRequest request,@PathVariable("id") String id,
+			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
+                ModelAndView modelAndView = new ModelAndView("admin/editType");
+                modelAndView.addObject("type", type.getOneType(id));
+                return modelAndView;
+	}
+    @RequestMapping(value = {"/admin/addType"}, method = RequestMethod.GET)
+    protected ModelAndView addType(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
+                ModelAndView modelAndView = new ModelAndView("admin/addType");
+                return modelAndView;
+	}
+    @RequestMapping(value = {"/admin/addType.do"}, method = RequestMethod.POST)
+    protected ModelAndView doAddType(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
+                String title = request.getParameter("title");
+                type.addType(title);
+                return new ModelAndView("redirect:" + "/admin/types");
+	}
+    @RequestMapping(value = {"/admin/deleteType/{id}"}, method = RequestMethod.GET)
+    protected ModelAndView deleteType(HttpServletRequest request,@PathVariable("id") String id,
+			HttpServletResponse response) throws Exception {
+                request.setCharacterEncoding("UTF-8");
+                ModelAndView modelAndView = new ModelAndView("admin/deleteType");
+                type.deleteType(id);
+        return new ModelAndView("redirect:" + "/admin/types");
+	}
+    @RequestMapping(value = "/admin/editType.do", method = RequestMethod.POST)
+    public ModelAndView doEditType(HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedEncodingException {
+        request.setCharacterEncoding("UTF-8");
+        String id = request.getParameter("id");
+        String title = request.getParameter("title");
+        type.editType(id, title);
+        return new ModelAndView("redirect:" + "/admin/types");
     }
     
     @RequestMapping(value = {"/logout","/logout/"})

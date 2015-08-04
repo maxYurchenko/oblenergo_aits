@@ -47,9 +47,10 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
+                                    <li><input type="checkbox" id="groupChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</li>
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
-                                            <li><input type="checkbox" value="${user.id}" />${user.name}</li>
+                                            <li><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -72,6 +73,7 @@
     </body>
     <script>
         $( document ).ready(function() {
+            $('#groupChooseAll').click();
             $('#groupsPage').css('background','#14A86B');
             $('.selectpicker').selectpicker();
         });
@@ -150,5 +152,10 @@
             if('${document.access}'.indexOf($(this).find('input').val())!=-1)
                 $(this).find('input').click();
         });
+            function chooseAllUsers(){
+                $('.userCheckBoxes').each(function(){
+                    $(this).click();
+                });
+            }
     </script>
 </t:mainHeader>

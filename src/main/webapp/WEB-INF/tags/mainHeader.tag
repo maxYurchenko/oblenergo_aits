@@ -28,7 +28,7 @@
         <script type="text/javascript" src="${Constants.URL}js/dropzone.js"></script>
         <link rel="stylesheet" href="${Constants.URL}css/jquery.splitter.css">
         <link href="${Constants.URL}img/icon.ico" rel="shortcut icon" type="image/x-icon" />
-        <title>Document Flow</title>
+        <title>Бібліотека ПАТ «Закарпаттяобленерго»</title>
         <meta charset="UTF-8">
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         
@@ -63,6 +63,7 @@
                 <c:if test="${sessionScope.user.role == 2}">
                     <a id="usersPage" href="${Constants.URL}admin/users">Редактор користувачів</a>
                     <a id="groupsPage" href="${Constants.URL}admin/userGroups">Редактор груп</a>
+                    <a id="typesPage" href="${Constants.URL}admin/types">Редактор типів</a>
                 </c:if>
             </div>
                         </div>

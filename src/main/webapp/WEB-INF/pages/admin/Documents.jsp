@@ -25,12 +25,13 @@
                                     <th>Назва</th>
                                     <th>Розділ</th>
                                     <th style="width: 50px;">Дата</th>
-                                    <th>Завантажити</th>
-                                    <th></th>
+                                    <th>Ключові слова</th>
+                                    <th><img style="width: 20px;" src="${Constants.URL}img/dl.png"></th>
+                                    <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
-                                        <th style="width: 58px;">Видалити</th>
+                                        <th style="width: 60px;">Відображати</th>
                                     </c:if>
-                                    <th>Дійсний</th>
+                                    <th style="width: 60px;">Дійсний</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -39,10 +40,11 @@
                                     <th>Назва</th>
                                     <th>Розділ</th>
                                     <th style="width: 50px;">Дата</th>
-                                    <th>Завантажити</th>
-                                    <th></th>
+                                    <th>Ключові слова</th>
+                                    <th style="width: 25px;"></th>
+                                    <th style="width: 70px;"></th>
                                     <c:if test="${user.role == 2}">
-                                        <th style="width: 58px;"></th>
+                                        <th style="width: 70px;"></th>
                                     </c:if>
                                     <th></th>
                                 </tr>
@@ -55,11 +57,12 @@
                                             <th>${document.title}</th>
                                             <th>${document.parentName}</th>
                                             <th>${document.date}</th>
-                                            <th><a class="cutLink" target='_blank' download href="${Constants.URL}${document.path}">${document.path}</a></th>
+                                            <th>${document.tags}</th>
+                                            <th><a target='_blank' download href="${Constants.URL}${document.path}"><img style="width: 20px;" src="${Constants.URL}img/dl.png"></a></th>
                                             <th><a href="${Constants.URL}admin/editDocument/${document.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                             <c:if test="${user.role == 2}">
-                                                <th class="publishCheckboxBlock" id="publishCheckboxBlock${document.id}" 
-                                                    style="width: 58px;" value="${document.id}">
+                                                <th class="publishCheckboxBlock text-center invisibleText" id="publishCheckboxBlock${document.id}" 
+                                                    style="width: 70px;" value="${document.id}">${document.isDelete}
                                                     <c:choose>
                                                         <c:when test="${document.isDelete == 1}">
                                                             <input type="checkbox" name="my-checkbox" id="deleteCheckBox${document.id}">
@@ -72,8 +75,8 @@
                                                 </th>
                                             </c:if>
                                             <c:if test="${user.role == 2}">
-                                                <th class="validCheckboxBlock" id="validCheckboxBlock${document.id}" 
-                                                    style="width: 58px;" value="${document.id}">
+                                                <th class="validCheckboxBlock invisibleText text-center" id="validCheckboxBlock${document.id}" 
+                                                    style="width: 70px;" value="${document.id}">${document.valid}
                                                     <c:choose>
                                                         <c:when test="${document.valid == 0}">
                                                             <input type="checkbox" name="my-checkbox" id="validCheckBox${document.id}">

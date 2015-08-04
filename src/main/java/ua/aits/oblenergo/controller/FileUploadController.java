@@ -53,4 +53,31 @@ public class FileUploadController {
                     + " because the file was empty.";
         }
     }
+    
+    @RequestMapping(value = "/editFile", method = RequestMethod.POST)
+    public @ResponseBody
+    String editFileHandler(@RequestParam("file") MultipartFile file,@RequestParam("path") String path, HttpServletRequest request) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        String tempName = file.getOriginalFilename();
+        String[] nameArr = tempName.split("\\.");
+        String name = path+"."+nameArr[1];
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                File dir = new File(Constants.FILE_URL);
+                
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + name);
+                try (BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile))) {
+                    stream.write(bytes);
+                }
+                return name;
+            } catch (Exception e) {
+                return "You failed to upload " + name + " => " + e.getMessage();
+            }
+        } else {
+            return "You failed to upload " + name
+                    + " because the file was empty.";
+        }
+    }
 }

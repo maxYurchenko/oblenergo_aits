@@ -81,9 +81,10 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
+                                    <li><input type="checkbox" id="groupChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</li>
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
-                                            <li><input type="checkbox" value="${user.id}" />${user.name}</li>
+                                            <li><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -106,8 +107,9 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
+                                    <li><input type="checkbox" id="groupChooseAll" onclick="chooseAllGroups()" value="" />Обрати всіх</li>
                                     <c:forEach items="${groups}" var="group">
-                                        <li><input type="checkbox" value="${group.id}" />${group.title}</li>
+                                        <li><input class="groupCheckboxes" type="checkbox" value="${group.id}" />${group.title}</li>
                                     </c:forEach>
                                 </ul>
                             </div>
@@ -123,58 +125,29 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div  class="col-md-4">
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Правило"> Правило
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Наказ"> Наказ
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Типовий договір"> Типовий договір
-                                </label>
-                            </div>
-                        </div>
-                        <div  class="col-md-4">
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Закон"> Закон
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Розпорядження"> Розпорядження
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Додаток"> Додаток
-                                </label>
-                            </div>
-                        </div>
-                        <div  class="col-md-4">
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Службова записка"> Службова записка
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Роз’яснення"> Роз’яснення
-                                </label>
-                            </div>
-                        </div>
+            <c:forEach items="${types}" var="type">
+                <div  class="col-md-4">
+                    <div class="checkbox typeCheckbox">
+                        <label>
+                            <input type="checkbox" value="${type.title}"> ${type.title}
+                        </label>
+                    </div>
+                </div>
+            </c:forEach>
                     </div>
                     <hr>
                 </div>
             </div>
                                                 <input type="hidden" name="uploader" class="form-control" id="uploader">
             
+            <div class="row">
+                                                    <div class="col-md-8">
+                                                        <label class="greenText" for="tlt">Ключові слова:</label>
+                                                <input type="text" name="documentTags" class="form-control" id="documentTags">
+                                                <label class="displayNone text-danger" id="documentIdValidation">Неправильно заповнене поле</label>
+                                              </div>
+            </div>
+                <hr>
             </form>
                                     <div class="row add-row file">
                                         
@@ -214,6 +187,7 @@
                             var temp1 = temp.split(".");
                             file.name = "files/"+data+"."+temp1[1];
                             $('#file').val("files/"+data+"."+temp1[1]);
+                            deletePrevFile();
                         }
                     });
                 },
@@ -355,6 +329,20 @@
             }
             function chooseFile(){
                 $('#fileInput').click();
+            }
+            var checkGroup = true;
+            function chooseAllGroups(){
+                $('.groupCheckboxes').each(function(){
+                    $(this).click();
+                });
+            }
+            function chooseAllUsers(){
+                $('.userCheckBoxes').each(function(){
+                    $(this).click();
+                });
+            }
+            function deletePrevFile(){
+                $('.dz-remove').first().click();
             }
     </script>
 </t:mainHeader>

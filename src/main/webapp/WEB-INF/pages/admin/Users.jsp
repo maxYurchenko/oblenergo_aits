@@ -27,6 +27,7 @@
                             <th>Ім’я</th>
                             <th>Роль</th>
                             <th>Опис</th>
+                            <th>ПІБ</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -36,6 +37,7 @@
                             <th>Ім’я</th>
                             <th>Роль</th>
                             <th>Опис</th>
+                            <th>ПІБ</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -58,6 +60,7 @@
                                     </c:choose>
                                 </th>
                                 <th>${user.description}</th>
+                                <th>${user.fullName}</th>
                                 <th style="width:20px;"><a href="${Constants.URL}admin/editUser/${user.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                 <th onclick="deleteUser('${user.id}')" style="width:20px;"><a style="cursor: pointer"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
                             </tr>

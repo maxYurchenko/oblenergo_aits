@@ -204,7 +204,7 @@ main{
         }
         .adminLinks{
             margin: 0px 0px 0px 9px;
-            width: 800px;
+            width: 900px;
         }
         .adminLinks a:hover{
             background-color: rgb(84,182,157) !important;
@@ -555,4 +555,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 }
 .dataTables_filter{
     width: 50%;
+}
+.invisibleText{
+    color: rgba(0,0,0,0);
 }

@@ -61,10 +61,8 @@
                                                 <input type="hidden" name="accessHidden" class="form-control" id="accessHidden">
                                                 <input type="hidden" name="accessGroupHidden" class="form-control" id="accessGroupHidden">
                                                 <input type="hidden" name="documentType" class="form-control" id="documentType">
-                                                    <div>
-                                                        <input type="hidden" name="file" class="form-control" id="file" value="${document.path}">
+                                                <input type="hidden" name="file" class="form-control" id="file" value="${document.path}">
                                                 <div class="validation"></div>
-                                              </div>
             </div>
             <hr>
             <div class="row">
@@ -84,9 +82,10 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
+                                    <!--<li><input type="checkbox" id="userChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</li>-->
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
-                                            <li><input type="checkbox" value="${user.id}" />${user.name}</li>
+                                            <li><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -109,8 +108,9 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
+                                    <!--<li><input type="checkbox" id="groupChooseAll" onclick="chooseAllGroups()" value="" />Обрати всіх</li>-->
                                     <c:forEach items="${groups}" var="group">
-                                        <li><input type="checkbox" value="${group.id}" />${group.title}</li>
+                                        <li><input class="groupCheckboxes" type="checkbox" value="${group.id}" />${group.title}</li>
                                     </c:forEach>
                                 </ul>
                             </div>
@@ -126,76 +126,46 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div  class="col-md-4">
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Правило"> Правило
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Наказ"> Наказ
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Типовий договір"> Типовий договір
-                                </label>
-                            </div>
-                        </div>
-                        <div  class="col-md-4">
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Закон"> Закон
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Розпорядження"> Розпорядження
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Додаток"> Додаток
-                                </label>
-                            </div>
-                        </div>
-                        <div  class="col-md-4">
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Службова записка"> Службова записка
-                                </label>
-                            </div>
-                            <div class="checkbox typeCheckbox">
-                                <label>
-                                    <input type="checkbox" value="Роз’яснення"> Роз’яснення
-                                </label>
-                            </div>
-                        </div>
+            <c:forEach items="${types}" var="type">
+                <div  class="col-md-4">
+                    <div class="checkbox typeCheckbox">
+                        <label>
+                            <input type="checkbox" value="${type.title}"> ${type.title}
+                        </label>
+                    </div>
+                </div>
+            </c:forEach>
                     </div>
                     <hr>
                 </div>
             </div>
-            </form>
                                                 <input type="hidden" name="uploader" class="form-control" id="uploader" value="${document.uploader}">
-            <!--
+            <div class="row">
+                                                    <div class="col-md-8">
+                                                        <label class="greenText" for="tlt">Ключові слова:</label>
+                                                <input type="text" name="documentTags" class="form-control" id="documentTags">
+                                                <label class="displayNone text-danger" id="documentIdValidation">Неправильно заповнене поле</label>
+                                              </div>
+            </div>
+            </form>
+                <hr>
                                     <div class="row add-row file">
                                         
 						<div class="col-md-12">
                                                     <label class="greenText" for="img">Файл документа<span class="red-star">*</span></label>
                                                     <div class="dropbox">
-                            <form action="${Constants.URL}uploadfile" class="dropzone" id="my-awesome-dropzone">
-                                <input type="hidden" name="path" value="${folder}/files" />
+                            <form action="${Constants.URL}editFile" class="dropzone" id="my-awesome-dropzone">
+                                <input type="hidden" name="path" value="${document.id}" />
                                 <input type="file" name="file" style="display:none" />
                             </form>
                                                     </div>
                                                 </div>
                                     </div>
                                                 <hr>
-                                        -->
                         <div class="row marginBot">
                             <div class="col-md-2">
-                        <input onclick="validate()" class="btn btn-success btn-mini" value="Редагувати документ" type="button">
+                        <input onclick="validate()" class="btn btn-success btn-mini" value="Зберегти зміни" type="button">
+                        <input type="hidden" val="${document.path}">
                         <input class="btn btn-primary btn-mini displayNone" id="sudmitData" value="Додати користувача" type="submit">
                             </div>
                             <div class="col-md-2">
@@ -208,15 +178,17 @@
 </t:mainHeader>
 <script>
     $( document ).ready(function() {
-            /*$("#my-awesome-dropzone").dropzone({ 
+        $('#groupChooseAll').click();
+        $('#userChooseAll').click();
+            $("#my-awesome-dropzone").dropzone({ 
                 success: function(file){
-                    var temp = file.name.split(".");
-                    file.name = "files/${document.id}"+temp[1];
-                    $('#file').val("files/${document.id}."+temp[1]);
+                    var temporary = file.name.split(".");
+                    $('#file').val("files/${document.id}."+temporary[1]);
+                    console.log($('#file').val());
                 },
-                url: "${Constants.URL}uploadFile",
+                url: "${Constants.URL}editFile",
                 addRemoveLinks: true
-            });*/
+            });
             $('.selectpicker').selectpicker();
         var type = "";
         $('.typeCheckbox').each(function(){
@@ -314,7 +286,7 @@
 
             if ($(this).is(':checked')) {
                 var html = '<span class="accessUsersList" title="' + title + '">' + title + '</span>';
-                $('.multiSel').append(html);
+                $('.usersList .multiSel').append(html);
                 //$(".hida").hide();
             } 
             else {
@@ -411,5 +383,15 @@
                 }
                 if(submit)
                     $('#addDocument').submit();
+            }
+            function chooseAllGroups(){
+                $('.groupCheckboxes').each(function(){
+                    $(this).click();
+                });
+            }
+            function chooseAllUsers(){
+                $('.userCheckBoxes').each(function(){
+                    $(this).click();
+                });
             }
 </script>

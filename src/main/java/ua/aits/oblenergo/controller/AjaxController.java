@@ -67,14 +67,15 @@ public class AjaxController {
         String html = "<table id=\"table-pagination\" class=\"table table-striped table-bordered\" style=\"width:100%; \">\n" +
 "                                <thead>"
                 + "<tr class=\"tableHeader\">\n" +
-"                                    <td style='width=\"width:130px\"'>Номер документа</td>\n" +
-"                                    <td>Назва документа</td>		\n" +
 "                                    <td>Тип документа</td>		\n" +
+"                                    <td>Назва документа</td>		\n" +
+"                                    <td style='width=\"width:130px\"'>Номер документа</td>\n" +
 "                                    <td class='tableDate' style='width=\"width:50px\"'>Дата</td>\n" +
-"                                    <td style='width=\"width:100px\"'>Завантажити</td>		\n" +
+"                                    <td>Ключові слова</td>		\n" +
+"                                    <td style='width=\"width:20px\"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></td>		\n" +
 "                                </tr>\n"
                 +"</thead><tfoot>"
-                + "<tr><th style='width=\"width:130px\"'>Номер документа</td><th>Назва документа</td><th>Тип документа</td><th class='tableDate' style='width=\"width:50px\"'>Дата</td><th style='width=\"width:100px\"'></td></tr>"
+                + "<tr><th style='width=\"width:130px\"'>Номер документа</td><th>Назва документа</td><th>Тип документа</td><th class='tableDate' style='width=\"width:50px\"'>Дата</td><th>Ключові слова</td><th style='width=\"width:100px\"'></td></tr>"
                 +"</tfoot><tbody>";
         //if(isGroupAllowedForSection||isAdmin||isUserAllowedForSection){
             for(DocumentModel tempDocs : documentList) {
@@ -96,11 +97,12 @@ public class AjaxController {
                     if(tempDocs.isDelete!=1){
                         html = html +
                                 "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
+                                    "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.type+"</td>\n"+	
                                     "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.clientId+"</td>\n"+
                                     "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</td>\n"+
-                                    "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.type+"</td>\n"+	
                                     "<td class='tableDate' onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.date.replace("/", ".")+"</td>\n"+
-                                    "<td class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'>"+tempDocs.path.substring(6, tempDocs.path.length())+"</a></td>\n"+
+                                    "<td>"+tempDocs.tags+"</td>"+
+                                    "<td class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></a></td>\n"+
                                 "</tr>\n";
                     }
                 }

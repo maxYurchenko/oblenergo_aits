@@ -39,9 +39,14 @@
                </div>
 <hr>
                <div class="row marginTop">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-3">
                                                 <label class="greenText">Примітки про користувача</label>
                                                 <input type="text" name="descr" class="form-control" id="descr">
+                                                <div class="validation"></div>
+                                              </div>
+                                                    <div class="col-md-3">
+                                                <label class="greenText">ПІБ</label>
+                                                <input type="text" name="fullName" class="form-control" id="fullName">
                                                 <div class="validation"></div>
                                               </div>
                </div>
