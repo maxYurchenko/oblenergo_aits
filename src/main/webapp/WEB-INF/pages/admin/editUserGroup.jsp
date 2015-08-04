@@ -86,7 +86,7 @@
                 var submit = true;
                 $('#titleValidation').addClass('displayNone');
                 $('#loginIsTaken').addClass('displayNone');
-                if($('#groupName').val().length<5){
+                if($('#groupName').val().length<1){
                     $('#titleValidation').removeClass('displayNone');
                     submit = false;
                 }

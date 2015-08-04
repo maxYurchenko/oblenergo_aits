@@ -214,7 +214,7 @@
             function validate(){
                 var submit = true;
                 $('#titleValidation').addClass('displayNone');
-                if($('#sectionName').val().length<5){
+                if($('#sectionName').val().length<1){
                     $('#titleValidation').removeClass('displayNone');
                     submit = false;
                 }

@@ -89,11 +89,11 @@
             $('#passValidation').addClass('displayNone');
             $('#loginValidation').addClass('displayNone');
             $('#loginIsTaken').addClass('displayNone');
-            if($('#username').val().length<5){
+            if($('#username').val().length<1){
                 $('#loginValidation').removeClass('displayNone');
                 submit = false;
             }
-            if($('#password').val().length<5){
+            if($('#password').val().length<1){
                 $('#passValidation').removeClass('displayNone');
                 submit = false;
             }

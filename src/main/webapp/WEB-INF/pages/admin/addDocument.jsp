@@ -333,7 +333,7 @@
                 $('#titleValidation').addClass('displayNone');
                 $('#dateValidation').addClass('displayNone');
                 $('#fileInputValidation').addClass('displayNone');
-                if($('#title').val().length<5){
+                if($('#title').val().length<1){
                     $('#titleValidation').removeClass('displayNone');
                     submit = false;
                 }

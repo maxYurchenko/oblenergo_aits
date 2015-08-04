@@ -178,4 +178,17 @@ public class UserModel {
         DB.closeCon();
         return "done";
     }
+    
+    public String countUsersByName(String name) throws SQLException{
+        Integer counter = 0;
+        ResultSet result = DB.getResultSet("select * from users where name = '" + name +"';");
+        while (result.next()) { 
+            counter++;
+        }
+        if(counter>0){
+            return "false";
+        }else{
+            return "true";
+        }
+    }
 } 

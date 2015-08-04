@@ -547,3 +547,12 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 .dropdown-menu>li>a{
     padding: 3px 0 !important;
 }
+#table-pagination_filter label input{
+    width: 100% !important;
+}
+#table-pagination_filter label{
+    width: 100% !important;
+}
+.dataTables_filter{
+    width: 50%;
+}

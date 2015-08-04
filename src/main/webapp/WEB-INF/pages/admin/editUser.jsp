@@ -23,6 +23,7 @@
                                                 <label class="greenText">Логін:<span class="red-star">*</span></label>
                                                 <input type="text" name="username" class="form-control" id="username" value="${user.name}">
                                                 <label class="displayNone text-danger" id="loginValidation">Неправильно заповнене поле</label>
+                                                <label class="displayNone text-danger" id="loginIsTaken">Користувач з таким іменем вже існує</label>
                                               </div>
                                                     <div class="col-md-3">
                                                 <label class="greenText">Пароль:<span class="red-star">*</span></label>
@@ -84,26 +85,28 @@
             var submit = true;
             $('#passValidation').addClass('displayNone');
             $('#loginValidation').addClass('displayNone');
-            if($('#username').val().length<5){
+            $('#loginIsTaken').addClass('displayNone');
+            if($('#username').val().length<1){
                 $('#loginValidation').removeClass('displayNone');
                 submit = false;
             }
-            if($('#password').val().length<5){
+            if($('#password').val().length<1){
                 $('#passValidation').removeClass('displayNone');
                 submit = false;
             }
+            
             $.ajax({
                 type: "get",
-                url: "${Constants.URL}checkUsername/",
+                url: "${Constants.URL}checkUsernameEdit/",
                 cache: false,    
-                data:'login='+ $("#username").val()+'&current=${id}',
+                data:'login='+ $("#username").val(),
                 success: function(response){
                     console.log(response);
-                    if(response === "false"){
-                        submit = true;
+                    if(response === "true"){
+                        if(submit)
+                            $('#editUser').submit();
                     }
                     else {
-                        submit = false;
                         $('#loginIsTaken').removeClass('displayNone');
                     }
                 },
@@ -111,8 +114,6 @@
                     console.log(response);
                 }
            });
-            if(submit)
-                $('#sudmitData').click();
         }
     </script>
 </t:mainHeader>

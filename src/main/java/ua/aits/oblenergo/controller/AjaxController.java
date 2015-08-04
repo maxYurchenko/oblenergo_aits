@@ -183,6 +183,14 @@ public class AjaxController {
         }
     }
         
+    @RequestMapping(value = {"/checkUsernameEdit/", "/checkUsernameEdit"}, method = RequestMethod.GET)
+    public @ResponseBody
+    String checkUsernameEdit(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        UserModel user = new UserModel();
+        return user.countUsersByName(request.getParameter("login"));
+    }
+        
     @RequestMapping(value = {"/nextAI"}, method = RequestMethod.GET)
     public @ResponseBody
     String nextAI(HttpServletRequest request, HttpServletResponse response) throws Exception {
