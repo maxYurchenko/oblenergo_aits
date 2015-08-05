@@ -64,18 +64,23 @@ public class AjaxController {
         }
         isUserAllowedForSection = Arrays.asList(sectionAllowedUsers).contains(request.getParameter("userId"));
         Boolean isAdmin = !request.getParameter("userRole").equals("0");
-        String html = "<table id=\"table-pagination\" class=\"table table-striped table-bordered\" style=\"width:100%; \">\n" +
+        String html = "<table id=\"table-pagination\" class=\"table table-striped table-bordered\">\n" +
 "                                <thead>"
                 + "<tr class=\"tableHeader\">\n" +
-"                                    <td>Тип документа</td>		\n" +
-"                                    <td>Назва документа</td>		\n" +
-"                                    <td style='width=\"width:130px\"'>Номер документа</td>\n" +
-"                                    <td class='tableDate' style='width=\"width:50px\"'>Дата</td>\n" +
-"                                    <td>Ключові слова</td>		\n" +
-"                                    <td style='width=\"width:20px\"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></td>		\n" +
+"                                    <th>Тип документа</th>		\n" +
+"                                    <th style='width:160px'>Назва документа</th>		\n" +
+"                                    <th style='width:160px'>Номер документа</th>\n" +
+"                                    <th class='tableDate' style='width:50px'>Дата</th>\n" +
+"                                    <th>Ключові слова</th>		\n" +
+"                                    <th style='width=\"width:20px\"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></th>		\n" +
 "                                </tr>\n"
                 +"</thead><tfoot>"
-                + "<tr><th style='width=\"width:130px\"'>Номер документа</td><th>Назва документа</td><th>Тип документа</td><th class='tableDate' style='width=\"width:50px\"'>Дата</td><th>Ключові слова</td><th style='width=\"width:100px\"'></td></tr>"
+                + "<tr><th data-column-index=\"0\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">Номер документа</th>"
+                + "<th data-column-index=\"1\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">Назва документа</th>"
+                + "<th data-column-index=\"2\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">Тип документа</th>"
+                + "<th data-column-index=\"3\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='tableDate'>Дата</th>"
+                + "<th data-column-index=\"4\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">Ключові слова</th>"
+                + "<th data-column-index=\"5\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\"></th></tr>"
                 +"</tfoot><tbody>";
         //if(isGroupAllowedForSection||isAdmin||isUserAllowedForSection){
             for(DocumentModel tempDocs : documentList) {
@@ -97,12 +102,12 @@ public class AjaxController {
                     if(tempDocs.isDelete!=1){
                         html = html +
                                 "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable "+clas+" display\">\n"+
-                                    "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.type+"</td>\n"+	
-                                    "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</td>\n"+
-                                    "<td onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.clientId+"</td>\n"+
-                                    "<td class='tableDate' onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.date.replace("/", ".")+"</td>\n"+
-                                    "<td>"+tempDocs.tags+"</td>"+
-                                    "<td class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></a></td>\n"+
+                                    "<th data-column-index=\"0\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.type+"</th>\n"+	
+                                    "<th data-column-index=\"1\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</th>\n"+
+                                    "<th data-column-index=\"2\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.clientId+"</th>\n"+
+                                    "<th data-column-index=\"3\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='tableDate' onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.date.replace("/", ".")+"</th>\n"+
+                                    "<th data-column-index=\"4\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">"+tempDocs.tags+"</th>"+
+                                    "<th data-column-index=\"5\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></a></th>\n"+
                                 "</tr>\n";
                     }
                 }

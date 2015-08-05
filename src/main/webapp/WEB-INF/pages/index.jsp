@@ -136,7 +136,8 @@
                     var table = $('#table-pagination').DataTable({
                             columnDefs: [
                                 { type: 'date-eu', targets: 3 }
-                            ]
+                            ],
+                            "dom": 'Zlfrtip'
                         });
                     table.columns().every( function () {
                         var that = this;
