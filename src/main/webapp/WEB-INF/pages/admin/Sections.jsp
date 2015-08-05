@@ -44,10 +44,10 @@
                     </thead>
                     <tfoot>
                         <tr class="tableHeader">
-                            <th>Ім’я</th>
-                            <th>Головна категорія</th>
-                            <th>Доступ користувачам</th>
-                            <th>Доступ групам</th>
+                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Ім’я</th>
+                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Головна категорія</th>
+                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Доступ користувачам</th>
+                            <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Доступ групам</th>
                             <th style="width:20px;"></th>
                             <th style="width:20px;"></th>
                         </tr>
@@ -56,8 +56,8 @@
                         <c:forEach items="${sections}" var="section">
                             <c:if test="${section.isDelete != 1}">
                                 <tr class="display">
-                                    <th>${section.title}</th>
-                                    <th>
+                                    <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${section.title}</th>
+                                    <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">
                                         <c:choose>
                                             <c:when test="${section.parentName == '0'}">
                                                Головний розділ
@@ -67,8 +67,8 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </th>
-                                    <th>${section.users}</th>
-                                    <th>${section.groups}</th>
+                                    <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${section.users}</th>
+                                    <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${section.groups}</th>
                                     <th style="width:20px;"><a href="${Constants.URL}admin/editSection/${section.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                     <th style="width:20px;"><a onclick="deleteSection('${section.id}')" href="#"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
                                 </tr>
@@ -88,7 +88,8 @@
                 $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
             }
         } );
-        var table = $('#table-pagination').DataTable();
+        var table = $('#table-pagination').DataTable({
+                        "dom": 'Zlfrtip'});
         table.columns().every( function () {
             var that = this;
 

@@ -34,10 +34,10 @@
                     </thead>
                     <tfoot>
                         <tr class="tableHeader">
-                            <th>Ім’я</th>
-                            <th>Роль</th>
-                            <th>Опис</th>
-                            <th>ПІБ</th>
+                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Ім’я</th>
+                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Роль</th>
+                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Опис</th>
+                            <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">ПІБ</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -45,8 +45,8 @@
                     <tbody>
                         <c:forEach items="${users}" var="user">
                             <tr class="display">
-                                <th>${user.name}</th>
-                                <th>
+                                <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${user.name}</th>
+                                <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">
                                     <c:choose>
                                         <c:when test="${user.role == 2}">
                                            Адміністратор
@@ -59,8 +59,8 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </th>
-                                <th>${user.description}</th>
-                                <th>${user.fullName}</th>
+                                <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${user.description}</th>
+                                <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${user.fullName}</th>
                                 <th style="width:20px;"><a href="${Constants.URL}admin/editUser/${user.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                 <th onclick="deleteUser('${user.id}')" style="width:20px;"><a style="cursor: pointer"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
                             </tr>
@@ -84,7 +84,8 @@
     } );
  
     // DataTable
-    var table = $('#table-pagination').DataTable();
+    var table = $('#table-pagination').DataTable({
+                        "dom": 'Zlfrtip'});
  
     // Apply the search
     table.columns().every( function () {

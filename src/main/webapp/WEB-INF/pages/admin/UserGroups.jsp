@@ -32,8 +32,8 @@
                     </thead>
                     <tfoot>
                         <tr class="tableHeader">
-                            <th>Назва</th>
-                            <th>Користувачі в цій групі</th>
+                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Назва</th>
+                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Користувачі в цій групі</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -41,8 +41,8 @@
                     <tbody>
                         <c:forEach items="${groups}" var="group">
                                 <tr class="display">
-                                    <th>${group.title}</th>
-                                    <th>${group.users}</th>
+                                    <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${group.title}</th>
+                                    <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${group.users}</th>
                                     <th style="width:25px"><a href="${Constants.URL}admin/editUserGroup/${group.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                     <th style="width:25px"><a href="${Constants.URL}admin/deleteUserGroup/${group.id}"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
                                 </tr>
@@ -64,7 +64,8 @@
     } );
  
     // DataTable
-    var table = $('#table-pagination').DataTable();
+    var table = $('#table-pagination').DataTable({
+                        "dom": 'Zlfrtip'});
  
     // Apply the search
     table.columns().every( function () {

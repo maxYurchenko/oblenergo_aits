@@ -67,6 +67,13 @@ public class SinglePageController {
 		return model;
 	}
     
+    @RequestMapping(value = {"/testpage"})
+    public ModelAndView testPage(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView model = new ModelAndView("testpage");
+		return model;
+	}
+    
     
     @RequestMapping(value = {"/login.do","/login.do/"}, method = RequestMethod.POST)
     public ModelAndView login(@RequestParam("username") String login, @RequestParam("password") String passwd, 

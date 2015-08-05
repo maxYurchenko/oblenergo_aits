@@ -36,11 +36,11 @@
                             </thead>
                             <tfoot>
                                 <tr class="tableHeader">
-                                    <th>Номер</th>
-                                    <th>Назва</th>
-                                    <th>Розділ</th>
-                                    <th style="width: 50px;">Дата</th>
-                                    <th>Ключові слова</th>
+                                    <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Номер</th>
+                                    <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Назва</th>
+                                    <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Розділ</th>
+                                    <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" style="width: 50px;">Дата</th>
+                                    <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Ключові слова</th>
                                     <th style="width: 25px;"></th>
                                     <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
@@ -53,11 +53,11 @@
                                 <c:forEach items="${documents}" var="document">
                                     <c:if test="${document.isDelete==0 || user.role==2}">
                                         <tr <c:if test="${document.valid==0}">class="inValidDoc display"</c:if>>
-                                            <th>${document.clientId}</th>
-                                            <th>${document.title}</th>
-                                            <th>${document.parentName}</th>
-                                            <th>${document.date}</th>
-                                            <th>${document.tags}</th>
+                                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.clientId}</th>
+                                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.title}</th>
+                                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.parentName}</th>
+                                            <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.date}</th>
+                                            <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.tags}</th>
                                             <th><a target='_blank' download href="${Constants.URL}${document.path}"><img style="width: 20px;" src="${Constants.URL}img/dl.png"></a></th>
                                             <th><a href="${Constants.URL}admin/editDocument/${document.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                             <c:if test="${user.role == 2}">
@@ -95,7 +95,6 @@
                         </thead>
                     </table>
                 </div>
-            
             </div>
     </body>
 </t:mainHeader>
@@ -120,7 +119,8 @@
     var table = $('#table-pagination').DataTable({
                         columnDefs: [
                             { type: 'date-eu', targets: 3 }
-                        ]
+                        ],
+                        "dom": 'Zlfrtip'
                     });
  
     // Apply the search
