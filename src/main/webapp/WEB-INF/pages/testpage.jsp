@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <iframe src="${Constants.URL}files/maslik.docx">
+        <iframe src="http://docs.google.com/gview?url=${Constants.URL}files/maslik.docx&embedded=true"></iframe>
         </iframe>
     </body>
 </html>
