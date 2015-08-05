@@ -146,6 +146,7 @@
                                 .draw();
                         } );
                     } );
+                    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
                 },
                 error: function(response){ 
                     console.log(response);
@@ -169,10 +170,23 @@
     jQuery(function($) {
         $('#indexPage').css('background','#14A86B');
         $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'horizontal', limit:0, position:'60%'});
-        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'vertical', limit:300, position:'30%'});
+        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'vertical', limit:220, position:'30%'});
         $('.hsplitter').append('<img src="${Constants.URL}/img/verticalResize.png">');
         $('.vsplitter').append('<img src="${Constants.URL}/img/horizontalResize.png">');
         //$('.verticalResize').position($('.splitterMask').position());
     });
+    var isHiddenSearch = true;
+    function hideSearch(){
+        if(isHiddenSearch){
+            $('tfoot').hide('slow');
+            $('.hideSearch').text('Показати пошук');
+            isHiddenSearch = false;
+            
+        }else{
+            $('tfoot').show('slow');
+            $('.hideSearch').text('Приховати пошук');
+            isHiddenSearch = true;
+        }
+    }
 </script>
 </t:mainHeader>

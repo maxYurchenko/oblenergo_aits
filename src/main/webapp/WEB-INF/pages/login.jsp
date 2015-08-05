@@ -15,7 +15,7 @@
         <script src="${Constants.URL}js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="${Constants.URL}css/bootstrap-select.min.css" />
         <link href="${Constants.URL}img/icon.ico" rel="shortcut icon" type="image/x-icon" />
-        <title>Document Flow</title>
+        <title>Бібліотека ПАТ «Закарпаттяобленерго»</title>
     </head>
     <style>
         html{

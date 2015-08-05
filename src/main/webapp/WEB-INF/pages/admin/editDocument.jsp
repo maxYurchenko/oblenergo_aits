@@ -61,6 +61,7 @@
                                                 <input type="hidden" name="accessHidden" class="form-control" id="accessHidden">
                                                 <input type="hidden" name="accessGroupHidden" class="form-control" id="accessGroupHidden">
                                                 <input type="hidden" name="documentType" class="form-control" id="documentType">
+                                                <input type="hidden" name="typeList" class="form-control" id="typeList">
                                                 <input type="hidden" name="file" class="form-control" id="file" value="${document.path}">
                                                 <div class="validation"></div>
             </div>
@@ -126,15 +127,27 @@
                         </div>
                     </div>
                     <div class="row">
-            <c:forEach items="${types}" var="type">
-                <div  class="col-md-4">
-                    <div class="checkbox typeCheckbox">
-                        <label>
-                            <input type="checkbox" value="${type.title}"> ${type.title}
-                        </label>
-                    </div>
+                <div  class="col-md-4 z-indexSmall">
+                    <dl class="typesList"> 
+
+                        <dt>
+                        <a href="#">
+                          <span class="hida">Оберіть значення</span>    
+                          <p class="multiSel"></p>  
+                        </a>
+                        </dt>
+
+                        <dd>
+                            <div class="mutliSelect">
+                                <ul>
+                                    <c:forEach items="${types}" var="type">
+                                            <li><input class="" type="checkbox" value="${type.title}" />${type.title}</li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
                 </div>
-            </c:forEach>
                     </div>
                     <hr>
                 </div>
@@ -342,6 +355,50 @@
             accessGroupsList = accessGroupsList.substring(0, accessGroupsList.length - 1);
             $('#accessGroupHidden').val(accessGroupsList);
         });
+        
+        
+        
+        
+        $(".typesList dt a").on('click', function () {
+          $(".typesList dd ul").slideToggle('fast');
+        });
+
+        $(".typesList dd ul li a").on('click', function () {
+            $(".typesList dd ul").hide();
+        });
+
+        function getSelectedValue(id) {
+             return $("#" + id).find(".typesList dt a span.value").html();
+        }
+
+        $(document).bind('click', function (e) {
+            var $clicked = $(e.target);
+            if (!$clicked.parents().hasClass("typesList")) $(".typesList dd ul").hide();
+        });
+
+
+        $('.typesList .mutliSelect input[type="checkbox"]').on('click', function () {
+            var title = $(this).closest('.typesList .mutliSelect').find('.typesList input[type="checkbox"]').val(),
+                title = $(this).val() + ",";
+
+            if ($(this).is(':checked')) {
+                var html = '<span class="typeList" title="' + title + '">' + title + '</span>';
+                $('.typesList .multiSel').append(html);
+                //$(".hida").hide();
+            } 
+            else {
+                $('.typesList span[title="' + title + '"]').remove();
+                var ret = $(".hida");
+                $('.typesList .dropdown dt a').append(ret);
+
+            }
+            var typeList = "";
+            $('.typesList .typeList').each(function(){
+                typeList+=$(this).html();
+            });
+            typeList = typeList.substring(0, typeList.length - 1);
+            $('#typeList').val(typeList);
+        });
         $('.groupsList .mutliSelect ul').find('li').each(function() {
             if("${document.accessGroup}".indexOf($(this).find('input').val())!=-1)
                 $(this).find('input').click();
@@ -350,6 +407,11 @@
             if('${document.access}'.indexOf($(this).find('input').val())!=-1)
                 $(this).find('input').click();
         });
+        $('.typesList .mutliSelect ul').find('li').each(function() {
+            if('${document.type}'.indexOf($(this).find('input').val())!=-1)
+                $(this).find('input').click();
+        });
+        
     });
     
             function validate(){

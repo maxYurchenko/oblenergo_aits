@@ -42,7 +42,7 @@
                                     <th style="width: 50px;">Дата</th>
                                     <th>Ключові слова</th>
                                     <th style="width: 25px;"></th>
-                                    <th style="width: 70px;"></th>
+                                    <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
                                         <th style="width: 70px;"></th>
                                     </c:if>
