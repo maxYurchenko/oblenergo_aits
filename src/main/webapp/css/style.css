@@ -585,6 +585,7 @@ table.dataTable tbody th, table.dataTable tbody td{
 .userNameHeader{
     padding: 15px 20px;
     cursor: pointer;
+    transition: 0.5s;
 }
 .userNameHeader:hover{
     background-color: rgb(84,182,157) !important;
@@ -635,4 +636,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 }
 .hideSearch:hover{
     color: #14A86B;
+}
+#table-pagination_wrapper a{
+    transition: 0s;
 }
