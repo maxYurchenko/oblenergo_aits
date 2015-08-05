@@ -176,18 +176,5 @@
         $('.vsplitter').append('<img src="${Constants.URL}/img/horizontalResize.png">');
         //$('.verticalResize').position($('.splitterMask').position());
     });
-    var isHiddenSearch = true;
-    function hideSearch(){
-        if(isHiddenSearch){
-            $('tfoot').hide('slow');
-            $('.hideSearch').text('Показати пошук');
-            isHiddenSearch = false;
-            
-        }else{
-            $('tfoot').show('slow');
-            $('.hideSearch').text('Приховати пошук');
-            isHiddenSearch = true;
-        }
-    }
 </script>
 </t:mainHeader>

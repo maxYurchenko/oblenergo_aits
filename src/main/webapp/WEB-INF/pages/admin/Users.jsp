@@ -97,6 +97,7 @@
                 .draw();
         } );
     } );
+    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
         });
         function deleteUser(id){
             console.log(id);

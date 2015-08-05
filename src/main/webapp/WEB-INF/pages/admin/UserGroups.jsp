@@ -77,6 +77,7 @@
                 .draw();
         } );
     } );
+    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
                 //$('.deleteFrameBlock').hide();
             });
             

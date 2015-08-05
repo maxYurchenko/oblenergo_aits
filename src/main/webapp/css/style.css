@@ -1,6 +1,12 @@
 html, body{
 	margin: 0;
 }
+a{
+    transition: 0.5s;
+}
+div{
+    transition: 0.5s;
+}
 header{
 	width: 100%;
 	height: 50px;
@@ -204,7 +210,8 @@ main{
         }
         .adminLinks{
             margin: 0px 0px 0px 9px;
-            width: 900px;
+            width: 1000px;
+            transition: 0.5s;
         }
         .adminLinks a:hover{
             background-color: rgb(84,182,157) !important;
@@ -624,7 +631,11 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     font-weight: 700;
     text-decoration: underline;
     cursor: pointer;
+    transition: 0.5s;
 }
 .z-indexSmall{
     z-index: 10;
+}
+.hideSearch:hover{
+    color: #14A86B;
 }
