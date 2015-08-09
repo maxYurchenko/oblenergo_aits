@@ -98,7 +98,13 @@
                         } );
                     } );
                     $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
-                    $('#table-pagination_filter').append('<span id="showMainSearch" class="glyphicon glyphicon-search"></span>');
+                    $('#table-pagination_filter').prepend('<span id="showMainSearch" class="glyphicon glyphicon-search"></span>');
+        $('#showMainSearch').click(function(){
+            $('#showMainSearch').hide(0);
+            $('#mainSearch').removeClass('displayNone');
+            $('#mainSearch').hide(0);
+            $('#mainSearch').show('slow');
+        });
                 },
                 error: function(response){ 
                     console.log(response);

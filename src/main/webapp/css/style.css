@@ -622,6 +622,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 #table-pagination_filter label{
     width: 90% !important;
     float: right;
+    margin-bottom: 0;
 }
 #table-pagination_filter span{
     transition: 0.5s;
@@ -676,4 +677,7 @@ dt a:hover{
 }
 table.dataTable tbody th, table.dataTable tbody td{
     outline: none;
+}
+#table-pagination_filter{
+    margin-top: 3px;
 }
