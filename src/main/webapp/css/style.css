@@ -679,7 +679,7 @@ table.dataTable tbody th, table.dataTable tbody td{
     outline: none;
 }
 #table-pagination_filter{
-    margin-top: 3px;
+    //margin-top: 3px;
 }
 th .form-control{
     padding: 0 4px;

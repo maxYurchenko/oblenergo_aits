@@ -93,6 +93,7 @@ public class UserModel {
             temp.setDescription(result.getString("description"));
             temp.setFullName(result.getString("fullName"));
         }
+        DB.closeCon();
         return temp;
     }
     
@@ -108,21 +109,25 @@ public class UserModel {
             temp.setFullName(result.getString("fullName"));
             temp.setId(Integer.parseInt(id));
         }
+        DB.closeCon();
         return temp;
     }
     
     public Boolean isExistsUser(String login, String password) throws SQLException{
         ResultSet result = DB.getResultSet("select * from users where name = '" + login +"' and pass = '" + password + "';");
+        DB.closeCon();
         return result.isBeforeFirst();
     }
     
     public Boolean isExistsUser(String login) throws SQLException{
         ResultSet result = DB.getResultSet("select * from users where name = '" + login +"';");
+        DB.closeCon();
         return result.isBeforeFirst();
     }
     
     public String addUser(String username, String password, String role, String descr, String fullName) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
          DB.runQuery("INSERT INTO users (name, pass, description, role, fullName) values ('"+username+"', '"+password+"', '"+descr+"', "+role+", "+fullName+");");
+        DB.closeCon();
          return "done";
     }
     
@@ -197,6 +202,7 @@ public class UserModel {
         while (result.next()) { 
             counter++;
         }
+        //DB.closeCon();
         if(counter>1){
             return "false";
         }else{

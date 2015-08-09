@@ -62,6 +62,7 @@ public class typeModel {
             temp.setTitle(result.getString("title"));
             types.add(temp);
         }
+        DB.closeCon();
         return types;
     }
     
@@ -71,6 +72,7 @@ public class typeModel {
         typeModel type = new typeModel();
         type.setTitle(result.getString("title"));
         type.setId(result.getInt("id"));
+        DB.closeCon();
         return type;
     }
 }

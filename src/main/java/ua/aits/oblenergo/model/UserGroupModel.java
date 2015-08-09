@@ -60,6 +60,7 @@ public class UserGroupModel {
         ResultSet result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
         result.first();
         Integer temp = result.getInt("id");
+        DB.closeCon();
         return temp.toString();
     }
     
@@ -82,6 +83,7 @@ public class UserGroupModel {
             }
             groupList.add(temp);
         } 
+        DB.closeCon();
         return groupList;
     }
     
@@ -93,6 +95,7 @@ public class UserGroupModel {
     
     public Boolean checkAvailability(String title)  throws SQLException{ 
         ResultSet result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
+        //DB.closeCon();
         return result.isBeforeFirst();
     }
     
