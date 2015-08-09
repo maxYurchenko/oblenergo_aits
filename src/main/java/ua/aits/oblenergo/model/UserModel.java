@@ -115,13 +115,13 @@ public class UserModel {
     
     public Boolean isExistsUser(String login, String password) throws SQLException{
         ResultSet result = DB.getResultSet("select * from users where name = '" + login +"' and pass = '" + password + "';");
-        DB.closeCon();
+        //DB.closeCon();
         return result.isBeforeFirst();
     }
     
     public Boolean isExistsUser(String login) throws SQLException{
         ResultSet result = DB.getResultSet("select * from users where name = '" + login +"';");
-        DB.closeCon();
+        //DB.closeCon();
         return result.isBeforeFirst();
     }
     
@@ -202,7 +202,7 @@ public class UserModel {
         while (result.next()) { 
             counter++;
         }
-        //DB.closeCon();
+        DB.closeCon();
         if(counter>1){
             return "false";
         }else{
