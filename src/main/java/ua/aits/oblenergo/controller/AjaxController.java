@@ -72,7 +72,7 @@ public class AjaxController {
 "                                    <th style='width:160px'>Номер документа</th>\n" +
 "                                    <th class='tableDate' style='width:50px'>Дата</th>\n" +
 "                                    <th>Ключові слова</th>		\n" +
-"                                    <th style='width=\"width:20px\"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></th>		\n" +
+"                                    <th style='width=\"width:20px\"'></th>		\n" +
 "                                </tr>\n"
                 +"</thead><tfoot>"
                 + "<tr><th data-column-index=\"0\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">типу документа</th>"

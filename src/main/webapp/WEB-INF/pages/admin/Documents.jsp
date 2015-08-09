@@ -27,7 +27,7 @@
                                     <th>Розділ документа</th>
                                     <th style="width: 50px;">Дата</th>
                                     <th>Ключові слова</th>
-                                    <th><img style="width: 20px;" src="${Constants.URL}img/dl.png"></th>
+                                    <th></th>
                                     <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
                                         <th class="text-center vcenter" style="width: 90px;">Відображати</th>

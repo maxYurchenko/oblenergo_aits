@@ -30,10 +30,10 @@ header a:hover{
             width: auto;
             float: left;
             color: white;
-            margin-left: -25px;
+            margin-left: -35px;
         }
         .breadCrumbs ul{
-            
+            margin-top: 15px;
         }
         .breadCrumbs ul li{
             display: inline;
@@ -126,6 +126,7 @@ main{
         }
 	.docInfo{
                 padding: 10px;
+                padding-top: 25px;
 	}
         #docInfoTable_filter{
             width: 80%;
@@ -149,7 +150,7 @@ main{
             display: none !important;
         }
         #listContainer{
-        margin-top:15px;
+            margin-top:20px;
         }
 
         #expList{
@@ -645,7 +646,6 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     text-decoration: underline;
     cursor: pointer;
     transition: 0.5s;
-    margin-top: 4px;
 }
 .z-indexSmall{
     z-index: 10;
@@ -671,7 +671,7 @@ dt a:hover{
 }
 .dataTables_length label select{
     width: auto;
-    height: 28px;
+    height: 20px;
     padding: 0;
     display: inline-block;
 }
@@ -680,4 +680,17 @@ table.dataTable tbody th, table.dataTable tbody td{
 }
 #table-pagination_filter{
     margin-top: 3px;
+}
+th .form-control{
+    padding: 0 4px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    padding: 2px 10px !important;
+    border-radius: 6px;
+}
+.dataTables_wrapper .dataTables_paginate{
+    padding-top: 6px !important;
+}
+dl dd ul li input{
+    margin-right: 4px !important;
 }

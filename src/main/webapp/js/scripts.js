@@ -2,6 +2,7 @@
 /* Prepares the cv to be dynamically expandable/collapsible   */
 /**************************************************************/
 function prepareList() {
+    var show = true;
     $('#expList').find('li:has(ul)')
     .click( function(event) {
         if (this == event.target) {
@@ -15,18 +16,18 @@ function prepareList() {
     .children('ul').hide();
 
     //Create the button funtionality
-    $('#expandList')
-    .unbind('click')
-    .click( function() {
-        $('.collapsed').addClass('expanded');
-        $('.collapsed').children().show('medium');
-    })
-    $('#collapseList')
-    .unbind('click')
-    .click( function() {
-        $('.collapsed').removeClass('expanded');
-        $('.collapsed').children().hide('medium');
-    })
+        $('#expandList')
+        .click( function() {
+    if(show){
+            $('.collapsed').addClass('expanded');
+            $('.collapsed').children().show('medium');
+        show = false;
+    }else{
+            $('.collapsed').removeClass('expanded');
+            $('.collapsed').children().hide('medium');
+        show = true;
+    }
+        })
     
 };
 

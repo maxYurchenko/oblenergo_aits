@@ -28,9 +28,9 @@
                         <div id="listContainer">
                             <div class="listControl">
                                 <input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
-                                       id="expandList" value="Розгорнути" type="button">
-                                <input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
-                                       id="collapseList" value="Згорнути" type="button">
+                                       id="expandList" value="Згорнути / Розгорнути" type="button">
+                                <!--<input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
+                                       id="collapseList" value="Згорнути" type="button">-->
                             </div>
                             ${listHtml}
                         </div>
@@ -75,7 +75,7 @@
                 success: function(response){
                     $('.docInfo').html("");
                     $('.docInfo').append(response);
-                    $('header').height(75);
+                    $('header').height(105);
                     var text = $('#docInfoTable_filter label').html();
                     $('#table-pagination tfoot th').each( function () {
                         if($(this).text()!=""){
@@ -127,8 +127,8 @@
         }
     jQuery(function($) {
         $('#indexPage').css('background','#14A86B');
-        $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'horizontal', limit:0, position:'60%'});
-        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-50).split({orientation:'vertical', limit:220, position:'30%'});
+        $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()-65).split({orientation:'horizontal', limit:0, position:'60%'});
+        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-60).split({orientation:'vertical', limit:220, position:'30%'});
         $('.hsplitter').append('<img src="${Constants.URL}/img/verticalResize.png">');
         $('.vsplitter').append('<img src="${Constants.URL}/img/horizontalResize.png">');
         //$('.verticalResize').position($('.splitterMask').position());
