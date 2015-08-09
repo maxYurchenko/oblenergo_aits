@@ -82,10 +82,10 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
-                                    <li><input type="checkbox" id="groupChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</li>
+                                    <li><label><input type="checkbox" id="groupChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</label></li>
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
-                                            <li><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</li>
+                                            <li><label><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</label></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -108,9 +108,9 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
-                                    <li><input type="checkbox" id="groupChooseAll" onclick="chooseAllGroups()" value="" />Обрати всіх</li>
+                                    <li><label><input type="checkbox" id="groupChooseAll" onclick="chooseAllGroups()" value="" />Обрати всіх</label></li>
                                     <c:forEach items="${groups}" var="group">
-                                        <li><input class="groupCheckboxes" type="checkbox" value="${group.id}" />${group.title}</li>
+                                    <li><label><input class="groupCheckboxes" type="checkbox" value="${group.id}" />${group.title}</label></li>
                                     </c:forEach>
                                 </ul>
                             </div>
@@ -141,7 +141,7 @@
                             <div class="mutliSelect">
                                 <ul>
                                     <c:forEach items="${types}" var="type">
-                                            <li><input class="" type="checkbox" value="${type.title}" />${type.title}</li>
+                                            <li><label><input class="" type="checkbox" value="${type.title}" />${type.title}</label></li>
                                     </c:forEach>
                                 </ul>
                             </div>

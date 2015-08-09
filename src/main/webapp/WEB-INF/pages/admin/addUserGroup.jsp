@@ -47,10 +47,10 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
-                                    <li><input type="checkbox" id="groupChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</li>
+                                    <li><label><input type="checkbox" id="groupChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</label></li>
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
-                                            <li><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</li>
+                                            <li><label><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</label></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>

@@ -50,7 +50,7 @@
                                 <ul>
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
-                                            <li><input type="checkbox" value="${user.id}" />${user.name}</li>
+                                            <li><label><input type="checkbox" value="${user.id}" />${user.name}</label></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
