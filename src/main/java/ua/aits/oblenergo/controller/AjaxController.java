@@ -75,11 +75,11 @@ public class AjaxController {
 "                                    <th style='width=\"width:20px\"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></th>		\n" +
 "                                </tr>\n"
                 +"</thead><tfoot>"
-                + "<tr><th data-column-index=\"0\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">Номер документа</th>"
-                + "<th data-column-index=\"1\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">Назва документа</th>"
-                + "<th data-column-index=\"2\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">Тип документа</th>"
-                + "<th data-column-index=\"3\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='tableDate'>Дата</th>"
-                + "<th data-column-index=\"4\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">Ключові слова</th>"
+                + "<tr><th data-column-index=\"0\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">типу документа</th>"
+                + "<th data-column-index=\"1\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">назві документа</th>"
+                + "<th data-column-index=\"2\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">номеру документа</th>"
+                + "<th data-column-index=\"3\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='tableDate'>даті</th>"
+                + "<th data-column-index=\"4\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">ключовим словам</th>"
                 + "<th data-column-index=\"5\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\"></th></tr>"
                 +"</tfoot><tbody>";
         //if(isGroupAllowedForSection||isAdmin||isUserAllowedForSection){
@@ -106,7 +106,7 @@ public class AjaxController {
                                     "<th data-column-index=\"1\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</th>\n"+
                                     "<th data-column-index=\"2\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.clientId+"</th>\n"+
                                     "<th data-column-index=\"3\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='tableDate' onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.date.replace("/", ".")+"</th>\n"+
-                                    "<th data-column-index=\"4\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">"+tempDocs.tags+"</th>"+
+                                    "<th data-column-index=\"4\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.tags+"</th>"+
                                     "<th data-column-index=\"5\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></a></th>\n"+
                                 "</tr>\n";
                     }

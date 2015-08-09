@@ -59,12 +59,14 @@
                 <a id="indexPage" href="${Constants.URL}index">Список документів</a>
                 <c:if test="${sessionScope.user.role > 0}">
                     <a id="docsPage" href="${Constants.URL}admin">Редактор документів</a>
+                    <c:if test="${sessionScope.user.role == 2}">
+                        <a id="typesPage" href="${Constants.URL}admin/types">Редактор типів</a>
+                    </c:if>
                     <a id="sectionsPage" href="${Constants.URL}admin/sections">Редактор розділів</a>
                 </c:if>
                 <c:if test="${sessionScope.user.role == 2}">
                     <a id="usersPage" href="${Constants.URL}admin/users">Редактор користувачів</a>
                     <a id="groupsPage" href="${Constants.URL}admin/userGroups">Редактор груп</a>
-                    <a id="typesPage" href="${Constants.URL}admin/types">Редактор типів</a>
                 </c:if>
             </div>
                         </div>
@@ -81,18 +83,77 @@
 		</header>
         <jsp:doBody/> 
         <script>
+            var tableId = null; 
             var isHiddenSearch = true;
             function hideSearch(){
                 if(isHiddenSearch){
                     $('tfoot').hide('slow');
-                    $('.hideSearch').text('Показати пошук');
+                    $('.hideSearch').text('Показати пошук по стовбцях');
                     isHiddenSearch = false;
 
                 }else{
                     $('tfoot').show('slow');
-                    $('.hideSearch').text('Приховати пошук');
+                    $('.hideSearch').text('Приховати пошук по стовбцях');
                     isHiddenSearch = true;
                 }
             }
+            $( document ).ready(function() {
+                $('th').click(function(){
+                    //console.log($(this).text());
+                });
+            });
+            
+	function showDocument(url, id){
+                if(tableId!=null)
+                {
+                    $('#tableTr'+tableId).css('background-color',color);
+                }
+                tableId = id;
+                color = $('#tableTr'+tableId).css('background-color');
+                $('#tableTr'+tableId).css('background-color','#d4d4d4');
+		$('#imagePreview').addClass('displayNone');
+		$('#pdfPreview').addClass('displayNone');
+		$('#txtPreview').addClass('displayNone');
+		$('.previewNotAvailableBlock').addClass('displayNone');
+                var checkType = url.split('.');
+                switch (checkType[1]){
+                    case 'pdf':
+                    case 'PDF':
+                        $('#pdfPreview').removeClass('displayNone');
+                        $('#pdfPreview').attr("data", url);
+                        break;
+                    case 'jpg':
+                    case 'JPG':
+                    case 'jpeg':
+                    case 'JPEG':
+                    case 'png':
+                    case 'PNG':
+                        $('#imagePreview').removeClass('displayNone');
+                        $('#imagePreview').attr("src", url);
+                        break;
+                    case 'txt':
+                    case 'TXT':
+                        $('#txtPreview').removeClass('displayNone');
+                        $('#txtPreview').attr("data", url);
+                        break;
+                    case 'doc':
+                    case 'DOC':
+                    case 'docx':
+                    case 'DOCX':
+                    case 'xls':
+                    case 'XLS':
+                    case 'XLSX':
+                    case 'xlsx':
+                    case 'tiff':
+                    case 'TIFF':
+                        $('.previewNotAvailableBlock').removeClass('displayNone');
+                        $('#previewNotAvailableLink').attr("href", url);
+                        break;
+                    default:
+                        $('.previewNotAvailableBlock').removeClass('displayNone');
+                        $('#previewNotAvailableLink').attr("href", url);
+                        break;
+                }
+	}
         </script>
 </html>

@@ -59,58 +59,8 @@
 	</body>
 <script charset="UTF-8">
     var sectionId = null;
-    var tableId = null; 
 	$('main').height(window.innerHeight-$('header').height()-$('footer').height());
 	
-	function showDocument(url, id){
-                if(tableId!=null)
-                    //$('#tableTr'+tableId).css('background-color',color);
-                tableId = id;
-                //$('#tableTr'+tableId).css('background-color','#d4d4d4');
-		$('#imagePreview').addClass('displayNone');
-		$('#pdfPreview').addClass('displayNone');
-		$('#txtPreview').addClass('displayNone');
-		$('.previewNotAvailableBlock').addClass('displayNone');
-                var checkType = url.split('.');
-                switch (checkType[1]){
-                    case 'pdf':
-                    case 'PDF':
-                        $('#pdfPreview').removeClass('displayNone');
-                        $('#pdfPreview').attr("data", url);
-                        break;
-                    case 'jpg':
-                    case 'JPG':
-                    case 'jpeg':
-                    case 'JPEG':
-                    case 'png':
-                    case 'PNG':
-                        $('#imagePreview').removeClass('displayNone');
-                        $('#imagePreview').attr("src", url);
-                        break;
-                    case 'txt':
-                    case 'TXT':
-                        $('#txtPreview').removeClass('displayNone');
-                        $('#txtPreview').attr("data", url);
-                        break;
-                    case 'doc':
-                    case 'DOC':
-                    case 'docx':
-                    case 'DOCX':
-                    case 'xls':
-                    case 'XLS':
-                    case 'XLSX':
-                    case 'xlsx':
-                    case 'tiff':
-                    case 'TIFF':
-                        $('.previewNotAvailableBlock').removeClass('displayNone');
-                        $('#previewNotAvailableLink').attr("href", url);
-                        break;
-                    default:
-                        $('.previewNotAvailableBlock').removeClass('displayNone');
-                        $('#previewNotAvailableLink').attr("href", url);
-                        break;
-                }
-	}
         function getChildDocuments(value){
             if(sectionId!=null)
                 $('#section'+sectionId).css('font-weight','100');
@@ -130,7 +80,7 @@
                     $('#table-pagination tfoot th').each( function () {
                         if($(this).text()!=""){
                             var title = $('#table-pagination thead th').eq( $(this).index() ).text();
-                            $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+$(this).text()+'" />' );
+                            $(this).html( '<input title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+$(this).text()+'" />' );
                         }
                     } );
                     var table = $('#table-pagination').DataTable({
@@ -147,7 +97,8 @@
                                 .draw();
                         } );
                     } );
-                    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
+                    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
+                    $('#table-pagination_filter').append('<span id="showMainSearch" class="glyphicon glyphicon-search"></span>');
                 },
                 error: function(response){ 
                     console.log(response);
@@ -171,7 +122,7 @@
     jQuery(function($) {
         $('#indexPage').css('background','#14A86B');
         $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'horizontal', limit:0, position:'60%'});
-        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'vertical', limit:220, position:'30%'});
+        $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-50).split({orientation:'vertical', limit:220, position:'30%'});
         $('.hsplitter').append('<img src="${Constants.URL}/img/verticalResize.png">');
         $('.vsplitter').append('<img src="${Constants.URL}/img/horizontalResize.png">');
         //$('.verticalResize').position($('.splitterMask').position());

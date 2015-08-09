@@ -58,7 +58,7 @@
                     <dl class="usersList"> 
 
                         <dt>
-                        <a href="#">
+                        <a>
                           <span class="hida">Оберіть значення</span>    
                           <p class="multiSel"></p>  
                         </a>
@@ -83,7 +83,7 @@
                     <dl class="groupsList"> 
 
                         <dt>
-                        <a href="#">
+                        <a>
                           <span class="hida">Оберіть значення</span>    
                           <p class="multiSel"></p>  
                         </a>

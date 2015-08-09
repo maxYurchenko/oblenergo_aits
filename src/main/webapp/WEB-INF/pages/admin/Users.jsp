@@ -34,10 +34,10 @@
                     </thead>
                     <tfoot>
                         <tr class="tableHeader">
-                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Ім’я</th>
-                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Роль</th>
-                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Опис</th>
-                            <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">ПІБ</th>
+                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">імені</th>
+                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">ролі</th>
+                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">опису</th>
+                            <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">ПІБу</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -78,8 +78,8 @@
         // Setup - add a text input to each footer cell
     $('#table-pagination tfoot th').each( function () {
         if(($(this).text()!="")&&($(this).text()!="Видалити")&&($(this).text()!="Дійсний")){
-            var title = $('#table-pagination thead th').eq( $(this).index() ).text();
-            $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
+            var title = $('#table-pagination tfoot th').eq( $(this).index() ).text();
+            $(this).html( '<input title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
         }
     } );
  
@@ -97,7 +97,14 @@
                 .draw();
         } );
     } );
-    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
+    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
+    $('#table-pagination_filter').prepend('<span id="showMainSearch" class="glyphicon glyphicon-search"></span>');
+        $('#showMainSearch').click(function(){
+            $('#showMainSearch').hide(0);
+            $('#mainSearch').removeClass('displayNone');
+            $('#mainSearch').hide(0);
+            $('#mainSearch').show('slow');
+        });
         });
         function deleteUser(id){
             console.log(id);

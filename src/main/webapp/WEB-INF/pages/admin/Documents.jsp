@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <t:mainHeader>
     <body>
+        <div class="containerSplit">
         <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -21,26 +22,26 @@
                     <table style="visibility: hidden" class="table table-striped table-bordered" id="table-pagination" data-height="400" data-pagination="true">
                             <thead>
                                 <tr class="tableHeader">
-                                    <th>Номер</th>
-                                    <th>Назва</th>
-                                    <th>Розділ</th>
+                                    <th>Номер документа</th>
+                                    <th>Назва документа</th>
+                                    <th>Розділ документа</th>
                                     <th style="width: 50px;">Дата</th>
                                     <th>Ключові слова</th>
                                     <th><img style="width: 20px;" src="${Constants.URL}img/dl.png"></th>
                                     <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
-                                        <th style="width: 60px;">Відображати</th>
+                                        <th class="text-center vcenter" style="width: 90px;">Відображати</th>
                                     </c:if>
-                                    <th style="width: 60px;">Дійсний</th>
+                                        <th class="text-center vcenter" style="width: 90px;">Дійсний</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr class="tableHeader">
-                                    <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Номер</th>
-                                    <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Назва</th>
-                                    <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Розділ</th>
-                                    <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" style="width: 50px;">Дата</th>
-                                    <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Ключові слова</th>
+                                    <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">номеру документа</th>
+                                    <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">назві документа</th>
+                                    <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">розділу документа</th>
+                                    <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" style="width: 50px;">даті</th>
+                                    <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">ключовим словам</th>
                                     <th style="width: 25px;"></th>
                                     <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
@@ -52,17 +53,19 @@
                             <tbody>
                                 <c:forEach items="${documents}" var="document">
                                     <c:if test="${document.isDelete==0 || user.role==2}">
-                                        <tr <c:if test="${document.valid==0}">class="inValidDoc display"</c:if>>
-                                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.clientId}</th>
-                                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.title}</th>
-                                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.parentName}</th>
-                                            <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.date}</th>
-                                            <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${document.tags}</th>
+                                        <tr id="tableTr${document.id}" <c:if test="${document.valid==0}">class="inValidDoc display"</c:if>>
+                                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">
+                                                <span>${document.clientId}</span>
+                                            </th>
+                                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.title}</th>
+                                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.parentName}</th>
+                                            <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.date}</th>
+                                            <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.tags}</th>
                                             <th><a target='_blank' download href="${Constants.URL}${document.path}"><img style="width: 20px;" src="${Constants.URL}img/dl.png"></a></th>
                                             <th><a href="${Constants.URL}admin/editDocument/${document.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                             <c:if test="${user.role == 2}">
-                                                <th class="publishCheckboxBlock text-center invisibleText" id="publishCheckboxBlock${document.id}" 
-                                                    style="width: 70px;" value="${document.id}">${document.isDelete}
+                                                <th class="publishCheckboxBlock vcenter text-center invisibleText" id="publishCheckboxBlock${document.id}" 
+                                                    value="${document.id}">${document.isDelete}
                                                     <c:choose>
                                                         <c:when test="${document.isDelete == 1}">
                                                             <input type="checkbox" name="my-checkbox" id="deleteCheckBox${document.id}">
@@ -75,8 +78,8 @@
                                                 </th>
                                             </c:if>
                                             <c:if test="${user.role == 2}">
-                                                <th class="validCheckboxBlock invisibleText text-center" id="validCheckboxBlock${document.id}" 
-                                                    style="width: 70px;" value="${document.id}">${document.valid}
+                                                <th class="validCheckboxBlock vcenter invisibleText text-center" id="validCheckboxBlock${document.id}" 
+                                                    value="${document.id}">${document.valid}
                                                     <c:choose>
                                                         <c:when test="${document.valid == 0}">
                                                             <input type="checkbox" name="my-checkbox" id="validCheckBox${document.id}">
@@ -96,6 +99,27 @@
                     </table>
                 </div>
             </div>
+        <div class="container-fluid">
+                                    <div class="row maxHeight">
+                                        <div class="col-md-12 maxHeight">
+                                            
+			<div class="docPreview maxHeight">
+				<img id="imagePreview" class="displayNone" src="${Constants.URL}files/2.jpg">
+				<object id="pdfPreview" class="displayNone" data="${Constants.URL}files/1.pdf" type="application/pdf" width="100%" height="100%">
+				</object>
+				<object id="txtPreview" class="displayNone" data="${Constants.URL}files/file.txt">
+				</object>
+                                <div class="previewNotAvailableBlock displayNone">
+                                    <div class="previewNotAvailable">
+                                        Попередній перегляд недоступний<br>
+                                        <a id="previewNotAvailableLink" href="" download target="_blank">Завантажити документ</a>
+                                    </div>
+                                </div>
+			</div>
+                                        </div>
+                                    </div>
+        </div>
+        </div>
     </body>
 </t:mainHeader>
 <script>
@@ -108,10 +132,13 @@
         $("[name='my-checkbox']").bootstrapSwitch();
         $('.selectpicker').selectpicker();
         // Setup - add a text input to each footer cell
+    jQuery(function($) {
+        $('.containerSplit').height(window.innerHeight-$('header').height()).split({orientation:'horizontal', limit:0, position:'85%'});
+    });
     $('#table-pagination tfoot th').each( function () {
         if($(this).text()!=""){
-            var title = $('#table-pagination thead th').eq( $(this).index() ).text();
-            $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
+            var title = $('#table-pagination tfoot th').eq( $(this).index() ).text();
+            $(this).html( '<input title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
         }
     } );
  
@@ -133,7 +160,14 @@
                 .draw();
         } );
     } );
-        $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
+        $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
+        $('#table-pagination_filter').prepend('<span id="showMainSearch" class="glyphicon glyphicon-search"></span>');
+        $('#showMainSearch').click(function(){
+            $('#showMainSearch').hide(0);
+            $('#mainSearch').removeClass('displayNone');
+            $('#mainSearch').hide(0);
+            $('#mainSearch').show('slow');
+        });
         $('#table-pagination_paginate').click(function(){
             $("[name='my-checkbox']").bootstrapSwitch();
         });

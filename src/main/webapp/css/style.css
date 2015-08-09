@@ -39,7 +39,7 @@ header a:hover{
             display: inline;
         }
         .activeBreadCrumb{
-            font-weight: 100;
+            font-weight: 600;
             text-decoration: underline;
             pointer-events: none;
         }
@@ -204,6 +204,7 @@ main{
             font-weight: 600;
             padding: 20px 10px 17px 10px;
             margin-left: -4px;
+            border-radius: 0px 0px 10px 10px;
         }
         .adminLinks{
             margin: 0px 0px 0px 9px;
@@ -348,7 +349,8 @@ footer{
     top:2px;
     width:100%;
     list-style:none;
-    height: 500px;
+    height: auto;
+    max-height: 500px;
     overflow: auto;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -409,7 +411,8 @@ footer{
     top:2px;
     width:100%;
     list-style:none;
-    height: 500px;
+    height: auto;
+    max-height: 500px;
     overflow: auto;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -469,7 +472,8 @@ footer{
     top:2px;
     width:100%;
     list-style:none;
-    height: 500px;
+    height: auto;
+    max-height: 500px;
     overflow: auto;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -616,7 +620,17 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     width: 100% !important;
 }
 #table-pagination_filter label{
-    width: 100% !important;
+    width: 90% !important;
+    float: right;
+}
+#table-pagination_filter span{
+    transition: 0.5s;
+    cursor: pointer;
+    margin-right: 5px;
+    float: right;
+}
+#table-pagination_filter span:hover{
+    color: #14A86B;
 }
 .dataTables_filter{
     width: 50%;
@@ -630,6 +644,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     text-decoration: underline;
     cursor: pointer;
     transition: 0.5s;
+    margin-top: 4px;
 }
 .z-indexSmall{
     z-index: 10;
@@ -639,4 +654,26 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 }
 #table-pagination_wrapper a{
     transition: 0s;
+}
+.maxHeight{
+    height: 100%;
+}
+
+.bootstrap-switch-wrapper{
+    vertical-align: middle;
+}
+dt{
+    cursor: pointer;
+}
+dt a:hover{
+    color: black;
+}
+.dataTables_length label select{
+    width: auto;
+    height: 28px;
+    padding: 0;
+    display: inline-block;
+}
+table.dataTable tbody th, table.dataTable tbody td{
+    outline: none;
 }

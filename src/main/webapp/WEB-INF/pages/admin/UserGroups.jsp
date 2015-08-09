@@ -32,8 +32,8 @@
                     </thead>
                     <tfoot>
                         <tr class="tableHeader">
-                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Назва</th>
-                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Користувачі в цій групі</th>
+                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">назві групи</th>
+                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">користувачам в цій групі</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -58,8 +58,8 @@
         // Setup - add a text input to each footer cell
     $('#table-pagination tfoot th').each( function () {
         if(($(this).text()!="")&&($(this).text()!="Видалити")&&($(this).text()!="Дійсний")){
-            var title = $('#table-pagination thead th').eq( $(this).index() ).text();
-            $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
+            var title = $('#table-pagination tfoot th').eq( $(this).index() ).text();
+            $(this).html( '<input title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
         }
     } );
  
@@ -77,7 +77,14 @@
                 .draw();
         } );
     } );
-    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
+    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
+    $('#table-pagination_filter').prepend('<span id="showMainSearch" class="glyphicon glyphicon-search"></span>');
+        $('#showMainSearch').click(function(){
+            $('#showMainSearch').hide(0);
+            $('#mainSearch').removeClass('displayNone');
+            $('#mainSearch').hide(0);
+            $('#mainSearch').show('slow');
+        });
                 //$('.deleteFrameBlock').hide();
             });
             

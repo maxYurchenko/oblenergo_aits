@@ -28,7 +28,7 @@
                             </thead>
                             <tfoot>
                                 <tr class="tableHeader">
-                                    <th>Назва</th>
+                                    <th>назві</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -60,7 +60,7 @@
         // Setup - add a text input to each footer cell
     $('#table-pagination tfoot th').each( function () {
         if($(this).text()!=""){
-            var title = $('#table-pagination thead th').eq( $(this).index() ).text();
+            var title = $('#table-pagination tfoot th').eq( $(this).index() ).text();
             $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
         }
     } );
@@ -78,5 +78,13 @@
                 .draw();
         } );
     } );
+        $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
+    $('#table-pagination_filter').prepend('<span id="showMainSearch" class="glyphicon glyphicon-search"></span>');
+        $('#showMainSearch').click(function(){
+            $('#showMainSearch').hide(0);
+            $('#mainSearch').removeClass('displayNone');
+            $('#mainSearch').hide(0);
+            $('#mainSearch').show('slow');
+        });
     });
 </script>

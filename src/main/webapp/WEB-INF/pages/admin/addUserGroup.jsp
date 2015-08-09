@@ -38,7 +38,7 @@
                     <dl class="usersList"> 
 
                         <dt>
-                        <a href="#">
+                        <a>
                           <span class="hida">Оберіть користувачів</span>    
                           <p class="multiSel"></p>  
                         </a>

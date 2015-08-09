@@ -44,10 +44,10 @@
                     </thead>
                     <tfoot>
                         <tr class="tableHeader">
-                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Ім’я</th>
-                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Головна категорія</th>
-                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Доступ користувачам</th>
-                            <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">Доступ групам</th>
+                            <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">імені</th>
+                            <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">головній категорії</th>
+                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">доступу користувачам</th>
+                            <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">доступу групам</th>
                             <th style="width:20px;"></th>
                             <th style="width:20px;"></th>
                         </tr>
@@ -84,8 +84,8 @@
                 $('.selectpicker').selectpicker();
         $('#table-pagination tfoot th').each( function () {
             if($(this).text()!=""){
-                var title = $('#table-pagination thead th').eq( $(this).index() ).text();
-                $(this).html( '<input class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
+                var title = $('#table-pagination tfoot th').eq( $(this).index() ).text();
+                $(this).html( '<input title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
             }
         } );
         var table = $('#table-pagination').DataTable({
@@ -99,7 +99,14 @@
                     .draw();
             } );
         } );
-        $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
+        $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
+    $('#table-pagination_filter').prepend('<span id="showMainSearch" class="glyphicon glyphicon-search"></span>');
+        $('#showMainSearch').click(function(){
+            $('#showMainSearch').hide(0);
+            $('#mainSearch').removeClass('displayNone');
+            $('#mainSearch').hide(0);
+            $('#mainSearch').show('slow');
+        });
             });
             function deleteSection(id){
                 $('.deleteFrameBlock').fadeIn('fast');
