@@ -394,7 +394,7 @@
                 if(!that.s.isMousedown) {
                     //Once the mouse has entered the cell add mouse move event to see if the mouse is over resize handle
                     $(nTh).off('mousemove.ColResizeHandle').on('mousemove.ColResizeHandle', function (e) {
-                        e.preventDefault();
+                        //e.preventDefault();
                         that._fnResizeHandleCheck.call(that, e, nTh);
                     });
                 }
@@ -526,7 +526,6 @@
                             var widthDiffNeighbour = newColNeighbourWidth - prevNeighbourWidth;
                             //Get the column index for the column being changed
                             var colResizeIdx = parseInt(that.dom.resizeCol.attr("data-column-index"));
-                        console.log(colResizeIdx);
                             var neighbourColResizeIdx = parseInt(that.dom.resizeColNeighbour.attr("data-column-index"));
                             //Set datatable column widths
                             that.s.mouse.neighbourColumn.sWidthOrig = that.s.mouse.neighbourColumn.sWidth = that.s.mouse.neighbourColumn.width = newColNeighbourWidth + "px";
@@ -627,7 +626,7 @@
                             that._fnClick.call(that, e);
                         });
                 } else {
-                    $(nTh).css("cursor", "pointer");
+                    $(nTh).css("cursor", "auto");
                     $(nTh).off('mousedown.ColResize click.ColResize');
                     //Restore any events that were removed
                     that._fnRestoreEvents();

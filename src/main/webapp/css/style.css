@@ -694,3 +694,6 @@ th .form-control{
 dl dd ul li input{
     margin-right: 4px !important;
 }
+.tableText{
+    position: fixed;
+}
