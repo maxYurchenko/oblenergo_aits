@@ -161,7 +161,6 @@
         } );
     } );
         $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
-        $('#table-pagination_filter').prepend('<span id="showMainSearch" class="glyphicon glyphicon-search"></span>');
         $('#showMainSearch').click(function(){
             $('#showMainSearch').hide(0);
             $('#mainSearch').removeClass('displayNone');
@@ -222,5 +221,8 @@
                 }
             }); 
         });
+        $('tfoot').hide(0);
+        $('.hideSearch').text('Показати пошук по стовбцях');
+        isHiddenSearch = false;
     });
 </script>
