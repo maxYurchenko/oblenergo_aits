@@ -674,6 +674,7 @@ dt a:hover{
     height: 20px;
     padding: 0;
     display: inline-block;
+    margin-bottom: 10px;
 }
 table.dataTable tbody th, table.dataTable tbody td{
     outline: none;

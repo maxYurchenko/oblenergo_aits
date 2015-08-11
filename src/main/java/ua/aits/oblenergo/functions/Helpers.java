@@ -20,10 +20,13 @@ public class Helpers {
     public String getRowHtml(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         List<SectionModel> tempSection = section.getSectionRow(id);
         String tempId = "";
+        String tempLi = "";
         if("0".equals(id)){
             tempId = "id=expList";
+            tempLi = "<li class='section' value='0' id='section0' onclick='getChildDocuments(0)'>Всі документи<ul></ul></li>";
         }
         String html = "<ul "+tempId+">\n";
+        html = html + tempLi;
             for(SectionModel temp : tempSection) {
                 if(temp.isDelete!=1){
                     html = html + "<li class='section' value='"+temp.id+"' id='section"+temp.id+"' onclick='getChildDocuments("+temp.id.toString()+")'>"

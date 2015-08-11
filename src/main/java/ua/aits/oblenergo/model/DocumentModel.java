@@ -188,8 +188,8 @@ public class DocumentModel {
             temp.setAccess(result.getString("access"));
             temp.setAccessGroup(result.getString("groups"));
             temp.setUploader(result.getString("uploader"));
-            temp.setType(result.getString("type"));
-            temp.setTags(result.getString("tags"));
+            temp.setType(result.getString("type").replace(",",", "));
+            temp.setTags(result.getString("tags").replace(",",", "));
             documentList.add(temp);
         } 
         DB.closeCon();
@@ -216,8 +216,8 @@ public class DocumentModel {
             temp.setAccess(result.getString("access"));
             temp.setAccessGroup(result.getString("groups"));
             temp.setUploader(result.getString("uploader"));
-            temp.setType(result.getString("type"));
-            temp.setTags(result.getString("tags"));
+            temp.setType(result.getString("type").replace(",",", "));
+            temp.setTags(result.getString("tags").replace(",",", "));
             documentList.add(temp);
         } 
         DB.closeCon();
@@ -243,8 +243,8 @@ public class DocumentModel {
         temp.setAccess(result.getString("access"));
         temp.setAccessGroup(result.getString("groups"));
         temp.setUploader(result.getString("uploader"));
-        temp.setType(result.getString("type"));
-        temp.setTags(result.getString("tags"));
+        temp.setType(result.getString("type").replace(",",", "));
+        temp.setTags(result.getString("tags").replace(",",", "));
         DB.closeCon();
     return temp;
     }
