@@ -126,7 +126,7 @@ public class UserModel {
     }
     
     public String addUser(String username, String password, String role, String descr, String fullName) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-         DB.runQuery("INSERT INTO users (name, pass, description, role, fullName) values ('"+username+"', '"+password+"', '"+descr+"', "+role+", "+fullName+");");
+         DB.runQuery("INSERT INTO users (name, pass, description, role, fullName) values ('"+username+"', '"+password+"', '"+descr+"', "+role+", '"+fullName+"');");
         DB.closeCon();
          return "done";
     }

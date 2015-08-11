@@ -81,10 +81,6 @@ public class AjaxController {
                 Boolean isAllowedByGroup = false;
                 String[] acessGroupList = tempDocs.accessGroup.split(",");
                 isUserAllowedForSection = Arrays.asList(sectionAllowedUsers).contains(request.getParameter("userId"));
-                for(String temp : groupArray) {
-                        if(Arrays.asList(acessGroupList).contains(temp))
-                           isAllowedByGroup = true; 
-                    }
                 for(UserGroupModel group : userGroups) {
                     String[] userIds = group.userId.split(",");
                     if(Arrays.asList(userIds).contains(request.getParameter("userId")))
@@ -96,6 +92,10 @@ public class AjaxController {
                                     isGroupAllowedForSection = true;
                     }
                 }
+                for(String temp : groupArray) {
+                        if(Arrays.asList(acessGroupList).contains(temp))
+                           isAllowedByGroup = true; 
+                    }
                 Boolean isAllowedByID = Arrays.asList(accessList).contains(request.getParameter("userId"));
                 Boolean showDoc = isAllowedByID||isAdmin||isAllowedByGroup||isGroupAllowedForSection||isUserAllowedForSection;
                 if(showDoc){

@@ -27,7 +27,7 @@
                     <div class="docsList">
                         <div id="listContainer">
                             <div class="listControl">
-                                <input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
+                                <input class="btn btn-primary btn-mini margintop-button"
                                        id="expandList" value="Згорнути / Розгорнути" type="button">
                                 <!--<input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
                                        id="collapseList" value="Згорнути" type="button">-->
