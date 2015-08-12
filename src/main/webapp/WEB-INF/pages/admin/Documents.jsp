@@ -229,7 +229,7 @@
                 '</div>';
         $('#table-pagination_filter').after(dateSearch);
         $('tfoot').hide(0);
-        $('.hideSearch').text('Показати пошук по стовбцях');
+        $('.hideSearch').text('Показати пошук');
         isHiddenSearch = false;
         $('.input-daterange').datepicker({
             format: "dd.mm.yyyy",

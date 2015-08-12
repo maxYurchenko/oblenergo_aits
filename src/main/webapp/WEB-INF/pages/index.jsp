@@ -103,9 +103,9 @@
                                 .draw();
                         } );
                     } );
-                    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
+                    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
                         $('tfoot').hide(0);
-                        $('.hideSearch').text('Показати пошук по стовбцях');
+                        $('.hideSearch').text('Показати пошук');
                         isHiddenSearch = false;
                         $('#table-pagination_filter').after(dateSearch);
                         $('.input-daterange').datepicker({
