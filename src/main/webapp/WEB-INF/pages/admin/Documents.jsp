@@ -123,6 +123,7 @@
     </body>
 </t:mainHeader>
 <script>
+    var dateCounter = 3;
     $( document ).ready(function() {
         $('table').css('visibility','visible');
         $('.cutLink').each(function(){

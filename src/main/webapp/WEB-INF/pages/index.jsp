@@ -59,6 +59,12 @@
 	</body>
 <script charset="UTF-8">
     var sectionId = null;
+    var dateCounter = 4;
+        var dateSearch = '<div class="input-daterange input-group" id="datepicker">'+
+                    '<input id="min" type="text" class="form-control" name="start" />'+
+                    '<span class="input-group-addon">до</span>'+
+                    '<input id="max" type="text" class="form-control" name="end" />'+
+                '</div>';
 	$('main').height(window.innerHeight-$('header').height()-$('footer').height());
 	
         function getChildDocuments(value){
@@ -101,6 +107,14 @@
                         $('tfoot').hide(0);
                         $('.hideSearch').text('Показати пошук по стовбцях');
                         isHiddenSearch = false;
+                        $('#table-pagination_filter').after(dateSearch);
+                        $('.input-daterange').datepicker({
+                            format: "dd.mm.yyyy",
+                            weekStart: 1
+                        });
+        $('#datepicker').change(function(){
+            table.draw();
+        });
                 },
                 error: function(response){ 
                     console.log(response);
