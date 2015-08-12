@@ -621,7 +621,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     width: 100% !important;
 }
 #table-pagination_filter label{
-    width: 90% !important;
+    width: 100% !important;
     float: right;
     margin-bottom: 0;
 }
@@ -635,7 +635,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     color: #14A86B;
 }
 .dataTables_filter{
-    width: 50%;
+    width: 400px;
 }
 .invisibleText{
     color: rgba(0,0,0,0);
@@ -697,4 +697,15 @@ dl dd ul li input{
 }
 .tableText{
     position: fixed;
+}
+#datepicker{
+    width: 240px;
+    float: right;
+    margin: -2px 5px 0 5px;
+}
+#datepicker input{
+    height: 25px !important;
+}
+#datepicker span{
+    padding: 4px 12px;
 }

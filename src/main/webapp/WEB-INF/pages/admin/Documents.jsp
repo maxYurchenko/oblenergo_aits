@@ -221,8 +221,21 @@
                 }
             }); 
         });
+        var dateSearch = '<div class="input-daterange input-group" id="datepicker">'+
+                    '<input id="min" type="text" class="form-control" name="start" />'+
+                    '<span class="input-group-addon">до</span>'+
+                    '<input id="max" type="text" class="form-control" name="end" />'+
+                '</div>';
+        $('#table-pagination_filter').after(dateSearch);
         $('tfoot').hide(0);
         $('.hideSearch').text('Показати пошук по стовбцях');
         isHiddenSearch = false;
+        $('.input-daterange').datepicker({
+            format: "dd.mm.yyyy",
+            weekStart: 1
+        });
+        $('#datepicker').change(function(){
+            table.draw();
+        });
     });
 </script>

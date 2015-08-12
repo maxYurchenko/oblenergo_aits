@@ -21,12 +21,16 @@
         <link rel="stylesheet" href="${Constants.URL}css/bootstrap-select.min.css" />
         <script src="${Constants.URL}js/bootstrap-select.min.js"></script>
         <link rel="stylesheet" href="${Constants.URL}css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="${Constants.URL}css/bootstrap-datepicker.min.css">
         <script src="${Constants.URL}js/jquery.dataTables.min.js"></script>
+        <script src="${Constants.URL}js/daterangefilter.js"></script>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         <script type="text/javascript" src="${Constants.URL}js/jquery.splitter-0.15.0.js"></script>
         <script type="text/javascript" src="${Constants.URL}js/dataTables.colResize.js"></script>
         <script type="text/javascript" src="${Constants.URL}js/date-de.js"></script>
         <script type="text/javascript" src="${Constants.URL}js/dropzone.js"></script>
+        <script type="text/javascript" src="${Constants.URL}js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="${Constants.URL}js/bootstrap-datepicker.min.js"></script>
         <link rel="stylesheet" href="${Constants.URL}css/jquery.splitter.css">
         <link href="${Constants.URL}img/icon.ico" rel="shortcut icon" type="image/x-icon" />
         <title>Бібліотека ПАТ «Закарпаттяобленерго»</title>
