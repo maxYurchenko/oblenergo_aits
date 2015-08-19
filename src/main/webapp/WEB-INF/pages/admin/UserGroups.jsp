@@ -77,8 +77,7 @@
                 .draw();
         } );
     } );
-                    $('#table-pagination_length').append(" | &nbsp;<div class='resetSearch' onclick='resetSearch()'><div class='spaceReset'>&nbsp;|&nbsp;</div>Очистити пошук</div> "+
-                            "<div class='hideSearch' onclick='hideSearch()'>Показати пошук</div>");
+                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch' onclick='hideSearch()'>Показати<br>пошук</div>");
         $('#showMainSearch').click(function(){
             $('#showMainSearch').hide(0);
             $('#mainSearch').removeClass('displayNone');

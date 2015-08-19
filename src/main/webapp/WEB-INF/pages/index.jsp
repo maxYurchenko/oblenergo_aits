@@ -61,7 +61,7 @@
     var sectionId = null;
     var dateCounter = 4;
     var table;
-        var dateSearch = '<div class="rangeBigContainer"><span class="input-group-addon dateRangeTitle">Пошук за датою</span>'+
+        var dateSearch = '<div class="rangeBigContainer"><span>Пошук за датою</span>'+
                     '<div class="input-daterange input-group" id="datepicker">'+
                     '<span class="input-group-addon">від</span>'+
                     '<input id="min" type="text" class="form-control" name="start" />'+
@@ -119,8 +119,7 @@
                                 .draw();
                         } );
                     } );
-                    $('#table-pagination_length').append(" | &nbsp;<div class='resetSearch' onclick='resetSearch()'><div class='spaceReset'>&nbsp;|&nbsp;</div>Очистити пошук</div> "+
-                            "<div class='hideSearch' onclick='hideSearch()'>Показати пошук</div>");
+                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch' onclick='hideSearch()'>Показати<br>пошук</div>");
                         $('tfoot').hide(0);
                         isHiddenSearch = false;
                         $('#table-pagination_filter').after(dateSearch);
