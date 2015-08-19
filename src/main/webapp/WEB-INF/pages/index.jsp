@@ -119,7 +119,7 @@
                                 .draw();
                         } );
                     } );
-                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch' onclick='hideSearch()'>Показати<br>пошук</div>");
+                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати<br>пошук</div>");
                         $('tfoot').hide(0);
                         isHiddenSearch = false;
                         $('#table-pagination_filter').after(dateSearch);

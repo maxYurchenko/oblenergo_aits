@@ -99,7 +99,7 @@
                     .draw();
             } );
         } );
-                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch' onclick='hideSearch()'>Показати<br>пошук</div>");
+                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати<br>пошук</div>");
         $('#showMainSearch').click(function(){
             $('#showMainSearch').hide(0);
             $('#mainSearch').removeClass('displayNone');

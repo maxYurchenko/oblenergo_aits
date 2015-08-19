@@ -538,7 +538,7 @@ table.dataTable tbody th, table.dataTable tbody td{
     width: 250px !important;
     height: 25px !important;
     float: right !important;
-    margin-top: -2px !important;
+    margin-top: 4px !important;
 }
 .individualSearch{
     width: 100% !important;
@@ -646,6 +646,11 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     text-decoration: underline;
     cursor: pointer;
     transition: 0.5s;
+    margin-left: 5px;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 1px 12px !important;
 }
 .z-indexSmall{
     z-index: 10;
@@ -728,10 +733,18 @@ dl dd ul li input{
     text-decoration: underline;
     cursor: pointer;
     transition: 0.5s;
+    margin: -10px 0 0 0;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 1px 12px !important;
 }
 .resetSearch:hover{
     color: #14A86B;
 }
 .dataTables_length label{
     font-weight: 100;
+}
+.dataTables_length{
+    margin-top: -5px;
+    line-height: 23px;
 }
