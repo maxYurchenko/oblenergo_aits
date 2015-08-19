@@ -61,7 +61,7 @@
     var sectionId = null;
     var dateCounter = 4;
     var table;
-        var dateSearch = '<div class="rangeBigContainer"><span>Пошук за датою</span>'+
+        var dateSearch = '<div class="rangeBigContainer"><div class="rangeTitle">Пошук за датою</div>'+
                     '<div class="input-daterange input-group" id="datepicker">'+
                     '<span class="input-group-addon">від</span>'+
                     '<input id="min" type="text" class="form-control" name="start" />'+
@@ -134,6 +134,10 @@
         $('#datepicker').change(function(){
             table.draw();
             $('.datepicker').hide();
+        });
+        $('#rowDate').change(function(){
+            $('.datepicker').hide();
+            table.draw();
         });
         $('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
                 },

@@ -126,7 +126,7 @@ main{
         }
 	.docInfo{
                 padding: 10px;
-                padding-top: 40px;
+                padding-top: 30px;
 	}
         #docInfoTable_filter{
             width: 80%;
@@ -738,7 +738,7 @@ dl dd ul li input{
     font-size: 14px;
     text-decoration: none;
     padding: 1px 12px !important;
-    margin-top: -50px;
+    margin-top: -55px;
 }
 .resetSearch:hover{
     color: #14A86B;
@@ -752,4 +752,13 @@ dl dd ul li input{
 }
 .btn{
     transition: 0s !important;
+}
+tfoot input{
+    font-weight: 100 !important;
+}
+.rangeBigContainer span{
+    margin-top: -5px;
+}
+.rangeTitle{
+    margin: -5px 0 5px 0;
 }

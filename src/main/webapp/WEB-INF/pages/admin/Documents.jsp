@@ -140,7 +140,11 @@
     $('#table-pagination tfoot th').each( function () {
         if($(this).text()!=""){
             var title = $('#table-pagination tfoot th').eq( $(this).index() ).text();
-            $(this).html( '<input title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+title+'" />' );
+            if(title=="даті"){
+                $(this).html( '<input id="rowDate" title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+$(this).text()+'" />' );
+            }else{
+                $(this).html( '<input title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+$(this).text()+'" />' );   
+            }
         }
     } );
  
@@ -223,7 +227,7 @@
                 }
             }); 
         });
-        var dateSearch = '<div class="rangeBigContainer"><span>Пошук за датою</span>'+
+        var dateSearch = '<div class="rangeBigContainer"><div class="rangeTitle">Пошук за датою</div>'+
                     '<div class="input-daterange input-group" id="datepicker">'+
                     '<span class="input-group-addon">від</span>'+
                     '<input id="min" type="text" class="form-control" name="start" />'+
@@ -237,7 +241,15 @@
             format: "dd.mm.yyyy",
             weekStart: 1
         });
+        $('#rowDate').datepicker({
+            format: "dd.mm.yyyy",
+            weekStart: 1
+        });
         $('#datepicker').change(function(){
+            $('.datepicker').hide();
+            table.draw();
+        });
+        $('#rowDate').change(function(){
             $('.datepicker').hide();
             table.draw();
         });
