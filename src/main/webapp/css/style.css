@@ -126,7 +126,7 @@ main{
         }
 	.docInfo{
                 padding: 10px;
-                padding-top: 25px;
+                padding-top: 40px;
 	}
         #docInfoTable_filter{
             width: 80%;
@@ -699,7 +699,7 @@ dl dd ul li input{
     position: fixed;
 }
 #datepicker{
-    width: 240px;
+    width: 280px;
     float: right;
     margin: -2px 5px 0 5px;
 }
@@ -708,4 +708,32 @@ dl dd ul li input{
 }
 #datepicker span{
     padding: 4px 12px;
+}
+.datepicker{
+    z-index: 999999999999999999 !important;
+}
+.rangeBigContainer{
+    width: 285px;
+    float: right;
+    margin-top: -28px;
+}
+.dateRangeTitle{
+    width: 280px !important;
+    border-radius: 5px !important;
+    border: 1px solid #ccc !important;
+}
+.resetSearch{
+    float: right;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.resetSearch:hover{
+    color: #14A86B;
+}
+.spaceReset{
+    float: left;
+    text-decoration: none;
+    font-weight: 100;
 }

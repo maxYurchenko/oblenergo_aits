@@ -99,7 +99,8 @@
                     .draw();
             } );
         } );
-        $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
+                    $('#table-pagination_length').append(" | &nbsp;<div class='resetSearch' onclick='resetSearch()'><div class='spaceReset'>&nbsp;|&nbsp;</div>Очистити пошук</div> "+
+                            "<div class='hideSearch' onclick='hideSearch()'>Показати пошук</div>");
         $('#showMainSearch').click(function(){
             $('#showMainSearch').hide(0);
             $('#mainSearch').removeClass('displayNone');
@@ -107,7 +108,6 @@
             $('#mainSearch').show('slow');
         });
         $('tfoot').hide(0);
-        $('.hideSearch').text('Показати пошук по стовбцях');
         isHiddenSearch = false;
             });
             function deleteSection(id){

@@ -161,7 +161,8 @@
                 .draw();
         } );
     } );
-        $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук по стовбцях</div>");
+                    $('#table-pagination_length').append(" | &nbsp;<div class='resetSearch' onclick='resetSearch()'><div class='spaceReset'>&nbsp;|&nbsp;</div>Очистити пошук</div> "+
+                            "<div class='hideSearch' onclick='hideSearch()'>Показати пошук</div>");
         $('#showMainSearch').click(function(){
             $('#showMainSearch').hide(0);
             $('#mainSearch').removeClass('displayNone');
@@ -222,14 +223,15 @@
                 }
             }); 
         });
-        var dateSearch = '<div class="input-daterange input-group" id="datepicker">'+
+        var dateSearch = '<div class="rangeBigContainer"><span class="input-group-addon dateRangeTitle">Пошук за датою</span>'+
+                    '<div class="input-daterange input-group" id="datepicker">'+
+                    '<span class="input-group-addon">від</span>'+
                     '<input id="min" type="text" class="form-control" name="start" />'+
                     '<span class="input-group-addon">до</span>'+
                     '<input id="max" type="text" class="form-control" name="end" />'+
-                '</div>';
+                '</div></div>';
         $('#table-pagination_filter').after(dateSearch);
         $('tfoot').hide(0);
-        $('.hideSearch').text('Показати пошук');
         isHiddenSearch = false;
         $('.input-daterange').datepicker({
             format: "dd.mm.yyyy",

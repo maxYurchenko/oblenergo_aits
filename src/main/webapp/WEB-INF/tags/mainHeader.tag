@@ -159,5 +159,11 @@
                         break;
                 }
 	}
+        function resetSearch(){
+            $('#table-pagination_wrapper input').each(function(){
+                $(this).val('');
+                $(this).trigger('change');
+            });
+        }
         </script>
 </html>

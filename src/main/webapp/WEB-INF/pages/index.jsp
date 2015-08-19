@@ -60,11 +60,14 @@
 <script charset="UTF-8">
     var sectionId = null;
     var dateCounter = 4;
-        var dateSearch = '<div class="input-daterange input-group" id="datepicker">'+
+    var table;
+        var dateSearch = '<div class="rangeBigContainer"><span class="input-group-addon dateRangeTitle">Пошук за датою</span>'+
+                    '<div class="input-daterange input-group" id="datepicker">'+
+                    '<span class="input-group-addon">від</span>'+
                     '<input id="min" type="text" class="form-control" name="start" />'+
                     '<span class="input-group-addon">до</span>'+
                     '<input id="max" type="text" class="form-control" name="end" />'+
-                '</div>';
+                '</div></div>';
 	$('main').height(window.innerHeight-$('header').height()-$('footer').height());
 	
         function getChildDocuments(value){
@@ -86,15 +89,28 @@
                     $('#table-pagination tfoot th').each( function () {
                         if($(this).text()!=""){
                             var title = $('#table-pagination thead th').eq( $(this).index() ).text();
-                            $(this).html( '<input title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+$(this).text()+'" />' );
+                            if(title=="Дата"){
+                                $(this).html( '<input id="rowDate" title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+$(this).text()+'" />' );
+                            }else{
+                                $(this).html( '<input title="Пошук по '+title+'" class="form-control tableSearch individualSearch" type="text" placeholder="Пошук по '+$(this).text()+'" />' );   
+                            }
                         }
                     } );
-                    var table = $('#table-pagination').DataTable({
-                            columnDefs: [
-                                { type: 'date-eu', targets: 3 }
-                            ],
-                            "dom": 'Zlfrtip'
-                        });
+                    if(value!='0'){
+                        table = $('#table-pagination').DataTable({
+                                columnDefs: [
+                                    { type: 'date-eu', targets: 3 }
+                                ],
+                                "dom": 'Zlfrtip'
+                            });
+                    }else{
+                        table = $('#table-pagination').DataTable({
+                                columnDefs: [
+                                    { type: 'date-eu', targets: 4 }
+                                ],
+                                "dom": 'Zlfrtip'
+                            });
+                    }
                     table.columns().every( function () {
                         var that = this;
                         $( 'input', this.footer() ).on( 'keyup change', function () {
@@ -103,12 +119,16 @@
                                 .draw();
                         } );
                     } );
-                    $('#table-pagination_length').append(" |&nbsp;<div class='hideSearch' onclick='hideSearch()'>Приховати пошук</div>");
+                    $('#table-pagination_length').append(" | &nbsp;<div class='resetSearch' onclick='resetSearch()'><div class='spaceReset'>&nbsp;|&nbsp;</div>Очистити пошук</div> "+
+                            "<div class='hideSearch' onclick='hideSearch()'>Показати пошук</div>");
                         $('tfoot').hide(0);
-                        $('.hideSearch').text('Показати пошук');
                         isHiddenSearch = false;
                         $('#table-pagination_filter').after(dateSearch);
                         $('.input-daterange').datepicker({
+                            format: "dd.mm.yyyy",
+                            weekStart: 1
+                        });
+                        $('#rowDate').datepicker({
                             format: "dd.mm.yyyy",
                             weekStart: 1
                         });
