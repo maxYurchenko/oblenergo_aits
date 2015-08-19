@@ -624,6 +624,7 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     width: 100% !important;
     float: right;
     margin-bottom: 0;
+    margin-top: 14px;
 }
 #table-pagination_filter span{
     transition: 0.5s;
@@ -737,6 +738,7 @@ dl dd ul li input{
     font-size: 14px;
     text-decoration: none;
     padding: 1px 12px !important;
+    margin-top: -50px;
 }
 .resetSearch:hover{
     color: #14A86B;
@@ -747,4 +749,7 @@ dl dd ul li input{
 .dataTables_length{
     margin-top: -5px;
     line-height: 23px;
+}
+.btn{
+    transition: 0s !important;
 }

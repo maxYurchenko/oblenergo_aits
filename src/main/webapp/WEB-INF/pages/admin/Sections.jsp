@@ -108,6 +108,7 @@
         });
         $('tfoot').hide(0);
         isHiddenSearch = false;
+        $('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
             });
             function deleteSection(id){
                 $('.deleteFrameBlock').fadeIn('fast');

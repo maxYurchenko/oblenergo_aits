@@ -133,7 +133,9 @@
                         });
         $('#datepicker').change(function(){
             table.draw();
+            $('.datepicker').hide();
         });
+        $('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
                 },
                 error: function(response){ 
                     console.log(response);

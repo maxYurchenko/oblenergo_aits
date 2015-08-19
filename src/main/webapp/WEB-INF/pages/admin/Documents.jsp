@@ -123,6 +123,7 @@
     </body>
 </t:mainHeader>
 <script>
+    var table;
     var dateCounter = 3;
     $( document ).ready(function() {
         $('table').css('visibility','visible');
@@ -144,7 +145,7 @@
     } );
  
     // DataTable
-    var table = $('#table-pagination').DataTable({
+    table = $('#table-pagination').DataTable({
                         columnDefs: [
                             { type: 'date-eu', targets: 3 }
                         ],
@@ -237,7 +238,9 @@
             weekStart: 1
         });
         $('#datepicker').change(function(){
+            $('.datepicker').hide();
             table.draw();
         });
+        $('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
     });
 </script>

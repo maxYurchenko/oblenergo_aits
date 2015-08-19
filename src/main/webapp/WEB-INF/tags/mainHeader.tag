@@ -101,11 +101,6 @@
                     isHiddenSearch = true;
                 }
             }
-            $( document ).ready(function() {
-                $('th').click(function(){
-                    //console.log($(this).text());
-                });
-            });
             
 	function showDocument(url, id){
                 if(tableId!=null)
@@ -164,6 +159,7 @@
                 $(this).val('');
                 $(this).trigger('change');
             });
+            $('#table-pagination_filter label input').val('').trigger($.Event("keyup", { keyCode: 13 }));
         }
         </script>
 </html>

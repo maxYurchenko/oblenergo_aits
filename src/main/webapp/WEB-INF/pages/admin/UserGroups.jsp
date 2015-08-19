@@ -87,6 +87,7 @@
                 //$('.deleteFrameBlock').hide();
         $('tfoot').hide(0);
         isHiddenSearch = false;
+        $('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
             });
             
         </script>
