@@ -6,6 +6,8 @@ function prepareList() {
     $('#expList').find('li:has(ul)')
     .click( function(event) {
         if (this == event.target) {
+            $('#expandList').val('Згорнути');
+            show = false;
             if($(this).children().html()!="\n")
                 $(this).toggleClass('expanded');
             $(this).children('ul').toggle('medium');
@@ -21,10 +23,12 @@ function prepareList() {
     if(show){
             $('.collapsed').addClass('expanded');
             $('.collapsed').children().show('medium');
+            $(this).val('Згорнути');
         show = false;
     }else{
             $('.collapsed').removeClass('expanded');
             $('.collapsed').children().hide('medium');
+            $(this).val('Розгорнути');
         show = true;
     }
         })

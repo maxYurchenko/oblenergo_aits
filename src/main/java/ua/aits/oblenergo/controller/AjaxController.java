@@ -70,6 +70,10 @@ public class AjaxController {
                     + "<th data-column-index=\"6\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\"></th></tr>"
                     +"</tfoot><tbody>";
             for(DocumentModel tempDocs : documentList) {
+                    String clas = "";
+                    if(tempDocs.valid==0){
+                        clas = "inValidDoc";
+                    }
                 SectionModel currentSection = new SectionModel();
                 currentSection = section.getOneSection(tempDocs.parentId.toString());
                 String[] sectionAllowedUsers = currentSection.userAccess.split(",");
@@ -99,8 +103,9 @@ public class AjaxController {
                 Boolean isAllowedByID = Arrays.asList(accessList).contains(request.getParameter("userId"));
                 Boolean showDoc = isAllowedByID||isAdmin||isAllowedByGroup||isGroupAllowedForSection||isUserAllowedForSection;
                 if(showDoc){
-                    html = html +
-                                    "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable display\">\n"+
+                    if(tempDocs.isDelete!=1){
+                        html = html +
+                                    "<tr id=\"tableTr"+tempDocs.id+"\" class=\"documentsTable display "+clas+"\">\n"+
                                         "<th data-column-index=\"0\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.type+"</th>\n"+	
                                         "<th data-column-index=\"1\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</th>\n"+
                                         "<th data-column-index=\"2\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.clientId+"</th>\n"+
@@ -109,6 +114,7 @@ public class AjaxController {
                                         "<th data-column-index=\"5\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.tags+"</th>"+
                                         "<th data-column-index=\"6\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></a></th>\n"+
                                     "</tr>\n";
+                    }
                 }
             }
             html = html + "</tbody>";

@@ -23,7 +23,6 @@ public class Helpers {
         String tempLi = "";
         if("0".equals(id)){
             tempId = "id=expList";
-            tempLi = "<li class='section' value='0' id='section0' onclick='getChildDocuments(0)'>Всі документи<ul></ul></li><hr>";
         }
         String html = "<ul "+tempId+">\n";
         html = html + tempLi;

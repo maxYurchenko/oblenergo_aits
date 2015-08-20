@@ -156,7 +156,7 @@
             <div class="row">
                                                     <div class="col-md-8">
                                                         <label class="greenText" for="tlt">Ключові слова:</label>
-                                                <input type="text" name="documentTags" class="form-control" id="documentTags">
+                                                <input type="text" name="documentTags" class="form-control" id="documentTags" value="${document.tags}">
                                                 <label class="displayNone text-danger" id="documentIdValidation">Неправильно заповнене поле</label>
                                               </div>
             </div>

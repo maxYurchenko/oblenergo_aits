@@ -28,7 +28,7 @@
                         <div id="listContainer">
                             <div class="listControl">
                                 <input class="btn btn-primary btn-mini margintop-button"
-                                       id="expandList" value="Згорнути / Розгорнути" type="button">
+                                       id="expandList" value="Розгорнути" type="button">
                                 <!--<input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
                                        id="collapseList" value="Згорнути" type="button">-->
                             </div>
@@ -167,6 +167,9 @@
         $('.hsplitter').append('<img src="${Constants.URL}/img/verticalResize.png">');
         $('.vsplitter').append('<img src="${Constants.URL}/img/horizontalResize.png">');
         //$('.verticalResize').position($('.splitterMask').position());
+    });
+    $( document ).ready(function() {
+        getChildDocuments(0);
     });
 </script>
 </t:mainHeader>
