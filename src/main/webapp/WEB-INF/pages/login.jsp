@@ -55,6 +55,13 @@
                 </div>
             </div>
         </form>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class="developedLink" href="http://www.aits.ua" target="_blank">Developed by AITS</a>
+                    </div>
+                </div>
+            </div>
     </body>
 </html>
 <script>
@@ -64,6 +71,7 @@
             $("#passwd").val("");
         }); 
         $("#loginLabel").click();
+        $('.displayTable').height(window.innerHeight-35);
     
         $('input').on("keypress", function(e) {
             if (e.keyCode == 13) {
