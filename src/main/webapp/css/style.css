@@ -7,7 +7,7 @@ a{
 header{
 	width: 100%;
 	height: 50px;
-	background: #576A90;
+	background: #01635b;
         transition: 0.5s;
 }
 header .row{
@@ -23,7 +23,7 @@ header a:hover{
 		float: right;
 	}
 	.login{
-		padding: 15px 0 0 0;
+		padding: 9px 0 0 0;
                 width: auto;
 	}
         .breadCrumbs{
@@ -33,7 +33,9 @@ header a:hover{
             margin-left: -35px;
         }
         .breadCrumbs ul{
-            margin-top: 15px;
+            margin-top: 5px;
+            font-size: 12px;
+            margin-left: 15px;
         }
         .breadCrumbs ul li{
             display: inline;
@@ -154,7 +156,7 @@ main{
         }
 
         #expList{
-            margin-left: -20px;
+            margin-left: -12px;
         }
         #expList ul, li {
             list-style: none;
@@ -181,8 +183,22 @@ main{
         }
 
         .listControl{
-          margin-bottom: 15px;
-          margin-left: 20px;
+          margin-bottom: 23px;
+          margin-left: 28px;
+          margin-top: 26px;
+        }
+        .listControl .btn{
+            padding: 6px 0px;
+            width: 116px;
+            background-color: #cccccc;
+            background: #cccccc;
+            color: #01635b;
+            border: 0;
+            border-radius: 0;
+        }
+        .listControl .btn:hover{
+            background-color: rgb(65, 138, 132);
+            background: rgb(65, 138, 132);
         }
         .listControl a {
             border: 1px solid #555555;
@@ -203,12 +219,12 @@ main{
         }
         .adminLinks a{
             font-weight: 600;
-            padding: 20px 10px 17px 10px;
-            margin-left: -4px;
+            padding: 20px 6px 12px 11px;
+            margin-left: -2px;
             border-radius: 0px 0px 10px 10px;
         }
         .adminLinks{
-            margin: 0px 0px 0px 9px;
+            margin: 0px 0px 0px 14px;
             width: 1000px;
             transition: 0.5s;
         }
@@ -270,7 +286,7 @@ main{
             font-weight: 700 !important;
         }
         .tableHeader{
-            color: #14A86B;
+            color: #01635b;
         }
         .table.dataTable.no-footer{
             border-bottom: 3px solid #ddd
@@ -609,16 +625,24 @@ table.dataTable tbody th, table.dataTable tbody td{
     margin-right: 5px;
 }
 table.dataTable thead th, table.dataTable thead td{
-    border-bottom: 2px solid #ddd !important;
+    border-bottom: 4px solid #ddd !important;
 }
 table.dataTable tfoot th, table.dataTable tfoot td{
     border-top: 1px solid #ddd !important;
+    padding: 0 !important;
+}
+table.dataTable tfoot th input, table.dataTable tfoot td input{
+    border-radius: 0;
+    margin-top: 0 !important;
+    border: 0;
+    padding-left: 5px;
 }
 .dropdown-menu>li>a{
     padding: 3px 0 !important;
 }
 #table-pagination_filter label input{
     width: 100% !important;
+    border-radius: 0;
 }
 #table-pagination_filter label{
     width: 100% !important;
@@ -635,14 +659,17 @@ table.dataTable tfoot th, table.dataTable tfoot td{
 #table-pagination_filter span:hover{
     color: #14A86B;
 }
+.table-bordered{
+    border: 4px solid #ddd !important;
+}
 .dataTables_filter{
-    width: 300px;
+    width: 212px;
 }
 .invisibleText{
     color: rgba(0,0,0,0);
 }
 .hideSearch{
-    float: right;
+    float: left;
     font-weight: 100;
     text-decoration: underline;
     cursor: pointer;
@@ -651,7 +678,17 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     text-align: center;
     font-size: 14px;
     text-decoration: none;
-    padding: 1px 12px !important;
+    padding: 1px 19px !important;
+    margin-left: 35px;
+    border-radius: 0 !important;
+    margin-top: -3px;
+    background-color: #01635b !important;
+    background: #01635b !important;
+}
+.hideSearch:hover{
+    background-color: #cccccc !important;
+    background: #cccccc !important;
+    color: #01635b;
 }
 .z-indexSmall{
     z-index: 10;
@@ -677,10 +714,13 @@ dt a:hover{
 }
 .dataTables_length label select{
     width: auto;
-    height: 20px;
+    height: 24px;
     padding: 0;
     display: inline-block;
     margin-bottom: 10px;
+    border-radius: 0;
+    border: 3px solid #ddd;
+    width: 51px;
 }
 table.dataTable tbody th, table.dataTable tbody td{
     outline: none;
@@ -689,7 +729,7 @@ table.dataTable tbody th, table.dataTable tbody td{
     //margin-top: 3px;
 }
 th .form-control{
-    padding: 0 4px;
+    padding: 0;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     padding: 2px 10px !important;
@@ -705,23 +745,39 @@ dl dd ul li input{
     position: fixed;
 }
 #datepicker{
-    width: 300px;
-    float: right;
-    margin: -2px 5px 0 5px;
+    width: auto;
+    float: left;
+    margin: -2px 0px 0 0px;
 }
 #datepicker input{
     height: 25px !important;
+    border-radius: 0;
+    border: 3px solid #ddd;
+    padding: 6px 0;
+    width: 81px;
+}
+#datepicker .input-group-addon, #datepicker .input-group-btn{
+    width: auto;
 }
 #datepicker span{
-    padding: 4px 6px;
+    padding: 4px 3px;
+    border-radius: 0;
+    border: 1px solid #ddd;
+    background-color: #ddd;
+    color: #01635b;
+}
+.dataTables_wrapper .dataTables_filter{
+    float: left !important;
+    margin-left: 64px;
 }
 .datepicker{
     z-index: 999999999999999999 !important;
 }
 .rangeBigContainer{
-    width: 305px;
-    float: right;
+    width: auto;
+    float: left;
     text-align: center;
+    margin-left: 53px;
 }
 .dateRangeTitle{
     width: 300px !important;
@@ -729,7 +785,7 @@ dl dd ul li input{
     border: 1px solid #ccc !important;
 }
 .resetSearch{
-    float: right;
+    float: left;
     font-weight: 100;
     text-decoration: underline;
     cursor: pointer;
@@ -737,8 +793,30 @@ dl dd ul li input{
     margin: -10px 0 0 0;
     font-size: 14px;
     text-decoration: none;
-    padding: 1px 12px !important;
-    margin-top: -55px;
+    padding: 1px 19px !important;
+    margin-left: 35px;
+    border-radius: 0 !important;
+    margin-top: -3px;
+    color: #01635b;
+    background-color: #ccc !important;
+    background: #ccc !important;
+}
+.resetSearch{
+    color: white;
+    background-color: #01635b !important;
+    background: #01635b !important;
+}
+.mainSearchTitle{
+    float: left;
+    font-weight: 100;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: 0.5s;
+    margin: -10px 0 0 0;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 1px 1  px !important;
+    margin-top: -48px;
 }
 .resetSearch:hover{
     color: #14A86B;
@@ -760,6 +838,7 @@ tfoot input{
     margin-top: -5px;
 }
 .rangeTitle{
+    text-align: left;
     margin: -5px 0 5px 0;
 }
 .developedLink{

@@ -84,7 +84,7 @@
                 success: function(response){
                     $('.docInfo').html("");
                     $('.docInfo').append(response);
-                    $('header').height(105);
+                    $('header').height(75);
                     var text = $('#docInfoTable_filter label').html();
                     $('#table-pagination tfoot th').each( function () {
                         if($(this).text()!=""){
@@ -119,10 +119,9 @@
                                 .draw();
                         } );
                     } );
-                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати<br>пошук</div>");
                         $('tfoot').hide(0);
                         isHiddenSearch = false;
-                        $('#table-pagination_filter').after(dateSearch);
+                        $('#table-pagination_filter').before(dateSearch);
                         $('.input-daterange').datepicker({
                             format: "dd.mm.yyyy",
                             weekStart: 1
@@ -139,7 +138,10 @@
             $('.datepicker').hide();
             table.draw();
         });
-        $('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
+        //$('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
+        $('#table-pagination_filter').append('<div class="mainSearchTitle">Загальний пошук</div>');
+        $('#table-pagination_filter').after('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити</div>');
+        $('#table-pagination_filter').after("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати</div>");
                 },
                 error: function(response){ 
                     console.log(response);
@@ -161,7 +163,7 @@
             });
         }
     jQuery(function($) {
-        $('#indexPage').css('background','#14A86B');
+        $('#indexPage').css('background','#418a84');
         $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()-65).split({orientation:'horizontal', limit:0, position:'60%'});
         $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-60).split({orientation:'vertical', limit:220, position:'30%'});
         $('.hsplitter').append('<img src="${Constants.URL}/img/verticalResize.png">');

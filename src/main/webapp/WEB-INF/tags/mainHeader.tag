@@ -92,12 +92,12 @@
             function hideSearch(){
                 if(isHiddenSearch){
                     $('tfoot').hide('slow');
-                    $('.hideSearch').html('Показати<br>пошук');
+                    $('.hideSearch').html('Показати');
                     isHiddenSearch = false;
 
                 }else{
                     $('tfoot').show('slow');
-                    $('.hideSearch').html('Приховати<br>пошук');
+                    $('.hideSearch').html('Приховати');
                     isHiddenSearch = true;
                 }
             }
