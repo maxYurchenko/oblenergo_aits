@@ -61,11 +61,11 @@
                </div>
                     <div class="row">
                         <div class="col-md-2">
-                        <input onclick="validate()" class="btn btn-success btn-mini margintop-button" value="Редагувати групу" type="button">
+                        <input onclick="validate()" class="btn btn-success btn-mini margintop-button addButton" value="Редагувати групу" type="button">
                         <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
                                         </div>
                             <div class="col-md-2">
-                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin/userGroups">Повернутись до списку</a>
+                        <a class="btn btn-danger btn-mini badButton" href="${Constants.URL}admin/userGroups">Повернутись до списку</a>
                             </div>
                     </div>
             </form>
@@ -73,7 +73,7 @@
     </body>
     <script>
         $( document ).ready(function() {
-            $('#groupsPage').css('background','#14A86B');
+            $('#groupsPage').css('background','#418a84');
             $('.selectpicker').selectpicker();
             console.log("${userNames}");
             $('li').each(function(){

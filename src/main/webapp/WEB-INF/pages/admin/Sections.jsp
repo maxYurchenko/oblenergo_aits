@@ -10,6 +10,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <t:mainHeader>
+    <style>
+        .dataTables_wrapper .dataTables_filter{
+            margin-left: 32px;
+        }
+    </style>
     <body>
         <div class="container-fluid">
             <c:if test="${sessionScope.user.role != 2}">
@@ -17,7 +22,7 @@
             </c:if>
                 <div class="row">
                     <div class="col-md-12">
-            <a href="${Constants.URL}admin/addSection" class="btn marginTop btn-success btn-mini">Додати новий розділ</a>
+            <a href="${Constants.URL}admin/addSection" class="btn marginTop btn-success btn-mini addButton">Додати новий розділ</a>
                     </div>
                 </div>
         
@@ -80,7 +85,7 @@
         </div>
         <script>
             $( document ).ready(function() {
-                $('#sectionsPage').css('background','#14A86B');
+                $('#sectionsPage').css('background','#418a84');
                 $('.selectpicker').selectpicker();
         $('#table-pagination tfoot th').each( function () {
             if($(this).text()!=""){
@@ -99,7 +104,7 @@
                     .draw();
             } );
         } );
-                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати<br>пошук</div>");
+                    //$('#table-pagination_length').append("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати<br>пошук</div>");
         $('#showMainSearch').click(function(){
             $('#showMainSearch').hide(0);
             $('#mainSearch').removeClass('displayNone');
@@ -108,7 +113,9 @@
         });
         $('tfoot').hide(0);
         isHiddenSearch = false;
-        $('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
+        $('#table-pagination_filter').append('<div class="mainSearchTitle">Загальний пошук</div>');
+        $('#table-pagination_filter').after('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити</div>');
+        $('#table-pagination_filter').after("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати</div>");
             });
             function deleteSection(id){
                 $('.deleteFrameBlock').fadeIn('fast');

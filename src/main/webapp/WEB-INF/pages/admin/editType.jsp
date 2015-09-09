@@ -31,11 +31,11 @@
             <hr>
                     <div class="row">
                         <div class="col-md-2">
-                        <input onclick="validate()" class="btn btn-success btn-mini margintop-button" value="Додати тип" type="button">
+                        <input onclick="validate()" class="btn btn-success btn-mini margintop-button addButton" value="Редагувати тип" type="button">
                         <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
                         </div>
                             <div class="col-md-2">
-                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin/types">Повернутись до списку</a>
+                        <a class="btn btn-danger btn-mini badButton" href="${Constants.URL}admin/types">Повернутись до списку</a>
                             </div>
                     </div>
             </form>
@@ -43,7 +43,7 @@
     </body>
     <script>
         $( document ).ready(function() {
-            $('#typesPage').css('background','#14A86B');
+            $('#typesPage').css('background','#418a84');
             $('.selectpicker').selectpicker();
         });
             function validate(){

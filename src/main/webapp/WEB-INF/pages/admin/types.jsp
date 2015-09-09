@@ -9,6 +9,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <t:mainHeader>
+    <style>
+        .dataTables_wrapper .dataTables_filter{
+            margin-left: 32px;
+        }
+    </style>
     <body>
         <div class="container-fluid">
                 <div class="row">
@@ -54,7 +59,7 @@
         $('.cutLink').each(function(){
             $(this).text($(this).text().substring(6, $(this).text().length));
         });
-        $('#typesPage').css('background','#14A86B');
+        $('#typesPage').css('background','#418a84');
         $("[name='my-checkbox']").bootstrapSwitch();
         $('.selectpicker').selectpicker();
         // Setup - add a text input to each footer cell
@@ -78,7 +83,7 @@
                 .draw();
         } );
     } );
-                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати<br>пошук</div>");
+                    //$('#table-pagination_length').append("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати<br>пошук</div>");
         $('#showMainSearch').click(function(){
             $('#showMainSearch').hide(0);
             $('#mainSearch').removeClass('displayNone');
@@ -87,6 +92,8 @@
         });
         $('tfoot').hide(0);
        isHiddenSearch = false;
-        $('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
+        $('#table-pagination_filter').append('<div class="mainSearchTitle">Загальний пошук</div>');
+        $('#table-pagination_filter').after('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити</div>');
+        $('#table-pagination_filter').after("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати</div>");
     });
 </script>

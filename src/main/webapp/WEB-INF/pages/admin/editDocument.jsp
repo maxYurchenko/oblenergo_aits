@@ -177,12 +177,12 @@
                                                 <hr>
                         <div class="row marginBot">
                             <div class="col-md-2">
-                        <input onclick="validate()" class="btn btn-success btn-mini" value="Зберегти зміни" type="button">
+                        <input onclick="validate()" class="btn btn-success btn-mini addButton" value="Зберегти зміни" type="button">
                         <input type="hidden" val="${document.path}">
                         <input class="btn btn-primary btn-mini displayNone" id="sudmitData" value="Додати користувача" type="submit">
                             </div>
                             <div class="col-md-2">
-                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin">Повернутись до списку</a>
+                        <a class="btn btn-danger btn-mini badButton" href="${Constants.URL}admin">Повернутись до списку</a>
                             </div>
                         </div>
             
@@ -215,7 +215,7 @@
         type = type.substring(0, type.length - 1);
         $('#documentType').val(type);
         
-        $('#docsPage').css('background','#14A86B');
+        $('#docsPage').css('background','#418a84');
         /*var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!

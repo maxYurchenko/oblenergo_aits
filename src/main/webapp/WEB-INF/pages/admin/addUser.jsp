@@ -69,10 +69,10 @@
 <hr>
                <div class="row marginTop">
                         <div class="col-md-2">
-                        <input onclick="validate()" class="btn btn-success btn-mini" value="Додати користувача" type="button">
+                        <input onclick="validate()" class="btn btn-success btn-mini addButton" value="Додати користувача" type="button">
                         </div>
                             <div class="col-md-2">
-                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin/users">Повернутись до списку</a>
+                        <a class="btn btn-danger btn-mini badButton" href="${Constants.URL}admin/users">Повернутись до списку</a>
                             </div>
                         </div>
                 </div>
@@ -80,7 +80,7 @@
     </body>
     <script>
         $( document ).ready(function() {
-            $('#usersPage').css('background','#14A86B');
+            $('#usersPage').css('background','#418a84');
             $('.selectpicker').selectpicker();
             setTimeout(function(){
                 $('#defaultRole').click();

@@ -130,7 +130,7 @@
         $('.cutLink').each(function(){
             $(this).text($(this).text().substring(6, $(this).text().length));
         });
-        $('#docsPage').css('background','#14A86B');
+        $('#docsPage').css('background','#418a84');
         $("[name='my-checkbox']").bootstrapSwitch();
         $('.selectpicker').selectpicker();
         // Setup - add a text input to each footer cell
@@ -166,7 +166,7 @@
                 .draw();
         } );
     } );
-                    $('#table-pagination_length').append("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати<br>пошук</div>");
+                    //$('#table-pagination_length').append("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати<br>пошук</div>");
         $('#showMainSearch').click(function(){
             $('#showMainSearch').hide(0);
             $('#mainSearch').removeClass('displayNone');
@@ -234,7 +234,7 @@
                     '<span class="input-group-addon">до</span>'+
                     '<input id="max" type="text" class="form-control" name="end" />'+
                 '</div></div>';
-        $('#table-pagination_filter').after(dateSearch);
+        $('#table-pagination_filter').before(dateSearch);
         $('tfoot').hide(0);
         isHiddenSearch = false;
         $('.input-daterange').datepicker({
@@ -253,6 +253,8 @@
             $('.datepicker').hide();
             table.draw();
         });
-        $('#table-pagination_filter').append('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити пошук</div>');
+        $('#table-pagination_filter').append('<div class="mainSearchTitle">Загальний пошук</div>');
+        $('#table-pagination_filter').after('<div class="resetSearch btn btn-primary" onclick="resetSearch()">Очистити</div>');
+        $('#table-pagination_filter').after("&nbsp;<div class='hideSearch btn btn-primary btn-mini' onclick='hideSearch()'>Показати</div>");
     });
 </script>

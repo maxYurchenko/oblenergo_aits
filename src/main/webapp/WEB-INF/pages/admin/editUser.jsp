@@ -65,11 +65,11 @@
 <hr>
                <div class="row marginTop">
                         <div class="col-md-3">
-                        <input onclick="validate()" class="btn btn-success btn-mini" value="Редагувати користувача" type="button">
+                        <input onclick="validate()" class="btn btn-success btn-mini addButton" value="Редагувати користувача" type="button">
                         <input class="btn btn-primary btn-mini margintop-button displayNone" id="sudmitData" value="Додати користувача" type="submit">
                                         </div>
                             <div class="col-md-2">
-                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin/users">Повернутись до списку</a>
+                        <a class="btn btn-danger btn-mini badButton" href="${Constants.URL}admin/users">Повернутись до списку</a>
                             </div>
             </form>
                </div>
@@ -77,7 +77,7 @@
     </body>
     <script>
         $( document ).ready(function() {
-            $('#usersPage').css('background','#14A86B');
+            $('#usersPage').css('background','#418a84');
             $('.selectpicker').selectpicker();
             setTimeout(function(){
                 $('#role${user.role}').click();

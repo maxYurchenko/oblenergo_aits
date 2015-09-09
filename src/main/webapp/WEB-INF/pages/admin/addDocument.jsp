@@ -178,10 +178,10 @@
                                                 <hr>
                         <div class="row marginBot">
                             <div class="col-md-2">
-                        <input onclick="validate()" class="btn btn-success btn-mini" value="Додати документ" type="button">
+                        <input onclick="validate()" class="btn btn-success btn-mini addButton" value="Додати документ" type="button">
                             </div>
                             <div class="col-md-2">
-                        <a class="btn btn-danger btn-mini" href="${Constants.URL}admin">Повернутись до списку</a>
+                        <a class="btn btn-danger btn-mini badButton" href="${Constants.URL}admin">Повернутись до списку</a>
                             </div>
                         </div>
         </div>
@@ -208,7 +208,7 @@
                 url: "${Constants.URL}uploadFile",
                 addRemoveLinks: true
             });
-            $('#docsPage').css('background','#14A86B');
+            $('#docsPage').css('background','#418a84');
             var today = new Date();
             var dd = today.getDate();
             var mm = today.getMonth()+1; //January is 0!
