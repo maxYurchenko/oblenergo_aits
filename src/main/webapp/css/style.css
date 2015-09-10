@@ -300,6 +300,11 @@ main{
             background: #ccc !important;
             color: #01635b !important;
         }
+        .addButton:focus{
+            background-color: #01635b !important;
+            background: #01635b !important;
+            color: white;
+        }
         .badButton{
             background-color: #ccc !important;
             background: #ccc !important;
@@ -309,6 +314,11 @@ main{
             font-weight: 100 !important;
         }
         .badButton:hover{
+            background-color: #01635b !important;
+            background: #01635b !important;
+            color: white !important;
+        }
+        .badButton:focus{
             background-color: #01635b !important;
             background: #01635b !important;
             color: white !important;
