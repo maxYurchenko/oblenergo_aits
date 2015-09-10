@@ -21,47 +21,33 @@
         html{
             overflow-y: hidden;
         }
+        body{
+            background-image: url(${Constants.URL}img/bg.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+        
     </style>
 </html>
     <body>
         <form action="${Constants.URL}login.do" method="POST" id="loginForm" name="auth">
             <div class="displayTable">
-                <div class="row tableCell">
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-2">
+                <div class="loginPassBlock">
                         <div class="loginPass">
                             <label id="loginLabel" for="username">Ім’я користувача</label><br>
                             <input type="text" name="username" class="form-control" id="username">
                         </div>
-                    </div>
-                    <div class="col-md-2">
                         <div class="loginPass">
                             <label for="passwd">Пароль</label><br>
                             <input type="password" name="password" class="form-control" id="passwd">
                         </div>
-                    </div>
-                        <div class="col-md-2" style="margin-top: 25px;">
                             <button onclick="trySubmit()" class="btn btn-primary btn-login" id="check-button" type="button">Вхід</button> 
                             <button class="btn btn-primary btn-login displayNone" id="logInButton" type="submit">Вхід</button> 
-                        </div>
-                        <div class="col-md-4">
-                        </div>
-                        <div class="col-md-2">
-                        </div>
-                    <div class="col-md-4">
                         <div class="validation"></div>
-                    </div>
                 </div>
             </div>
         </form>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
                         <a class="developedLink" href="http://www.aits.ua" target="_blank">Developed by AITS</a>
-                    </div>
-                </div>
-            </div>
     </body>
 </html>
 <script>

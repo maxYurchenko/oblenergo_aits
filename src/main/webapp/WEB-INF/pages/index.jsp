@@ -12,12 +12,12 @@
 <t:mainHeader>
     <style>
         #expList .collapsed {
-            background-image: url("${Constants.URL}/img/folder_closed.png");
+            background-image: url("${Constants.URL}/img/folderClosed.png");
             background-size: 15px 15px;
             background-position: 0px 0px; 
         }
         #expList .expanded {
-            background-image: url("${Constants.URL}/img/folder_open.png");
+            background-image: url("${Constants.URL}/img/folderOpen.png");
             background-size: 15px 15px;
             background-position: 0px 0px; 
         }

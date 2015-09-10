@@ -1,3 +1,8 @@
+
+@font-face {
+    font-family: Comunica;
+    src: url(../fonts/COMUNICA_TYPE.ttf);
+}
 html, body{
 	margin: 0;
 }
@@ -323,9 +328,42 @@ footer{
 	background: black;
 }
 
-
+.loginPassBlock{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+.loginPassBlock #check-button{
+    width: 108px;
+    height: 44px;
+    font-size: 18px;
+    border-radius: 0;
+    background-color: #01635b !important;
+    background: #01635b !important;
+    color: white;
+    border: 0;
+}
+.loginPassBlock #check-button:hover{
+    background-color: #ccc !important;
+    background: #ccc !important;
+    color: #01635b;
+}
 .loginPass{
-    margin: 0 auto;
+    margin: 22px auto 35px auto;
+    display: table;
+    text-align: center;
+}
+.loginPass label{
+    margin-top: -14px;
+    margin-bottom: 14px !important;
+    font-size: 17px;
+    color: white;
+}
+.loginPass input{
+    width: 328px;
+    height: 39px;
+    border-radius: 0;
+    border: 3px solid #ddd;
 }
 .loginForm{
     width: 200px;
@@ -871,18 +909,25 @@ tfoot input{
     margin: -6px 0 5px 0;
 }
 .developedLink{
+    font-family: "Comunica";
+    position: absolute;
+    bottom: 14px;
+    left: 92px;
+    font-size: 19px;
     color: rgb(20, 168, 107);
     text-decoration: none;
+    color: #ddd !important;
+    letter-spacing: 1.3px;
 }
 .developedLink:hover{
-    color: rgb(84,182,157) !important;
+    color: #01635b !important;
     text-decoration: none;
 }
 .developedLink:visited{
-    color: rgb(20, 168, 107);
+    color: #ddd;
     text-decoration: none;
 }
 .developedLink:focus{
-    color: rgb(20, 168, 107);
+    color: #ddd;
     text-decoration: none;
 }
