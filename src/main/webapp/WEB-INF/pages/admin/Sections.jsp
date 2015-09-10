@@ -36,7 +36,7 @@
                     </div>
                 </div>
         <div class="tableMainClass">
-            <table class="table table-striped table-bordered" id="table-pagination" data-height="400" data-pagination="true">
+            <table class="table table-bordered" id="table-pagination" data-height="400" data-pagination="true">
                     <thead>
                         <tr class="tableHeader">
                             <th>Ім’я</th>

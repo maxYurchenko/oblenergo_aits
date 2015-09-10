@@ -49,7 +49,7 @@ public class AjaxController {
         if(request.getParameter("id").equals("0")){
             List<DocumentModel> documentList = new LinkedList<>();
             documentList = document.getAllDocuments();
-            String html = "<table id=\"table-pagination\" class=\"table table-striped table-bordered\">\n" +
+            String html = "<table id=\"table-pagination\" class=\"table table-bordered\">\n" +
     "                                <thead>"
                     + "<tr class=\"tableHeader\">\n" +
     "                                    <th style='width:160px'>Тип документа</th>		\n" +

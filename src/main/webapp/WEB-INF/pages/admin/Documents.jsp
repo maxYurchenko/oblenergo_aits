@@ -19,7 +19,7 @@
                 </div>
             
                 <div class="tableMainClass">
-                    <table style="visibility: hidden" class="table table-striped table-bordered" id="table-pagination" data-height="400" data-pagination="true">
+                    <table style="visibility: hidden" class="table table-bordered" id="table-pagination" data-height="400" data-pagination="true">
                             <thead>
                                 <tr class="tableHeader">
                                     <th>Номер документа</th>

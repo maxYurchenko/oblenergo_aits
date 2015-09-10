@@ -629,15 +629,15 @@ table.dataTable tbody th, table.dataTable tbody td{
 .hsplitter img{
     height: 30px;
     margin-top: -15px;
-    margin-left: -5px;
+    margin-left: 15px;
 }
 .vsplitter{
     overflow: visible !important;
 }
 .vsplitter img{
-    height: 30px;
+    width: 30px;
     margin-left: -12px;
-    margin-top: -5px;
+    margin-top: 15px;
 }
 .dropbox{
     cursor: pointer;
