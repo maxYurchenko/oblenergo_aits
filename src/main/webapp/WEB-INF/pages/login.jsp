@@ -22,7 +22,7 @@
             overflow-y: hidden;
         }
         body{
-            background-image: url(${Constants.URL}img/bg.jpg);
+            background-image: url(${Constants.URL}img/bgNew.jpg);
             background-size: cover;
             background-position: center;
         }
