@@ -118,8 +118,8 @@ public class AdminContontroller {
         String uploader = request.getParameter("uploader");
         String access = request.getParameter("accessHidden");
         String accessGroup = request.getParameter("accessGroupHidden");
-        String type = request.getParameter("documentType");
-        String tags = request.getParameter("typeList");
+        String type = request.getParameter("typeList");
+        String tags = request.getParameter("documentTags");
         String result = document.addDocument(id, title, section, date, file, isValid, uploader, access, accessGroup, type, tags);
         return new ModelAndView("redirect:" + "/admin");
     }

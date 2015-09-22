@@ -20,17 +20,25 @@ function prepareList() {
     //Create the button funtionality
         $('#expandList')
         .click( function() {
-    if(show){
-            $('.collapsed').addClass('expanded');
-            $('.collapsed').children().show('medium');
-            $(this).val('Згорнути');
-        show = false;
-    }else{
-            $('.collapsed').removeClass('expanded');
-            $('.collapsed').children().hide('medium');
-            $(this).val('Розгорнути');
-        show = true;
-    }
+            if(isSort==1) {
+                $('.docsList #expList').html($('#hiddenMenu #expList').html());
+                isSort=0; 
+                show=false;
+                prepareList(); 
+                $('#descRadion').attr('checked',false);
+                $('#ascRadion').attr('checked',false);
+            }
+            if(show){
+                    $('.collapsed').addClass('expanded');
+                    $('.collapsed').children().show('medium');
+                    $(this).val('Згорнути');
+                show = false;
+            }else{
+                    $('.collapsed').removeClass('expanded');
+                    $('.collapsed').children().hide('medium');
+                    $(this).val('Розгорнути');
+                show = true;
+            }
         })
     
 };

@@ -29,8 +29,20 @@
                             <div class="listControl">
                                 <input class="btn btn-primary btn-mini margintop-button badButton"
                                        id="expandList" value="Розгорнути" type="button">
+                                <!--<input class="sortButton btn btn-primary btn-mini margintop-button badButton"
+                                       id="sortDocs" value="Посортувати документи" type="button" onclick="sortDocuments()">-->
+                                <div class="radionContainer">
+                                <div id="asc">
+                                    <label onclick="sortDocuments('0')" for="ascRadion" class=""><img src="${Constants.URL}/images/sort_asc.png"></label>
+                                    <input onclick="sortDocuments('0')" id="ascRadion" type="radio" name="optradio">
+                                </div>
+                                <div id="desc">
+                                    <label onclick="sortDocuments('1')" for="descRadion" class=""><img src="${Constants.URL}/images/sort_desc.png"></label>
+                                    <input onclick="sortDocuments('1')" id="descRadion" type="radio" name="optradio">
+                                </div>
                                 <!--<input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
                                        id="collapseList" value="Згорнути" type="button">-->
+                                </div>
                             </div>
                             ${listHtml}
                         </div>
@@ -56,10 +68,13 @@
 		</main>
 		<footer>
 		</footer>
+            <div id="hiddenMenu" class="displayNone">${listHtml}</div>
 	</body>
 <script charset="UTF-8">
     var sectionId = null;
     var dateCounter = 4;
+    var sortAsc = 0;
+    var isSort = 0;
     var table;
         var dateSearch = '<div class="rangeBigContainer"><div class="rangeTitle">Пошук за датою</div>'+
                     '<div class="input-daterange input-group" id="datepicker">'+
@@ -173,5 +188,40 @@
     $( document ).ready(function() {
         getChildDocuments(0);
     });
+    
+    function sortDocuments(howToSort){
+            if (howToSort==1){
+                $.ajax({
+                    type: "get",
+                    url: "${Constants.URL}getSortedDocuments/",
+                    cache: false, 
+                    mimeType:"text/html; charset=UTF-8",
+                    data:'sort='+howToSort,
+                    success: function(response){
+                        $('.docsList #expList').html(response);
+                    },
+                    error: function(response){ 
+                        console.log(response);
+                    }
+                });
+                sortAsc = 0;
+            }else{
+                $.ajax({
+                    type: "get",
+                    url: "${Constants.URL}getSortedDocuments/",
+                    cache: false, 
+                    mimeType:"text/html; charset=UTF-8",
+                    data:'sort='+howToSort,
+                    success: function(response){
+                        $('.docsList #expList').html(response);
+                    },
+                    error: function(response){ 
+                        console.log(response);
+                    }
+                });
+                sortAsc = 1;
+            }
+            isSort = 1;
+    }
 </script>
 </t:mainHeader>

@@ -298,4 +298,21 @@ public class AjaxController {
         }
     }
         
+    @RequestMapping(value = {"/getSortedDocuments/", "/getSortedDocuments"}, method = RequestMethod.GET)
+    public @ResponseBody
+    ResponseEntity<String> getSortedDocuments(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        HttpHeaders responseHeaders = new HttpHeaders(); 
+        responseHeaders.add("Content-Type", "application/json; charset=utf-8");
+        List<SectionModel> sortedSections = new LinkedList<>();
+        sortedSections = section.getAllSectionsSorted(request.getParameter("sort"));
+        String html = "";
+        for(SectionModel currentSection : sortedSections){
+            html += "<li class=\"section collapsed\" value=\""+currentSection.id+"\" id=\""+currentSection.id+"\" "
+                    + "onclick=\"getChildDocuments("+currentSection.id+")\">"+currentSection.title+"<ul style=\"display: none;\"></ul></li>\n";
+        }
+        return new ResponseEntity<>(html, responseHeaders, HttpStatus.CREATED);
+    }
+        
 }

@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="${Constants.URL}css/bootstrap-theme.min.css">
         <script src="${Constants.URL}js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="${Constants.URL}css/bootstrap-select.min.css" />
-        <link href="${Constants.URL}img/icon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link href="${Constants.URL}img/fav.png" rel="shortcut icon" type="image/x-icon" />
         <title>Бібліотека ПАТ «Закарпаттяобленерго»</title>
     </head>
     <style>

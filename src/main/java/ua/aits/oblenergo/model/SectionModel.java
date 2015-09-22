@@ -149,6 +149,52 @@ public class SectionModel {
         return sections;
     }
     
+    public List<SectionModel> getAllSectionsSorted(String sort) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+        String checkSort = "";
+        if(sort.equals("1")){
+            checkSort = "DESC";
+        }else{
+            checkSort = "ASC";
+        }
+        ResultSet result = DB.getResultSet("SELECT * FROM sections WHERE isDelete<>1 ORDER BY title "+checkSort+";");
+        List<SectionModel> sections = new LinkedList<>();
+        while (result.next()) { 
+            SectionModel temp = new SectionModel();
+            temp.setId(result.getInt("id"));
+            temp.setParentId(result.getInt("parentId"));
+            temp.setIsDelete(result.getInt("isDelete"));
+            temp.setTitle(result.getString("title"));
+            temp.setUserAccess(result.getString("userAccess"));
+            temp.setGroupAccess(result.getString("groupAccess"));
+            temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+            if(!temp.userAccess.equals("")){
+                String[] temporary = temp.userAccess.split(",");
+                String names = "";
+                for(String str : temporary) {
+                    try{
+                        names += UserModel.getUsersName(str) + ", ";
+                    }catch(Exception e){}
+                }
+                names = Helpers.removeComas(names);
+                temp.setUsers(names);
+            }
+            if(!temp.groupAccess.equals("")){
+                String[] temporary = temp.groupAccess.split(",");
+                String title = "";
+                for(String str : temporary) {
+                    try{
+                        title += UserGroupModel.getGroupTitle(str) + ", ";
+                    }catch(Exception e){}
+                }
+                title = Helpers.removeComas(title);
+                temp.setGroups(title);
+            }
+            sections.add(temp);
+        }
+        DB.closeCon();
+        return sections;
+    }
+    
     public List<SectionModel> getSectionRow(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         ResultSet result = DB.getResultSet("select * from sections where (parentId = "+id+") AND (isDelete<>1);");
         List<SectionModel> menuList = new LinkedList<>();

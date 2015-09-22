@@ -185,6 +185,8 @@ main{
         }
         #expList {
             clear: both;
+            float: left;
+            margin-top: 20px;
         }
 
         .listControl{
@@ -194,12 +196,17 @@ main{
         }
         .listControl .btn{
             padding: 6px 0px;
+            margin-right: 10px;
+            float: left;
             width: 116px;
             background-color: #cccccc;
             background: #cccccc;
             color: #01635b;
             border: 0;
             border-radius: 0;
+        }
+        .listControl .sortButton{
+            width: 200px;
         }
         .listControl .btn:hover{
             background-color: rgb(65, 138, 132);
@@ -331,6 +338,31 @@ main{
         }
         .btn-success{
             font-weight: 700 !important;
+        }
+        .radionContainer{
+            height: 32px;
+            float: left;
+            margin-top: -2px;
+        }
+        .radionContainer div{
+            float: left;
+            margin-right: 8px;
+            margin-top: -3px;
+            text-align: center;
+        }
+        #asc img{
+            margin-top: -4px;
+            margin-bottom: -10px;
+        }
+        #desc img{
+            margin-bottom: 1px;
+            margin-top: -7px;
+        }
+        .radionContainer label{
+            display: block;
+        }
+        #boolSort{
+            margin-top: 10px;
         }
 footer{
 	width: 0;
