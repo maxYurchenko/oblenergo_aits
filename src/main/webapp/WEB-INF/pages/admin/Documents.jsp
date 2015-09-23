@@ -9,6 +9,13 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <t:mainHeader>
+    <style>
+        .hsplitter img{
+            float: right;
+            margin-top: -12px !important;
+            margin-right: 30px;
+        }
+    </style>
     <body>
         <div class="containerSplit">
         <div class="container-fluid">
@@ -136,6 +143,7 @@
         // Setup - add a text input to each footer cell
     jQuery(function($) {
         $('.containerSplit').height(window.innerHeight-$('header').height()).split({orientation:'horizontal', limit:0, position:'85%'});
+        $('.hsplitter').append('<img src="${Constants.URL}/img/arr_up1.png">');
     });
     $('#table-pagination tfoot th').each( function () {
         if($(this).text()!=""){
