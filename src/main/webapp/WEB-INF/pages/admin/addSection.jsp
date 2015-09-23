@@ -61,9 +61,10 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
+                                    <li><label><input type="checkbox" id="groupChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</label></li>
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
-                                            <li><label><input type="checkbox" value="${user.id}" />${user.name}</label></li>
+                                            <li><label><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</label></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -86,8 +87,9 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
+                                    <li><label><input type="checkbox" id="groupChooseAll" onclick="chooseAllGroups()" value="" />Обрати всіх</label></li>
                                     <c:forEach items="${groups}" var="group">
-                                        <li><label><input type="checkbox" value="${group.id}" />${group.title}</label></li>
+                                        <li><label><input class="groupCheckboxes" type="checkbox" value="${group.id}" />${group.title}</label></li>
                                     </c:forEach>
                                 </ul>
                             </div>
@@ -205,6 +207,16 @@
                 }
                 if(submit)
                     $('#sudmitData').click();
+            }
+            function chooseAllUsers(){
+                $('.userCheckBoxes').each(function(){
+                    $(this).click();
+                });
+            }
+            function chooseAllGroups(){
+                $('.groupCheckboxes').each(function(){
+                    $(this).click();
+                });
             }
     </script>
 </t:mainHeader>

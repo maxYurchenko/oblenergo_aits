@@ -21,6 +21,9 @@
             background-size: 15px 15px;
             background-position: 0px 0px; 
         }
+        .listControl{
+            display: none;
+        }
     </style>
 	<body>
 		<main>
@@ -187,6 +190,19 @@
     });
     $( document ).ready(function() {
         getChildDocuments(0);
+                $.ajax({
+                    type: "get",
+                    url: "${Constants.URL}getSortedDocuments/",
+                    cache: false, 
+                    mimeType:"text/html; charset=UTF-8",
+                    data:'sort=0',
+                    success: function(response){
+                        $('.docsList #expList').html(response);
+                    },
+                    error: function(response){ 
+                        console.log(response);
+                    }
+                });
     });
     
     function sortDocuments(howToSort){

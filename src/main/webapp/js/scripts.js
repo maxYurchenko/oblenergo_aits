@@ -24,7 +24,7 @@ function prepareList() {
                 $('.docsList #expList').html($('#hiddenMenu #expList').html());
                 isSort=0; 
                 show=false;
-                prepareList(); 
+                //prepareList(); 
                 $('#descRadion').attr('checked',false);
                 $('#ascRadion').attr('checked',false);
             }
@@ -48,5 +48,5 @@ function prepareList() {
 /* Functions to execute on loading the document               */
 /**************************************************************/
 $(document).ready( function() {
-    prepareList()
+    //prepareList()
 });

@@ -83,7 +83,7 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
-                                    <!--<li><input type="checkbox" id="userChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</li>-->
+                                    <li><input type="checkbox" id="userChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</li>
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
                                             <li><label><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</label></li>
@@ -109,7 +109,7 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
-                                    <!--<li><input type="checkbox" id="groupChooseAll" onclick="chooseAllGroups()" value="" />Обрати всіх</li>-->
+                                    <li><label><input type="checkbox" id="groupChooseAll" onclick="chooseAllGroups()" value="" />Обрати всіх</label></li>
                                     <c:forEach items="${groups}" var="group">
                                         <li><label><input class="groupCheckboxes" type="checkbox" value="${group.id}" />${group.title}</label></li>
                                     </c:forEach>
@@ -448,12 +448,28 @@
             }
             function chooseAllGroups(){
                 $('.groupCheckboxes').each(function(){
-                    $(this).click();
+                    if($('#groupChooseAll').is(':checked')){
+                        if(!$(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }else{
+                        if($(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }
                 });
             }
             function chooseAllUsers(){
                 $('.userCheckBoxes').each(function(){
-                    $(this).click();
+                    if($('#userChooseAll').is(':checked')){
+                        if(!$(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }else{
+                        if($(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }
                 });
             }
 </script>

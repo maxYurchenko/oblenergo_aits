@@ -52,7 +52,7 @@ public class AdminContontroller {
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/addDocument");
-                modelAndView.addObject("sections", helper.getSortedSections("0"));
+                modelAndView.addObject("sections", section.getAllSectionsSorted("0"));
                 modelAndView.addObject("documents", document.getAllDocuments());
                 modelAndView.addObject("users", user.getAllUsers());
                 modelAndView.addObject("groups", userGroup.getAllGroups());
@@ -154,7 +154,7 @@ public class AdminContontroller {
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/addSection");
-                modelAndView.addObject("sections", helper.getSortedSections("0"));
+                modelAndView.addObject("sections", section.getAllSectionsSorted("0"));
                 modelAndView.addObject("users", user.getAllUsers());
                 modelAndView.addObject("groups", userGroup.getAllGroups());
                 return modelAndView;
@@ -165,7 +165,7 @@ public class AdminContontroller {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/editSection");
                 modelAndView.addObject("section", section.getOneSection(id));
-                modelAndView.addObject("sections", helper.getSortedSections("0"));
+                modelAndView.addObject("sections", section.getAllSectionsSorted("0"));
                 modelAndView.addObject("users", user.getAllUsers());
                 modelAndView.addObject("groups", userGroup.getAllGroups());
                 return modelAndView;
@@ -176,7 +176,7 @@ public class AdminContontroller {
                 request.setCharacterEncoding("UTF-8");
                 ModelAndView modelAndView = new ModelAndView("admin/editDocument");
                 modelAndView.addObject("users", user.getAllUsers());
-                modelAndView.addObject("sections", helper.getSortedSections("0"));
+                modelAndView.addObject("sections", section.getAllSectionsSorted("0"));
                 modelAndView.addObject("document", document.getOneDocument(id));
                 modelAndView.addObject("groups", userGroup.getAllGroups());
                 modelAndView.addObject("types", type.getAllTypes());

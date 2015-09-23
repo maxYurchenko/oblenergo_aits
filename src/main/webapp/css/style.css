@@ -180,13 +180,11 @@ main{
             line-height:140%;
             text-indent:0px;
             background-position: 1px 8px;
-            padding-left: 20px;
             background-repeat: no-repeat;
         }
         #expList {
             clear: both;
             float: left;
-            margin-top: 20px;
         }
 
         .listControl{
@@ -459,7 +457,7 @@ footer{
     padding: 0 3px 2px 0;
 }
 .usersList dd ul {
-    background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+    background-image: linear-gradient(to bottom,#fff 0,#fff 100%);
     z-index: 100;
     color:black;
     display:none;
@@ -522,7 +520,7 @@ footer{
     padding: 0 3px 2px 0;
 }
 .groupsList dd ul {
-    background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+    background-image: linear-gradient(to bottom,#fff 0,#fff 100%);
     color:black;
     display:none;
     left:0px;
@@ -741,7 +739,7 @@ table.dataTable tfoot th input, table.dataTable tfoot td input{
     padding-left: 5px;
 }
 .dropdown-menu>li>a{
-    padding: 3px 0 !important;
+    padding: 1px 0 !important;
 }
 #table-pagination_filter label input{
     width: 100% !important;
@@ -838,6 +836,9 @@ label{
 th .form-control{
     padding: 0;
 }
+ul li label{
+    font-weight: 100 !important;
+}
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     padding: 2px 10px !important;
     border-radius: 6px;
@@ -876,6 +877,9 @@ dl dd ul li input{
 .dataTables_wrapper .dataTables_filter{
     float: left !important;
     margin-left: 64px;
+}
+.bootstrap-select.btn-group .dropdown-menu li{
+    padding: 0 10px;
 }
 .datepicker{
     z-index: 999999999999999999 !important;
@@ -972,4 +976,7 @@ tfoot input{
 .developedLink:focus{
     color: #ddd;
     text-decoration: none;
+}
+#expList .collapsed{
+    background-image: none !important;
 }

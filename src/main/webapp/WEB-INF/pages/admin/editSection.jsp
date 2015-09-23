@@ -67,9 +67,10 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
+                                    <li><input type="checkbox" id="userChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</li>
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
-                                            <li><label><input type="checkbox" value="${user.id}" />${user.name}</label></li>
+                                            <li><label><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</label></li>
                                         </c:if>
                                     </c:forEach>
                                 </ul>
@@ -92,8 +93,9 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
+                                    <li><label><input type="checkbox" id="groupChooseAll" onclick="chooseAllGroups()" value="" />Обрати всіх</label></li>
                                     <c:forEach items="${groups}" var="group">
-                                        <li><label><input type="checkbox" value="${group.id}" />${group.title}</label></li>
+                                        <li><label><input class="groupCheckboxes" type="checkbox" value="${group.id}" />${group.title}</label></li>
                                     </c:forEach>
                                 </ul>
                             </div>
@@ -115,6 +117,8 @@
             </form>
         <script>
             $( document ).ready(function() {
+        $('#groupChooseAll').click();
+        $('#userChooseAll').click();
                 $('#sectionsPage').css('background','#418a84');
                 $('.selectpicker').selectpicker();
                 $("span:contains('${section.parentName}')").click();
@@ -220,6 +224,32 @@
                 }
                 if(submit)
                     $('#sudmitData').click();
+            }
+            function chooseAllGroups(){
+                $('.groupCheckboxes').each(function(){
+                    if($('#groupChooseAll').is(':checked')){
+                        if(!$(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }else{
+                        if($(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }
+                });
+            }
+            function chooseAllUsers(){
+                $('.userCheckBoxes').each(function(){
+                    if($('#userChooseAll').is(':checked')){
+                        if(!$(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }else{
+                        if($(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }
+                });
             }
         </script>
 </t:mainHeader>
