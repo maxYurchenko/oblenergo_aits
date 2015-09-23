@@ -191,7 +191,6 @@
 </t:mainHeader>
 <script>
     $( document ).ready(function() {
-        $('#groupChooseAll').click();
         $('#userChooseAll').click();
             $("#my-awesome-dropzone").dropzone({ 
                 success: function(file){
@@ -411,6 +410,7 @@
             if('${document.type}'.indexOf($(this).find('input').val())!=-1)
                 $(this).find('input').click();
         });
+        $('#groupChooseAll').click();
         
     });
     

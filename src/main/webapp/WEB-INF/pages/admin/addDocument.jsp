@@ -82,7 +82,7 @@
                         <dd>
                             <div class="mutliSelect">
                                 <ul>
-                                    <li><label><input type="checkbox" id="groupChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</label></li>
+                                    <li><label><input type="checkbox" id="userChooseAll" onclick="chooseAllUsers()" value="" />Обрати всіх</label></li>
                                     <c:forEach items="${users}" var="user">
                                         <c:if test="${user.role != 2}">
                                             <li><label><input class="userCheckBoxes" type="checkbox" value="${user.id}" />${user.name}</label></li>
@@ -391,12 +391,28 @@
             var checkGroup = true;
             function chooseAllGroups(){
                 $('.groupCheckboxes').each(function(){
-                    $(this).click();
+                    if($('#groupChooseAll').is(':checked')){
+                        if(!$(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }else{
+                        if($(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }
                 });
             }
             function chooseAllUsers(){
                 $('.userCheckBoxes').each(function(){
-                    $(this).click();
+                    if($('#userChooseAll').is(':checked')){
+                        if(!$(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }else{
+                        if($(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }
                 });
             }
             function deletePrevFile(){

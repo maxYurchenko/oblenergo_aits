@@ -133,7 +133,7 @@ public class UserModel {
     
     public List<UserModel> getAllUsers()  throws SQLException{ 
         List<UserModel> usersList = new LinkedList();
-        ResultSet result = DB.getResultSet("select * from users;");
+        ResultSet result = DB.getResultSet("select * from users order by name;");
         while (result.next()) { 
             UserModel temp = new UserModel();
             temp.setId(result.getInt("id"));

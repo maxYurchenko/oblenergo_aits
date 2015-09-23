@@ -66,7 +66,7 @@ public class UserGroupModel {
     
     public List<UserGroupModel> getAllGroups()  throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{ 
         List<UserGroupModel> groupList = new LinkedList();
-        ResultSet result = DB.getResultSet("select * from userGroups;");
+        ResultSet result = DB.getResultSet("select * from userGroups order by title;");
         while (result.next()) { 
             UserGroupModel temp = new UserGroupModel();
             temp.setId(result.getInt("id"));

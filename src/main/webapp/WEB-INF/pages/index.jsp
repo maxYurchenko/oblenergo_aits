@@ -90,9 +90,9 @@
 	
         function getChildDocuments(value){
             if(sectionId!=null)
-                $('#section'+sectionId).css('font-weight','100');
+                $('#'+sectionId).css('font-weight','100');
             sectionId = value;
-            $('#section'+sectionId).css('font-weight','600');
+            $('#'+sectionId).css('font-weight','600');
             $.ajax({
                 type: "get",
                 url: "${Constants.URL}getDocuments/",
