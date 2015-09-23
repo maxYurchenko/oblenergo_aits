@@ -95,8 +95,9 @@ public class UserGroupModel {
     
     public Boolean checkAvailability(String title)  throws SQLException{ 
         ResultSet result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
-        //DB.closeCon();
-        return result.isBeforeFirst();
+        Boolean temp = result.isBeforeFirst();
+        DB.closeCon();
+        return temp;
     }
     
     public String deleteGroup(String id)  throws SQLException{ 

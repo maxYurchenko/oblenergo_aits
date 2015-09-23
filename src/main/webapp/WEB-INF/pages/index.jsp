@@ -47,7 +47,7 @@
                                        id="collapseList" value="Згорнути" type="button">-->
                                 </div>
                             </div>
-                            ${listHtml}
+                            <ul id="expList"></ul>
                         </div>
                     </div>
                     <div class="rightContainerMain">
@@ -71,7 +71,6 @@
 		</main>
 		<footer>
 		</footer>
-            <div id="hiddenMenu" class="displayNone">${listHtml}</div>
 	</body>
 <script charset="UTF-8">
     var sectionId = null;
@@ -195,7 +194,7 @@
                     url: "${Constants.URL}getSortedDocuments/",
                     cache: false, 
                     mimeType:"text/html; charset=UTF-8",
-                    data:'sort=0',
+                    data:'sort=0&userRole=${sessionScope.user.role}&userId=${sessionScope.user.id}',
                     success: function(response){
                         $('.docsList #expList').html(response);
                     },
@@ -205,6 +204,9 @@
                 });
     });
     
+    
+    
+    /*
     function sortDocuments(howToSort){
             if (howToSort==1){
                 $.ajax({
@@ -239,5 +241,6 @@
             }
             isSort = 1;
     }
+    */
 </script>
 </t:mainHeader>

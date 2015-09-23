@@ -41,7 +41,7 @@ public class SinglePageController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
                  ModelAndView modelAndView = new ModelAndView("index");
-                 modelAndView.addObject("listHtml", helper.getRowHtml("0"));
+                 //modelAndView.addObject("listHtml", helper.getRowHtml("0"));
                  modelAndView.addObject("documents", documents.getAllDocuments());
                  modelAndView.addObject("groups", userGroup.getAllGroups());
                  return modelAndView;

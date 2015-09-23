@@ -309,8 +309,27 @@ public class AjaxController {
         sortedSections = section.getAllSectionsSorted(request.getParameter("sort"));
         String html = "";
         for(SectionModel currentSection : sortedSections){
-            html += "<li class=\"section collapsed\" value=\""+currentSection.id+"\" id=\""+currentSection.id+"\" "
-                    + "onclick=\"getChildDocuments("+currentSection.id+")\">"+currentSection.title+"<ul style=\"display: none;\"></ul></li>\n";
+            String[] sectionAllowedUsers = currentSection.userAccess.split(",");
+            String[] sectionAllowedGroups = currentSection.groupAccess.split(",");
+            Boolean isUserAllowedForSection = Arrays.asList(sectionAllowedUsers).contains(request.getParameter("userId"));
+            Boolean isGroupAllowedForSection = false;
+            Boolean isAdmin = !request.getParameter("userRole").equals("0");
+            List<UserGroupModel> userGroups = new LinkedList<>();
+            userGroups = userGroup.getAllGroups();
+            for(UserGroupModel group : userGroups) {
+                    String[] userIds = group.userId.split(",");
+                    if(Arrays.asList(userIds).contains(request.getParameter("userId")))
+                    {
+                        if(!sectionAllowedGroups[0].equals(""))
+                            for(String str : sectionAllowedGroups)
+                                if(group.id==Integer.parseInt(str))
+                                    isGroupAllowedForSection = true;
+                    }
+                }
+            if(isGroupAllowedForSection||isUserAllowedForSection||isAdmin){
+                html += "<li class=\"section collapsed\" value=\""+currentSection.id+"\" id=\""+currentSection.id+"\" "
+                        + "onclick=\"getChildDocuments("+currentSection.id+")\">"+currentSection.title+"<ul style=\"display: none;\"></ul></li>\n";
+            }
         }
         return new ResponseEntity<>(html, responseHeaders, HttpStatus.CREATED);
     }

@@ -70,7 +70,7 @@
                         inputs[idx + 1].focus();
                         inputs[idx + 1].select();
                     }catch(err){
-                        $('#log-button').click();
+                        trySubmit();
                     }
                 }
                 return false;
@@ -91,7 +91,7 @@
                   $(".validation").html("<span style='color:red'>Невірне ім’я користувача або пароль</span>");
               }
               else {
-                  $("#logInButton").click();
+                  $("#loginForm").submit();
               }
              },
              error: function(response){      
