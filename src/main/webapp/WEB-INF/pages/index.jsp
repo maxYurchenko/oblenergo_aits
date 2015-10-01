@@ -36,11 +36,11 @@
                                        id="sortDocs" value="Посортувати документи" type="button" onclick="sortDocuments()">-->
                                 <div class="radionContainer">
                                 <div id="asc">
-                                    <label onclick="sortDocuments('0')" for="ascRadion" class=""><img src="${Constants.URL}/images/sort_asc.png"></label>
+                                    <label onclick="sortDocuments('0')" for="ascRadion" class=""><img src="${Constants.URL}images/sort_asc.png"></label>
                                     <input onclick="sortDocuments('0')" id="ascRadion" type="radio" name="optradio">
                                 </div>
                                 <div id="desc">
-                                    <label onclick="sortDocuments('1')" for="descRadion" class=""><img src="${Constants.URL}/images/sort_desc.png"></label>
+                                    <label onclick="sortDocuments('1')" for="descRadion" class=""><img src="${Constants.URL}images/sort_desc.png"></label>
                                     <input onclick="sortDocuments('1')" id="descRadion" type="radio" name="optradio">
                                 </div>
                                 <!--<input onclick="changeButton()" class="btn btn-primary btn-mini margintop-button"
