@@ -34,6 +34,7 @@
                                     <th>Розділ документа</th>
                                     <th style="width: 50px;">Дата</th>
                                     <th>Ключові слова</th>
+                                    <th>Тип документа</th>
                                     <th></th>
                                     <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
@@ -49,6 +50,7 @@
                                     <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">розділу документа</th>
                                     <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" style="width: 50px;">даті</th>
                                     <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">ключовим словам</th>
+                                    <th data-column-index="5" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">типам документа</th>
                                     <th style="width: 25px;"></th>
                                     <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
@@ -68,6 +70,7 @@
                                             <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.parentName}</th>
                                             <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.date}</th>
                                             <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.tags}</th>
+                                            <th data-column-index="5" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.type}</th>
                                             <th><a target='_blank' download href="${Constants.URL}${document.path}"><img style="width: 20px;" src="${Constants.URL}img/dl.png"></a></th>
                                             <th><a href="${Constants.URL}admin/editDocument/${document.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
                                             <c:if test="${user.role == 2}">
