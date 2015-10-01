@@ -99,6 +99,20 @@
                 mimeType:"text/html; charset=UTF-8",
                 data:'id='+value+"&userId=${sessionScope.user.id}&userRole=${sessionScope.user.role}&userGroup=${sessionScope.user.groupAccess}",
                 success: function(response){
+                    $.ajax({
+                        type: "get",
+                        url: "${Constants.URL}makeBreadcrumbs/",
+                        cache: false, 
+                        mimeType:"text/html; charset=UTF-8",
+                        data:'id='+value,
+                        success: function(response){
+                            $('#breadCrumbsUl').html("");
+                            $('#breadCrumbsUl').append(response);
+                        },
+                        error: function(response){ 
+                            console.log(response);
+                        }
+                    });
                     $('.docInfo').html("");
                     $('.docInfo').append(response);
                     $('header').height(75);
@@ -164,20 +178,6 @@
                     console.log(response);
                 }
             });     
-            $.ajax({
-                type: "get",
-                url: "${Constants.URL}makeBreadcrumbs/",
-                cache: false, 
-                mimeType:"text/html; charset=UTF-8",
-                data:'id='+value,
-                success: function(response){
-                    $('#breadCrumbsUl').html("");
-                    $('#breadCrumbsUl').append(response);
-                },
-                error: function(response){ 
-                    console.log(response);
-                }
-            });
         }
     jQuery(function($) {
         $('#indexPage').css('background','#418a84');
@@ -188,7 +188,6 @@
         //$('.verticalResize').position($('.splitterMask').position());
     });
     $( document ).ready(function() {
-        getChildDocuments(0);
                 $.ajax({
                     type: "get",
                     url: "${Constants.URL}getSortedDocuments/",
@@ -197,6 +196,7 @@
                     data:'sort=0&userRole=${sessionScope.user.role}&userId=${sessionScope.user.id}',
                     success: function(response){
                         $('.docsList #expList').html(response);
+                        getChildDocuments(0);
                     },
                     error: function(response){ 
                         console.log(response);
