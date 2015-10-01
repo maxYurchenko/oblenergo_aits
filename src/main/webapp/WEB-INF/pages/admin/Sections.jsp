@@ -74,8 +74,8 @@
                                     </th>
                                     <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${section.users}</th>
                                     <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${section.groups}</th>
-                                    <th style="width:20px;"><a href="${Constants.URL}admin/editSection/${section.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
-                                    <th style="width:20px;"><a onclick="deleteSection('${section.id}')" href="#"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
+                                    <th style="width:20px;"><a href="${Constants.URL}admin/editSection/${section.id}"><img style="width: 20px;" src="${Constants.URL}img/edit.png"></a></th>
+                                    <th style="width:20px;"><a onclick="deleteSection('${section.id}')" href="#"><img style="width: 20px;" src="${Constants.URL}img/delete.png"></a></th>
                                 </tr>
                             </c:if>
                         </c:forEach>

@@ -42,8 +42,8 @@
                                 <c:forEach items="${types}" var="type">
                                         <tr>
                                             <th>${type.title}</th>
-                                            <th><a href="${Constants.URL}admin/editType/${type.id}"><img style="width: 20px;" src="${Constants.URL}/img/edit.png"></a></th>
-                                            <th class="text-center"><a href="${Constants.URL}admin/deleteType/${type.id}"><img style="width: 20px;" src="${Constants.URL}/img/delete.png"></a></th>
+                                            <th><a href="${Constants.URL}admin/editType/${type.id}"><img style="width: 20px;" src="${Constants.URL}img/edit.png"></a></th>
+                                            <th class="text-center"><a href="${Constants.URL}admin/deleteType/${type.id}"><img style="width: 20px;" src="${Constants.URL}img/delete.png"></a></th>
                                         </tr>
                                 </c:forEach>
                             </tbody>

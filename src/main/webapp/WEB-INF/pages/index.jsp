@@ -12,12 +12,12 @@
 <t:mainHeader>
     <style>
         #expList .collapsed {
-            background-image: url("${Constants.URL}/img/folderClosed.png");
+            background-image: url("${Constants.URL}img/folderClosed.png");
             background-size: 15px 15px;
             background-position: 0px 0px; 
         }
         #expList .expanded {
-            background-image: url("${Constants.URL}/img/folderOpen.png");
+            background-image: url("${Constants.URL}img/folderOpen.png");
             background-size: 15px 15px;
             background-position: 0px 0px; 
         }
@@ -183,8 +183,8 @@
         $('#indexPage').css('background','#418a84');
         $('.rightContainerMain').width(window.innerWidth).height(window.innerHeight-$('header').height()-65).split({orientation:'horizontal', limit:0, position:'60%'});
         $('main').width(window.innerWidth).height(window.innerHeight-$('header').height()-25).split({orientation:'vertical', limit:220, position:'30%'});
-        $('.hsplitter').append('<img src="${Constants.URL}/img/arr_up1.png">');
-        $('.vsplitter').append('<img src="${Constants.URL}/img/arr_up2.png">');
+        $('.hsplitter').append('<img src="${Constants.URL}img/arr_up1.png">');
+        $('.vsplitter').append('<img src="${Constants.URL}img/arr_up2.png">');
         //$('.verticalResize').position($('.splitterMask').position());
     });
     $( document ).ready(function() {
