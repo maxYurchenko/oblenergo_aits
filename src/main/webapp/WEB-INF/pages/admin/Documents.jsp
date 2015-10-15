@@ -31,7 +31,6 @@
                                 <tr class="tableHeader">
                                     <th>Номер документа</th>
                                     <th>Назва документа</th>
-                                    <th>Розділ документа</th>
                                     <th style="width: 50px;">Дата</th>
                                     <th>Ключові слова</th>
                                     <th>Тип документа</th>
@@ -47,7 +46,6 @@
                                 <tr class="tableHeader">
                                     <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">номеру документа</th>
                                     <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">назві документа</th>
-                                    <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">розділу документа</th>
                                     <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" style="width: 50px;">даті</th>
                                     <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">ключовим словам</th>
                                     <th data-column-index="5" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">типам документа</th>
@@ -67,7 +65,6 @@
                                                 <span>${document.clientId}</span>
                                             </th>
                                             <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.title}</th>
-                                            <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.parentName}</th>
                                             <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.date}</th>
                                             <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.tags}</th>
                                             <th data-column-index="5" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.type}</th>

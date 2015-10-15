@@ -49,6 +49,7 @@
                     <div class="col-md-6 text-danger"><strong>При переносі всі підрозділи та файли буде також перенесено</strong></div>
                </div>
             <hr>
+            <!--
             <div class="row">
                 
                 
@@ -103,6 +104,7 @@
                     </dl>
                 </div>
             </div>
+            -->
             <hr>
                <div class="row">
                         <div class="col-md-2">

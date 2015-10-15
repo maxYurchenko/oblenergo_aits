@@ -41,8 +41,10 @@
                         <tr class="tableHeader">
                             <th>Ім’я</th>
                             <th>Головна категорія</th>
+                            <!--
                             <th>Доступ користувачам</th>
                             <th>Доступ групам</th>
+                            -->
                             <th style="width:20px;"></th>
                             <th style="width:20px;"></th>
                         </tr>
@@ -51,8 +53,10 @@
                         <tr class="tableHeader">
                             <th data-column-index="0" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">імені</th>
                             <th data-column-index="1" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">головній категорії</th>
+                            <!--
                             <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">доступу користувачам</th>
                             <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">доступу групам</th>
+                            -->
                             <th style="width:20px;"></th>
                             <th style="width:20px;"></th>
                         </tr>
@@ -72,8 +76,10 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </th>
+                                    <!--
                                     <th data-column-index="2" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${section.users}</th>
                                     <th data-column-index="3" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">${section.groups}</th>
+                                    -->
                                     <th style="width:20px;"><a href="${Constants.URL}admin/editSection/${section.id}"><img style="width: 20px;" src="${Constants.URL}img/edit.png"></a></th>
                                     <th style="width:20px;"><a onclick="deleteSection('${section.id}')" href="#"><img style="width: 20px;" src="${Constants.URL}img/delete.png"></a></th>
                                 </tr>

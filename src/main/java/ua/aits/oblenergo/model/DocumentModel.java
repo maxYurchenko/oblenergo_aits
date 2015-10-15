@@ -23,7 +23,7 @@ public class DocumentModel {
     public String date;
     public String clientId;
     public String uploader;
-    public Integer parentId;
+    public String parentId;
     public Integer size;
     public Integer viewNum;
     public String type;
@@ -106,11 +106,11 @@ public class DocumentModel {
         this.uploader = uploader;
     }
 
-    public Integer getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
@@ -176,12 +176,12 @@ public class DocumentModel {
         while (result.next()) { 
             DocumentModel temp = new DocumentModel();
             temp.setId(result.getInt("id"));
-            temp.setParentId(result.getInt("parentId"));
+            temp.setParentId(result.getString("parentId"));
             temp.setTitle(result.getString("title"));
             temp.setPath(result.getString("path"));
             temp.setClientId(result.getString("clientId"));
             temp.setValid(result.getInt("valid"));
-            temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
+            //temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             temp.setIsDelete(result.getInt("isDelete"));
             temp.setDate(result.getString("date").replace(",","."));
             temp.setDate(temp.date.replace("/", "."));
@@ -203,7 +203,7 @@ public class DocumentModel {
         while (result.next()) { 
             DocumentModel temp = new DocumentModel();
             temp.setId(result.getInt("id"));
-            temp.setParentId(result.getInt("parentId"));
+            temp.setParentId(result.getString("parentId"));
             temp.setClientId(result.getString("clientId"));
             temp.setDate(result.getString("date"));
             temp.setTitle(result.getString("title"));
@@ -212,7 +212,7 @@ public class DocumentModel {
             temp.setDate(result.getString("date").replace(",","."));
             temp.setDate(temp.date.replace("/", "."));
             temp.setIsDelete(result.getInt("isDelete"));
-            temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
+            //temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             temp.setAccess(result.getString("access"));
             temp.setAccessGroup(result.getString("groups"));
             temp.setUploader(result.getString("uploader"));
@@ -230,7 +230,7 @@ public class DocumentModel {
         result.first();
         DocumentModel temp = new DocumentModel();
         temp.setId(result.getInt("id"));
-        temp.setParentId(result.getInt("parentId"));
+        temp.setParentId(result.getString("parentId"));
         temp.setClientId(result.getString("clientId"));
         temp.setDate(result.getString("date"));
         temp.setTitle(result.getString("title"));
@@ -239,7 +239,7 @@ public class DocumentModel {
         temp.setIsDelete(result.getInt("isDelete"));
         temp.setDate(result.getString("date").replace(",","."));
         temp.setDate(temp.date.replace("/", "."));
-        temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
+        //temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
         temp.setAccess(result.getString("access"));
         temp.setAccessGroup(result.getString("groups"));
         temp.setUploader(result.getString("uploader"));

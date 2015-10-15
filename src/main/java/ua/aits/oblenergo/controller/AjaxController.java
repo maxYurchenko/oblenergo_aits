@@ -55,7 +55,6 @@ public class AjaxController {
     "                                    <th style='width:160px'>Тип документа</th>		\n" +
     "                                    <th style='width:260px'>Назва документа</th>		\n" +
     "                                    <th style='width:160px'>Номер документа</th>\n" +
-    "                                    <th style='width:160px'>Розділ документа</th>\n" +
     "                                    <th class='tableDate' style='width:50px'>Дата</th>\n" +
     "                                    <th>Ключові слова</th>		\n" +
     "                                    <th style='width=\"width:20px\"'></th>		\n" +
@@ -64,7 +63,6 @@ public class AjaxController {
                     + "<tr><th data-column-index=\"0\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">типу документа</th>"
                     + "<th data-column-index=\"1\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">назві документа</th>"
                     + "<th data-column-index=\"2\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">номеру документа</th>"
-                    + "<th data-column-index=\"3\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">розділу документа</th>"
                     + "<th data-column-index=\"4\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='tableDate'>даті</th>"
                     + "<th data-column-index=\"5\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\">ключовим словам</th>"
                     + "<th data-column-index=\"6\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\"></th></tr>"
@@ -74,26 +72,30 @@ public class AjaxController {
                     if(tempDocs.valid==0){
                         clas = "inValidDoc";
                     }
+                    /*
                 SectionModel currentSection = new SectionModel();
                 currentSection = section.getOneSection(tempDocs.parentId.toString());
                 String[] sectionAllowedUsers = currentSection.userAccess.split(",");
                 String[] sectionAllowedGroups = currentSection.groupAccess.split(",");
+                    */
                 String[] accessList = tempDocs.access.split(",");
-                Boolean isUserAllowedForSection = false;
-                Boolean isGroupAllowedForSection = false;
+                //Boolean isUserAllowedForSection = false;
+                //Boolean isGroupAllowedForSection = false;
                 List<String> groupArray = new LinkedList<>();
                 Boolean isAllowedByGroup = false;
                 String[] acessGroupList = tempDocs.accessGroup.split(",");
-                isUserAllowedForSection = Arrays.asList(sectionAllowedUsers).contains(request.getParameter("userId"));
+                //isUserAllowedForSection = Arrays.asList(sectionAllowedUsers).contains(request.getParameter("userId"));
                 for(UserGroupModel group : userGroups) {
                     String[] userIds = group.userId.split(",");
                     if(Arrays.asList(userIds).contains(request.getParameter("userId")))
                     {
                         groupArray.add(group.id.toString());
+                        /*
                         if(!sectionAllowedGroups[0].equals(""))
                             for(String str : sectionAllowedGroups)
                                 if(group.id==Integer.parseInt(str))
                                     isGroupAllowedForSection = true;
+                        */
                     }
                 }
                 for(String temp : groupArray) {
@@ -101,7 +103,8 @@ public class AjaxController {
                            isAllowedByGroup = true; 
                     }
                 Boolean isAllowedByID = Arrays.asList(accessList).contains(request.getParameter("userId"));
-                Boolean showDoc = isAllowedByID||isAdmin||isAllowedByGroup||isGroupAllowedForSection||isUserAllowedForSection;
+                Boolean showDoc = isAllowedByID||isAdmin||isAllowedByGroup;
+                //Boolean showDoc = isAllowedByID||isAdmin||isAllowedByGroup||isGroupAllowedForSection||isUserAllowedForSection;
                 if(showDoc){
                     if(tempDocs.isDelete!=1){
                         html = html +
@@ -109,7 +112,6 @@ public class AjaxController {
                                         "<th data-column-index=\"0\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.type+"</th>\n"+	
                                         "<th data-column-index=\"1\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.title+"</th>\n"+
                                         "<th data-column-index=\"2\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.clientId+"</th>\n"+
-                                        "<th data-column-index=\"3\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.parentName+"</th>\n"+
                                         "<th data-column-index=\"4\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='tableDate' onclick='showDocument(\""+tempDocs.path+","+tempDocs.id+"\")'>"+tempDocs.date.replace("/", ".")+"</th>\n"+
                                         "<th data-column-index=\"5\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" onclick='showDocument(\""+tempDocs.path+"\",\""+tempDocs.id+"\")'>"+tempDocs.tags+"</th>"+
                                         "<th data-column-index=\"6\" class=\"sorting\" tabindex=\"0\" aria-controls=\"table-pagination\" rowspan=\"1\" colspan=\"1\" class='downloadLink'><a target='_blank' download href='"+Constants.URL+tempDocs.path+"'><img style=\"width: 20px;\" src=\""+Constants.URL+"img/dl.png\"></a></th>\n"+
@@ -122,26 +124,35 @@ public class AjaxController {
         }
         else{
             List<DocumentModel> documentList = new LinkedList<>();
-            documentList = document.getDocumentRow(request.getParameter("id"));
+            List<DocumentModel> alldocumentsList = new LinkedList<>();
+            alldocumentsList = document.getAllDocuments();
+            //documentList = document.getDocumentRow(request.getParameter("id"));
+            for(DocumentModel tempDocs : alldocumentsList) {
+                //if(Arrays.asList(tempDocs.parentId).toString().toLowerCase().contains(request.getParameter("id").toLowerCase()))
+                if( Arrays.asList(tempDocs.parentId).toString().contains(request.getParameter("id").toLowerCase()))
+                    documentList.add(tempDocs);
+            }
             SectionModel currentSection = new SectionModel();
             currentSection = section.getOneSection(request.getParameter("id"));
             String[] sectionAllowedUsers = currentSection.userAccess.split(",");
             String[] sectionAllowedGroups = currentSection.groupAccess.split(",");
-            Boolean isUserAllowedForSection = false;
-            Boolean isGroupAllowedForSection = false;
+            //Boolean isUserAllowedForSection = false;
+            //Boolean isGroupAllowedForSection = false;
             List<String> groupArray = new LinkedList<>();
             for(UserGroupModel group : userGroups) {
                 String[] userIds = group.userId.split(",");
                 if(Arrays.asList(userIds).contains(request.getParameter("userId")))
                 {
                     groupArray.add(group.id.toString());
+                    /*
                     if(!sectionAllowedGroups[0].equals(""))
                         for(String str : sectionAllowedGroups)
                             if(group.id==Integer.parseInt(str))
                                 isGroupAllowedForSection = true;
+                            */
                 }
             }
-            isUserAllowedForSection = Arrays.asList(sectionAllowedUsers).contains(request.getParameter("userId"));
+            //isUserAllowedForSection = Arrays.asList(sectionAllowedUsers).contains(request.getParameter("userId"));
             String html = "<table id=\"table-pagination\" class=\"table table-striped table-bordered\">\n" +
     "                                <thead>"
                     + "<tr class=\"tableHeader\">\n" +
@@ -175,7 +186,8 @@ public class AjaxController {
                     }
                     Boolean isAllowedByID = Arrays.asList(accessList).contains(request.getParameter("userId"));
                     Boolean showDoc = false;
-                    showDoc = isAllowedByID||isAdmin||isAllowedByGroup||isGroupAllowedForSection||isUserAllowedForSection;
+                    //showDoc = isAllowedByID||isAdmin||isAllowedByGroup||isGroupAllowedForSection||isUserAllowedForSection;
+                    showDoc = isAllowedByID||isAdmin||isAllowedByGroup;
                     if(showDoc){
                         if(tempDocs.isDelete!=1){
                             html = html +

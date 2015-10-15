@@ -38,10 +38,9 @@
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         
 
-    </head>
+    </head>   
     <c:if test="${sessionScope.user == null}">
         <script>window.location.href = "${Constants.URL}login";</script>
-        
     </c:if>
 		<header>
                     <div class="row">

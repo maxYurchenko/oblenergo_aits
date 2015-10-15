@@ -41,14 +41,36 @@
                                                     <option value="0">Не дійсний</option>
                                                 </select>
                 </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 z-indexBig">
                                                         <label class="greenText" for="tlt">Розділ документа:<span class="red-star">*</span></label>
+                                                <!--       
                                                 <select id="section" name="section" class="selectpicker">
                                                     <option selected="true" disabled="disabled">Оберіть розділ</option>  
                                                     <c:forEach items="${sections}" var="section">
                                                         <option value="${section.id}">${section.title}</option>
                                                     </c:forEach>
                                                 </select>
+                                                -->         
+                    <dl class="sectionsList"> 
+
+                        <dt>
+                        <a>
+                          <span class="hida">Оберіть значення</span>    
+                          <p class="multiSel"></p>  
+                        </a>
+                        </dt>
+
+                        <dd>
+                            <div class="mutliSelect">
+                                <ul>
+                                    <li><label><input type="checkbox" id="sectionChooseAll" onclick="chooseAllSections()" value="" />Обрати всіх</label></li>
+                                    <c:forEach items="${sections}" var="section">
+                                            <li><label><input class="sectionCheckBoxes" type="checkbox" value="${section.id}" />${section.title}</label></li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
                                               </div>
             </div>
             <hr>
@@ -61,6 +83,7 @@
                                                 <input type="hidden" name="accessHidden" class="form-control" id="accessHidden">
                                                 <input type="hidden" name="accessGroupHidden" class="form-control" id="accessGroupHidden">
                                                 <input type="hidden" name="typeList" class="form-control" id="typeList">
+                                                <input type="hidden" name="sectionList" class="form-control" id="sectionList">
                                                 <input type="hidden" name="documentType" class="form-control" id="documentType">
                                                 <input type="hidden" name="file" class="form-control" id="file">
             </div>
@@ -351,6 +374,50 @@
             typeList = typeList.substring(0, typeList.length - 1);
             $('#typeList').val(typeList);
         });
+        
+        
+        
+        
+        $(".sectionsList dt a").on('click', function () {
+          $(".sectionsList dd ul").slideToggle('fast');
+        });
+
+        $(".sectionsList dd ul li a").on('click', function () {
+            $(".sectionsList dd ul").hide();
+        });
+
+        function getSelectedValue(id) {
+             return $("#" + id).find(".sectionsList dt a span.value").html();
+        }
+
+        $(document).bind('click', function (e) {
+            var $clicked = $(e.target);
+            if (!$clicked.parents().hasClass("sectionsList")) $(".sectionsList dd ul").hide();
+        });
+
+
+        $('.sectionsList .mutliSelect input[type="checkbox"]').on('click', function () {
+            var title = $(this).closest('.sectionsList .mutliSelect').find('.sectionsList input[type="checkbox"]').val(),
+                title = $(this).val() + ",";
+
+            if ($(this).is(':checked')) {
+                var html = '<span class="sectionList" title="' + title + '">' + title + '</span>';
+                $('.sectionsList .multiSel').append(html);
+                //$(".hida").hide();
+            } 
+            else {
+                $('.sectionsList span[title="' + title + '"]').remove();
+                var ret = $(".hida");
+                $('.sectionsList .dropdown dt a').append(ret);
+
+            }
+            var sectionList = "";
+            $('.sectionsList .sectionList').each(function(){
+                sectionList+=$(this).html();
+            });
+            sectionList = sectionList.substring(0, sectionList.length - 1);
+            $('#sectionList').val(sectionList);
+        });
         });
             function validate(){
                 var type = "";
@@ -405,6 +472,19 @@
             function chooseAllUsers(){
                 $('.userCheckBoxes').each(function(){
                     if($('#userChooseAll').is(':checked')){
+                        if(!$(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }else{
+                        if($(this).is(':checked')){
+                            $(this).click();
+                        }
+                    }
+                });
+            }
+            function chooseAllSections(){
+                $('.sectionCheckBoxes').each(function(){
+                    if($('#sectionChooseAll').is(':checked')){
                         if(!$(this).is(':checked')){
                             $(this).click();
                         }

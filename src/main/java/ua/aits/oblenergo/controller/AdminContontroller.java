@@ -111,7 +111,7 @@ public class AdminContontroller {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("documentId");
         String title = request.getParameter("title");
-        String section = request.getParameter("section");
+        String section = request.getParameter("sectionList");
         String date = request.getParameter("date");
         String file = request.getParameter("file");
         String isValid = request.getParameter("isValid");
