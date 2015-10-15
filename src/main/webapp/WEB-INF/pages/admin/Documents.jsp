@@ -69,7 +69,7 @@
                                             <th data-column-index="4" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.tags}</th>
                                             <th data-column-index="5" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.type}</th>
                                             <th><a target='_blank' download href="${Constants.URL}${document.path}"><img style="width: 20px;" src="${Constants.URL}img/dl.png"></a></th>
-                                            <th><a href="${Constants.URL}admin/editDocument/${document.id}"><img style="width: 20px;" src="${Constants.URL}img/edit.png"></a></th>
+                                            <th><a href="${Constants.URL}admin/editDocument/${document.id}"><img title="${document.users}" style="width: 20px;" src="${Constants.URL}img/edit.png"></a></th>
                                             <c:if test="${user.role == 2}">
                                                 <th class="publishCheckboxBlock vcenter text-center invisibleText" id="publishCheckboxBlock${document.id}" 
                                                     value="${document.id}">${document.isDelete}

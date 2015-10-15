@@ -12,12 +12,12 @@ package ua.aits.oblenergo.functions;
  */
 public class Constants
 {
-    public static final String home = "/home/skywalker/NetBeansProjects/oblenergo/src/main/webapp/"; // change /home/project/Kiwi to your project folder path
+    public static final String home = "/home/skywalker/NetBeansProjects/oblenergo/src/main/webapp"; // change /home/project/Kiwi to your project folder path
     public static final String URL = "/oblenergo/";
-    public static final String FILE_URL = home+"files/";
+    public static final String FILE_URL = home+"/files";
     
     public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-    public static final String DB_CONNECTION_STRING = "jdbc:mysql://localhost:3306/oblenergo?zeroDateTimeBehavior=convertToNull";
+    public static final String DB_CONNECTION_STRING = "jdbc:mysql://localhost:3306/oblenergo?useUnicode=true&characterEncoding=UTF-8";
     public static final String DB_USER = "root";
     public static final String DB_PASSWORD = "max13579";
     

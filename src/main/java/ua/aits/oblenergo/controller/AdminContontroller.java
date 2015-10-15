@@ -40,9 +40,19 @@ public class AdminContontroller {
     protected ModelAndView admin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
                 request.setCharacterEncoding("UTF-8");
+                List<DocumentModel> documentList = new LinkedList<>();
+                documentList = document.getAllDocuments();
+                for(DocumentModel tempDocs : documentList) {
+                    tempDocs.setUsers("");
+                    String[] userIds = tempDocs.access.split(",");
+                    for(String currentUserId : userIds){
+                        tempDocs.setUsers(tempDocs.users+", "+UserModel.getUsersName(currentUserId));
+                    }
+                    tempDocs.setUsers(tempDocs.users.substring(1));
+                }
                 ModelAndView modelAndView = new ModelAndView("admin/Documents");
                 modelAndView.addObject("sections", helper.getSortedSections("0"));
-                modelAndView.addObject("documents", document.getAllDocuments());
+                modelAndView.addObject("documents", documentList);
                 modelAndView.addObject("users", user.getAllUsers());
                 modelAndView.addObject("groups", userGroup.getAllGroups());
                  return modelAndView;
