@@ -215,6 +215,7 @@
 </t:mainHeader>
 <script>
     $( document ).ready(function() {
+        $('#groupChooseAll').click();
         $('#userChooseAll').click();
             $("#my-awesome-dropzone").dropzone({ 
                 success: function(file){
@@ -227,6 +228,8 @@
             });
             $('.selectpicker').selectpicker();
         var type = "";
+        var section = "";
+        var userGroups = "";
         $('.typeCheckbox').each(function(){
             if("${document.type}".indexOf($(this).find('input').val())!=-1)
             {
@@ -234,8 +237,27 @@
                 $(this).find('input').prop('checked', true);
             }
         });
+        $('.sectionCheckBoxes').each(function(){
+            if("${document.parentId}".indexOf($(this).val())!=-1)
+            {
+                section += $(this).val() + ',';
+                $(this).prop('checked', true);
+            }
+        });
+        $('.groupCheckboxes').each(function(){
+            if("${document.accessGroup}".indexOf($(this).val())!=-1)
+            {
+                userGroups += $(this).val() + ',';
+                $(this).prop('checked', true);
+            }
+        });
+        userGroups = userGroups.substring(0, userGroups.length - 1);
+        $('#accessGroupHidden').val(userGroups);
+        console.log($('#accessGroupHidden').val());
         type = type.substring(0, type.length - 1);
         $('#documentType').val(type);
+        section = section.substring(0, section.length - 1);
+        $('#sectionList').val(section);
         
         $('#docsPage').css('background','#418a84');
         /*var today = new Date();
@@ -433,7 +455,6 @@
             if('${document.type}'.indexOf($(this).find('input').val())!=-1)
                 $(this).find('input').click();
         });
-        $('#groupChooseAll').click();
         
         
         
