@@ -38,8 +38,8 @@
                                     <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
                                         <th class="text-center vcenter" style="width: 90px;">Відображати</th>
-                                    </c:if>
                                         <th class="text-center vcenter" style="width: 90px;">Дійсний</th>
+                                    </c:if>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -53,8 +53,8 @@
                                     <th style="width: 20px;"></th>
                                     <c:if test="${user.role == 2}">
                                         <th style="width: 70px;"></th>
+                                        <th></th>
                                     </c:if>
-                                    <th></th>
                                 </tr>
                             </tfoot>
                             <tbody>
