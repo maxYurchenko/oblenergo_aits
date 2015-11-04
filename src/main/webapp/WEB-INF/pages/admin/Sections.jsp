@@ -17,7 +17,7 @@
     </style>
     <body>
         <div class="container-fluid">
-            <c:if test="${sessionScope.user.role != 2}">
+            <c:if test="${sessionScope.user.role == 0}">
                 <script>window.location.href = "${Constants.URL}login";</script>
             </c:if>
                 <div class="row">
