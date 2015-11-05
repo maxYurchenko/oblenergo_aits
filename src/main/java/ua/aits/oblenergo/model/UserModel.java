@@ -93,6 +93,7 @@ public class UserModel {
             temp.setDescription(result.getString("description"));
             temp.setFullName(result.getString("fullName"));
         }
+        result.close();
         DB.closeCon();
         return temp;
     }
@@ -109,6 +110,7 @@ public class UserModel {
             temp.setFullName(result.getString("fullName"));
             temp.setId(Integer.parseInt(id));
         }
+        result.close();
         DB.closeCon();
         return temp;
     }
@@ -116,6 +118,7 @@ public class UserModel {
     public Boolean isExistsUser(String login, String password) throws SQLException{
         ResultSet result = DB.getResultSet("select * from users where name = '" + login +"' and pass = '" + password + "';");
         Boolean temp = result.isBeforeFirst();
+        result.close();
         DB.closeCon();
         return temp;
     }
@@ -123,6 +126,7 @@ public class UserModel {
     public Boolean isExistsUser(String login) throws SQLException{
         ResultSet result = DB.getResultSet("select * from users where name = '" + login +"';");
         Boolean temp = result.isBeforeFirst();
+        result.close();
         DB.closeCon();
         return temp;
     }
@@ -146,6 +150,7 @@ public class UserModel {
             temp.setFullName(result.getString("fullName"));
             usersList.add(temp);
         } 
+        result.close();
         DB.closeCon();
         return usersList;
     }
@@ -176,6 +181,7 @@ public class UserModel {
         }
         if(names.length()>2)
             names = names.substring(0, names.length()-2);
+        result.close();
         DB.closeCon();
         return names;
     }
@@ -188,6 +194,7 @@ public class UserModel {
             name = result.getString("name");
         }catch (Exception e){
         }
+        result.close();
         DB.closeCon();
         return name;
     }
@@ -204,6 +211,7 @@ public class UserModel {
         while (result.next()) { 
             counter++;
         }
+        result.close();
         DB.closeCon();
         if(counter>1){
             return "false";

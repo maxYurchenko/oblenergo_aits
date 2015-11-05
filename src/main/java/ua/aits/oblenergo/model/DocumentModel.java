@@ -201,6 +201,7 @@ public class DocumentModel {
             temp.setTags(result.getString("tags").replace(",",", "));
             documentList.add(temp);
         } 
+        result.close();
         DB.closeCon();
     return documentList;
     }
@@ -229,6 +230,7 @@ public class DocumentModel {
             temp.setTags(result.getString("tags").replace(",",", "));
             documentList.add(temp);
         } 
+        result.close();
         DB.closeCon();
     return documentList;
     }
@@ -254,6 +256,7 @@ public class DocumentModel {
         temp.setUploader(result.getString("uploader"));
         temp.setType(result.getString("type").replace(",",", "));
         temp.setTags(result.getString("tags").replace(",",", "));
+        result.close();
         DB.closeCon();
     return temp;
     }
@@ -289,6 +292,7 @@ public class DocumentModel {
         ResultSet result = DB.getResultSet("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA =  \"oblenergo\" AND TABLE_NAME =  \"docs\";");
         result.first();
         Integer ai = result.getInt("AUTO_INCREMENT");
+        result.close();
         DB.closeCon();
         return ai;
     }

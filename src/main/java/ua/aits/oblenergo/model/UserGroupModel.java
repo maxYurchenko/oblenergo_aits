@@ -60,6 +60,7 @@ public class UserGroupModel {
         ResultSet result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
         result.first();
         Integer temp = result.getInt("id");
+        result.close();
         DB.closeCon();
         return temp.toString();
     }
@@ -83,6 +84,7 @@ public class UserGroupModel {
             }
             groupList.add(temp);
         } 
+        result.close();
         DB.closeCon();
         return groupList;
     }
@@ -96,6 +98,7 @@ public class UserGroupModel {
     public Boolean checkAvailability(String title)  throws SQLException{ 
         ResultSet result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
         Boolean temp = result.isBeforeFirst();
+        result.close();
         DB.closeCon();
         return temp;
     }
@@ -122,6 +125,7 @@ public class UserGroupModel {
             names = names.substring(0, names.length()-2);
             temp.setUsers(names);
         }
+        result.close();
         DB.closeCon();
         return temp;
     }
@@ -133,6 +137,7 @@ public class UserGroupModel {
             result.first();
             name = result.getString("title");
         }catch(Exception e){}
+        result.close();
         DB.closeCon();
         return name;
     }

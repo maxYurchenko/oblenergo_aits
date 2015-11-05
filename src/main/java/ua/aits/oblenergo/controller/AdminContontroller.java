@@ -51,7 +51,7 @@ public class AdminContontroller {
                     tempDocs.setUsers(tempDocs.users.substring(1));
                 }
                 ModelAndView modelAndView = new ModelAndView("admin/Documents");
-                modelAndView.addObject("sections", helper.getSortedSections("0"));
+                modelAndView.addObject("sections", section.getSortedSections());
                 modelAndView.addObject("documents", documentList);
                 modelAndView.addObject("users", user.getAllUsers());
                 modelAndView.addObject("groups", userGroup.getAllGroups());

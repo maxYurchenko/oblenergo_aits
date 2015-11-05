@@ -145,6 +145,7 @@ public class SectionModel {
             }
             sections.add(temp);
         }
+        result.close();
         DB.closeCon();
         return sections;
     }
@@ -191,6 +192,7 @@ public class SectionModel {
             }
             sections.add(temp);
         }
+        result.close();
         DB.closeCon();
         return sections;
     }
@@ -209,6 +211,26 @@ public class SectionModel {
             temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
             menuList.add(temp);
         } 
+        result.close();
+        DB.closeCon();
+    return menuList;
+    }
+    
+    public List<SectionModel> getSortedSections() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ResultSet result = DB.getResultSet("select * from sections where (isDelete<>1) ORDER BY title;");
+        List<SectionModel> menuList = new LinkedList<>();
+        while (result.next()) { 
+            SectionModel temp = new SectionModel();
+            temp.setId(result.getInt("id"));
+            temp.setParentId(result.getInt("parentId"));
+            temp.setTitle(result.getString("title"));
+            temp.setIsDelete(result.getInt("isDelete"));
+            temp.setUserAccess(result.getString("userAccess"));
+            temp.setGroupAccess(result.getString("groupAccess"));
+            temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
+            menuList.add(temp);
+        } 
+        result.close();
         DB.closeCon();
     return menuList;
     }
@@ -230,6 +252,7 @@ public class SectionModel {
             result.first();
             title = result.getString("title");
         }
+        result.close();
         DB.closeCon();
         return title;
     }
@@ -252,6 +275,7 @@ public class SectionModel {
         temp.setUserAccess(result.getString("userAccess"));
         temp.setGroupAccess(result.getString("groupAccess"));
         temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+        result.close();
         DB.closeCon();
         return temp;
     }
@@ -267,6 +291,7 @@ public class SectionModel {
         temp.setUserAccess(result.getString("userAccess"));
         temp.setGroupAccess(result.getString("groupAccess"));
         temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+        result.close();
         DB.closeCon();
         return temp;
     }
