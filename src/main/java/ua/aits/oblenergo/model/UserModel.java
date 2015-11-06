@@ -82,52 +82,76 @@ public class UserModel {
     }
     
     public UserModel getUser(String login, String password)  throws SQLException{ 
-        ResultSet result = DB.getResultSet("select * from users where name = '" + login +"' and pass = '" + password + "';");
-        UserModel temp = new UserModel();
-        while (result.next()) { 
-            temp.setName(result.getString("name"));
-            temp.setId(result.getInt("id"));
-            temp.setPass(result.getString("pass"));
-            temp.setRole(result.getInt("role"));
-            temp.setGroupAccess(result.getInt("groupId"));
-            temp.setDescription(result.getString("description"));
-            temp.setFullName(result.getString("fullName"));
+        ResultSet result = null;
+        UserModel temp = null;
+        try{
+            result = DB.getResultSet("select * from users where name = '" + login +"' and pass = '" + password + "';");
+            temp = new UserModel();
+            while (result.next()) { 
+                temp.setName(result.getString("name"));
+                temp.setId(result.getInt("id"));
+                temp.setPass(result.getString("pass"));
+                temp.setRole(result.getInt("role"));
+                temp.setGroupAccess(result.getInt("groupId"));
+                temp.setDescription(result.getString("description"));
+                temp.setFullName(result.getString("fullName"));
+            }
         }
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return temp;
     }
     
     public UserModel getUser(String id)  throws SQLException{ 
-        ResultSet result = DB.getResultSet("select * from users where id = '" + id +"';");
-        UserModel temp = new UserModel();
-        while (result.next()) { 
-            temp.setName(result.getString("name"));
-            temp.setPass(result.getString("pass"));
-            temp.setRole(result.getInt("role"));
-            temp.setGroupAccess(result.getInt("groupId"));
-            temp.setDescription(result.getString("description"));
-            temp.setFullName(result.getString("fullName"));
-            temp.setId(Integer.parseInt(id));
+        ResultSet result = null;
+        UserModel temp = null;
+        try{
+            result = DB.getResultSet("select * from users where id = '" + id +"';");
+            temp = new UserModel();
+            while (result.next()) { 
+                temp.setName(result.getString("name"));
+                temp.setPass(result.getString("pass"));
+                temp.setRole(result.getInt("role"));
+                temp.setGroupAccess(result.getInt("groupId"));
+                temp.setDescription(result.getString("description"));
+                temp.setFullName(result.getString("fullName"));
+                temp.setId(Integer.parseInt(id));
+            }
         }
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return temp;
     }
     
     public Boolean isExistsUser(String login, String password) throws SQLException{
-        ResultSet result = DB.getResultSet("select * from users where name = '" + login +"' and pass = '" + password + "';");
-        Boolean temp = result.isBeforeFirst();
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        Boolean temp = null;
+        try{
+            result = DB.getResultSet("select * from users where name = '" + login +"' and pass = '" + password + "';");
+            temp = result.isBeforeFirst();
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return temp;
     }
     
     public Boolean isExistsUser(String login) throws SQLException{
-        ResultSet result = DB.getResultSet("select * from users where name = '" + login +"';");
-        Boolean temp = result.isBeforeFirst();
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        Boolean temp = null;
+        try{
+            result = DB.getResultSet("select * from users where name = '" + login +"';");
+            temp = result.isBeforeFirst();
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return temp;
     }
     
@@ -138,20 +162,26 @@ public class UserModel {
     }
     
     public List<UserModel> getAllUsers()  throws SQLException{ 
-        List<UserModel> usersList = new LinkedList();
-        ResultSet result = DB.getResultSet("select * from users order by name;");
-        while (result.next()) { 
-            UserModel temp = new UserModel();
-            temp.setId(result.getInt("id"));
-            temp.setName(result.getString("name"));
-            temp.setRole(result.getInt("role"));
-            temp.setGroupAccess(result.getInt("groupId"));
-            temp.setDescription(result.getString("description"));
-            temp.setFullName(result.getString("fullName"));
-            usersList.add(temp);
-        } 
-        result.close();
-        DB.closeCon();
+        List<UserModel> usersList = null;
+        ResultSet result = null;
+        usersList = new LinkedList();
+        try{
+            result = DB.getResultSet("select * from users order by name;");
+            while (result.next()) { 
+                UserModel temp = new UserModel();
+                temp.setId(result.getInt("id"));
+                temp.setName(result.getString("name"));
+                temp.setRole(result.getInt("role"));
+                temp.setGroupAccess(result.getInt("groupId"));
+                temp.setDescription(result.getString("description"));
+                temp.setFullName(result.getString("fullName"));
+                usersList.add(temp);
+            } 
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return usersList;
     }
     
@@ -174,28 +204,38 @@ public class UserModel {
     }
     
     public static String getUsersForGroup(String groupId)  throws SQLException{ 
-        ResultSet result = DB.getResultSet("select * from users WHERE groupId='"+groupId+"';");
+        ResultSet result = null;
         String names = "";
-        while (result.next()) { 
-            names = names + result.getString("name") + ", ";
+        try{
+            result = DB.getResultSet("select * from users WHERE groupId='"+groupId+"';");
+            while (result.next()) { 
+                names = names + result.getString("name") + ", ";
+            }
+            if(names.length()>2)
+                names = names.substring(0, names.length()-2);
         }
-        if(names.length()>2)
-            names = names.substring(0, names.length()-2);
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return names;
     }
     
     public static String getUsersName(String id)  throws SQLException{ 
-        ResultSet result = DB.getResultSet("select * from users WHERE id='"+id+"';");
+        ResultSet result = null;
         String name = "";
         try{
-            result.first();
-            name = result.getString("name");
-        }catch (Exception e){
+            result = DB.getResultSet("select * from users WHERE id='"+id+"';");
+            try{
+                result.first();
+                name = result.getString("name");
+            }catch (Exception e){
+            }
         }
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return name;
     }
     
@@ -207,12 +247,17 @@ public class UserModel {
     
     public String countUsersByName(String name) throws SQLException{
         Integer counter = 0;
-        ResultSet result = DB.getResultSet("select * from users where name = '" + name +"';");
-        while (result.next()) { 
-            counter++;
+        ResultSet result = null;
+        try{
+            result = DB.getResultSet("select * from users where name = '" + name +"';");
+            while (result.next()) { 
+                counter++;
+            }
         }
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         if(counter>1){
             return "false";
         }else{

@@ -56,36 +56,48 @@ public class UserGroupModel {
     }
     
     public String addUserGroups(String title, String access) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        DB.runQuery("INSERT INTO userGroups (title, userId) values ('"+title+"', '"+access+"');");
-        ResultSet result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
-        result.first();
-        Integer temp = result.getInt("id");
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        Integer temp = null;
+        try{
+            DB.runQuery("INSERT INTO userGroups (title, userId) values ('"+title+"', '"+access+"');");
+            result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
+            result.first();
+            temp = result.getInt("id");
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return temp.toString();
     }
     
     public List<UserGroupModel> getAllGroups()  throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{ 
-        List<UserGroupModel> groupList = new LinkedList();
-        ResultSet result = DB.getResultSet("select * from userGroups order by title;");
-        while (result.next()) { 
-            UserGroupModel temp = new UserGroupModel();
-            temp.setId(result.getInt("id"));
-            temp.setTitle(result.getString("title"));
-            temp.setUserId(result.getString("userId"));
-            if(!temp.userId.equals("")){
-                String[] temporary = temp.userId.split(",");
-                String names = "";
-                for(String str : temporary) {
-                    names += UserModel.getUsersName(str) + ", ";
+        List<UserGroupModel> groupList = null;
+        ResultSet result = null;
+        try{
+            groupList = new LinkedList();
+            result = DB.getResultSet("select * from userGroups order by title;");
+            while (result.next()) { 
+                UserGroupModel temp = new UserGroupModel();
+                temp.setId(result.getInt("id"));
+                temp.setTitle(result.getString("title"));
+                temp.setUserId(result.getString("userId"));
+                if(!temp.userId.equals("")){
+                    String[] temporary = temp.userId.split(",");
+                    String names = "";
+                    for(String str : temporary) {
+                        names += UserModel.getUsersName(str) + ", ";
+                    }
+                    names = Helpers.removeComas(names);
+                    temp.setUsers(names);
                 }
-                names = Helpers.removeComas(names);
-                temp.setUsers(names);
-            }
-            groupList.add(temp);
-        } 
-        result.close();
-        DB.closeCon();
+                groupList.add(temp);
+            } 
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return groupList;
     }
     
@@ -96,10 +108,16 @@ public class UserGroupModel {
     }
     
     public Boolean checkAvailability(String title)  throws SQLException{ 
-        ResultSet result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
-        Boolean temp = result.isBeforeFirst();
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        Boolean temp = null;
+        try{
+            result = DB.getResultSet("select * from userGroups where title = '" + title +"';");
+            temp = result.isBeforeFirst();
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return temp;
     }
     
@@ -110,35 +128,46 @@ public class UserGroupModel {
     }
     
     public UserGroupModel getOneGroup(String id)  throws SQLException{ 
-        ResultSet result = DB.getResultSet("SELECT * FROM `userGroups` WHERE id='"+id+"'");
-        UserGroupModel temp = new UserGroupModel();
-        result.first();
-        temp.setId(result.getInt("id"));
-        temp.setTitle(result.getString("title"));
-        temp.setUserId(result.getString("userId"));
-        if(!temp.userId.equals("")){
-            String[] temporary = temp.userId.split(",");
-            String names = "";
-            for(String str : temporary) {
-                names += UserModel.getUsersName(str) + ", ";
+        ResultSet result = null;
+        UserGroupModel temp = null;
+        try{
+            result = DB.getResultSet("SELECT * FROM `userGroups` WHERE id='"+id+"'");
+            temp = new UserGroupModel();
+            result.first();
+            temp.setId(result.getInt("id"));
+            temp.setTitle(result.getString("title"));
+            temp.setUserId(result.getString("userId"));
+            if(!temp.userId.equals("")){
+                String[] temporary = temp.userId.split(",");
+                String names = "";
+                for(String str : temporary) {
+                    names += UserModel.getUsersName(str) + ", ";
+                }
+                names = names.substring(0, names.length()-2);
+                temp.setUsers(names);
             }
-            names = names.substring(0, names.length()-2);
-            temp.setUsers(names);
         }
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return temp;
     }
     
     public static String getGroupTitle(String id)  throws SQLException{ 
-        ResultSet result = DB.getResultSet("select * from userGroups WHERE id='"+id+"';");
+        ResultSet result = null;
         String name = "";
         try{
-            result.first();
-            name = result.getString("title");
-        }catch(Exception e){}
-        result.close();
-        DB.closeCon();
+            result = DB.getResultSet("select * from userGroups WHERE id='"+id+"';");
+            try{
+                result.first();
+                name = result.getString("title");
+            }catch(Exception e){}
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return name;
     }
 }

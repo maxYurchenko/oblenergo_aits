@@ -55,26 +55,37 @@ public class typeModel {
     
     public List<typeModel> getAllTypes() throws SQLException{
         List<typeModel> types = new LinkedList<>();
-        ResultSet result = DB.getResultSet("select * from types;");
-        while (result.next()) { 
-            typeModel temp = new typeModel();
-            temp.setId(result.getInt("id"));
-            temp.setTitle(result.getString("title"));
-            types.add(temp);
+        ResultSet result = null;
+        try{
+            result = DB.getResultSet("select * from types;");
+            while (result.next()) { 
+                typeModel temp = new typeModel();
+                temp.setId(result.getInt("id"));
+                temp.setTitle(result.getString("title"));
+                types.add(temp);
+            }
         }
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return types;
     }
     
     public typeModel getOneType(String id) throws SQLException{
-        ResultSet result = DB.getResultSet("select * from types WHERE id='"+id+"';");
-        result.first();
-        typeModel type = new typeModel();
-        type.setTitle(result.getString("title"));
-        type.setId(result.getInt("id"));
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        typeModel type = null;
+        try{
+            result = DB.getResultSet("select * from types WHERE id='"+id+"';");
+            result.first();
+            type = new typeModel();
+            type.setTitle(result.getString("title"));
+            type.setId(result.getInt("id"));
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return type;
     }
 }

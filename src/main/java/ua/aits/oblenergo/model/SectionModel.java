@@ -110,150 +110,182 @@ public class SectionModel {
     public DocumentModel Documents = new DocumentModel();
     
     public List<SectionModel> getAllSections() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
-        ResultSet result = DB.getResultSet("SELECT * FROM sections WHERE isDelete<>1;");
-        List<SectionModel> sections = new LinkedList<>();
-        while (result.next()) { 
-            SectionModel temp = new SectionModel();
-            temp.setId(result.getInt("id"));
-            temp.setParentId(result.getInt("parentId"));
-            temp.setIsDelete(result.getInt("isDelete"));
-            temp.setTitle(result.getString("title"));
-            temp.setUserAccess(result.getString("userAccess"));
-            temp.setGroupAccess(result.getString("groupAccess"));
-            temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
-            if(!temp.userAccess.equals("")){
-                String[] temporary = temp.userAccess.split(",");
-                String names = "";
-                for(String str : temporary) {
-                    try{
-                        names += UserModel.getUsersName(str) + ", ";
-                    }catch(Exception e){}
+        ResultSet result = null;
+        List<SectionModel> sections = null;
+        try{
+            result = DB.getResultSet("SELECT * FROM sections WHERE isDelete<>1;");
+            sections = new LinkedList<>();
+            while (result.next()) { 
+                SectionModel temp = new SectionModel();
+                temp.setId(result.getInt("id"));
+                temp.setParentId(result.getInt("parentId"));
+                temp.setIsDelete(result.getInt("isDelete"));
+                temp.setTitle(result.getString("title"));
+                temp.setUserAccess(result.getString("userAccess"));
+                temp.setGroupAccess(result.getString("groupAccess"));
+                temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+                if(!temp.userAccess.equals("")){
+                    String[] temporary = temp.userAccess.split(",");
+                    String names = "";
+                    for(String str : temporary) {
+                        try{
+                            names += UserModel.getUsersName(str) + ", ";
+                        }catch(Exception e){}
+                    }
+                    names = Helpers.removeComas(names);
+                    temp.setUsers(names);
                 }
-                names = Helpers.removeComas(names);
-                temp.setUsers(names);
-            }
-            if(!temp.groupAccess.equals("")){
-                String[] temporary = temp.groupAccess.split(",");
-                String title = "";
-                for(String str : temporary) {
-                    try{
-                        title += UserGroupModel.getGroupTitle(str) + ", ";
-                    }catch(Exception e){}
+                if(!temp.groupAccess.equals("")){
+                    String[] temporary = temp.groupAccess.split(",");
+                    String title = "";
+                    for(String str : temporary) {
+                        try{
+                            title += UserGroupModel.getGroupTitle(str) + ", ";
+                        }catch(Exception e){}
+                    }
+                    title = Helpers.removeComas(title);
+                    temp.setGroups(title);
                 }
-                title = Helpers.removeComas(title);
-                temp.setGroups(title);
+                sections.add(temp);
             }
-            sections.add(temp);
         }
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return sections;
     }
     
     public List<SectionModel> getAllSectionsSorted(String sort) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
-        String checkSort = "";
-        if(sort.equals("1")){
-            checkSort = "DESC";
-        }else{
-            checkSort = "ASC";
-        }
-        ResultSet result = DB.getResultSet("SELECT * FROM sections WHERE isDelete<>1 ORDER BY title "+checkSort+";");
-        List<SectionModel> sections = new LinkedList<>();
-        while (result.next()) { 
-            SectionModel temp = new SectionModel();
-            temp.setId(result.getInt("id"));
-            temp.setParentId(result.getInt("parentId"));
-            temp.setIsDelete(result.getInt("isDelete"));
-            temp.setTitle(result.getString("title"));
-            temp.setUserAccess(result.getString("userAccess"));
-            temp.setGroupAccess(result.getString("groupAccess"));
-            temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
-            if(!temp.userAccess.equals("")){
-                String[] temporary = temp.userAccess.split(",");
-                String names = "";
-                for(String str : temporary) {
-                    try{
-                        names += UserModel.getUsersName(str) + ", ";
-                    }catch(Exception e){}
+        ResultSet result = null;
+        List<SectionModel> sections = null;
+        try{
+            result = DB.getResultSet("SELECT * FROM sections WHERE isDelete<>1 ORDER BY title;");
+            sections = new LinkedList<>();
+            while (result.next()) { 
+                SectionModel temp = new SectionModel();
+                temp.setId(result.getInt("id"));
+                temp.setParentId(result.getInt("parentId"));
+                temp.setIsDelete(result.getInt("isDelete"));
+                temp.setTitle(result.getString("title"));
+                temp.setUserAccess(result.getString("userAccess"));
+                temp.setGroupAccess(result.getString("groupAccess"));
+                temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+                if(!temp.userAccess.equals("")){
+                    String[] temporary = temp.userAccess.split(",");
+                    String names = "";
+                    for(String str : temporary) {
+                        try{
+                            names += UserModel.getUsersName(str) + ", ";
+                        }catch(Exception e){}
+                    }
+                    names = Helpers.removeComas(names);
+                    temp.setUsers(names);
                 }
-                names = Helpers.removeComas(names);
-                temp.setUsers(names);
-            }
-            if(!temp.groupAccess.equals("")){
-                String[] temporary = temp.groupAccess.split(",");
-                String title = "";
-                for(String str : temporary) {
-                    try{
-                        title += UserGroupModel.getGroupTitle(str) + ", ";
-                    }catch(Exception e){}
+                if(!temp.groupAccess.equals("")){
+                    String[] temporary = temp.groupAccess.split(",");
+                    String title = "";
+                    for(String str : temporary) {
+                        try{
+                            title += UserGroupModel.getGroupTitle(str) + ", ";
+                        }catch(Exception e){}
+                    }
+                    title = Helpers.removeComas(title);
+                    temp.setGroups(title);
                 }
-                title = Helpers.removeComas(title);
-                temp.setGroups(title);
+                sections.add(temp);
             }
-            sections.add(temp);
         }
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return sections;
     }
     
     public List<SectionModel> getSectionRow(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ResultSet result = DB.getResultSet("select * from sections where (parentId = "+id+") AND (isDelete<>1);");
-        List<SectionModel> menuList = new LinkedList<>();
-        while (result.next()) { 
-            SectionModel temp = new SectionModel();
-            temp.setId(result.getInt("id"));
-            temp.setParentId(result.getInt("parentId"));
-            temp.setTitle(result.getString("title"));
-            temp.setIsDelete(result.getInt("isDelete"));
-            temp.setUserAccess(result.getString("userAccess"));
-            temp.setGroupAccess(result.getString("groupAccess"));
-            temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
-            menuList.add(temp);
-        } 
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        List<SectionModel> menuList = null;
+        try{
+            result = DB.getResultSet("select * from sections where (parentId = "+id+") AND (isDelete<>1);");
+            menuList = new LinkedList<>();
+            while (result.next()) { 
+                SectionModel temp = new SectionModel();
+                temp.setId(result.getInt("id"));
+                temp.setParentId(result.getInt("parentId"));
+                temp.setTitle(result.getString("title"));
+                temp.setIsDelete(result.getInt("isDelete"));
+                temp.setUserAccess(result.getString("userAccess"));
+                temp.setGroupAccess(result.getString("groupAccess"));
+                temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
+                menuList.add(temp);
+            } 
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
     return menuList;
     }
     
     public List<SectionModel> getSortedSections() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ResultSet result = DB.getResultSet("select * from sections where (isDelete<>1) ORDER BY title;");
-        List<SectionModel> menuList = new LinkedList<>();
-        while (result.next()) { 
-            SectionModel temp = new SectionModel();
-            temp.setId(result.getInt("id"));
-            temp.setParentId(result.getInt("parentId"));
-            temp.setTitle(result.getString("title"));
-            temp.setIsDelete(result.getInt("isDelete"));
-            temp.setUserAccess(result.getString("userAccess"));
-            temp.setGroupAccess(result.getString("groupAccess"));
-            temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
-            menuList.add(temp);
-        } 
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        List<SectionModel> menuList = null;
+        try{
+            result = DB.getResultSet("select * from sections where (isDelete<>1) ORDER BY title;");
+            menuList = new LinkedList<>();
+            while (result.next()) { 
+                SectionModel temp = new SectionModel();
+                temp.setId(result.getInt("id"));
+                temp.setParentId(result.getInt("parentId"));
+                temp.setTitle(result.getString("title"));
+                temp.setIsDelete(result.getInt("isDelete"));
+                temp.setUserAccess(result.getString("userAccess"));
+                temp.setGroupAccess(result.getString("groupAccess"));
+                temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
+                menuList.add(temp);
+            } 
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
     return menuList;
     }
     
     public static String getParent(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ResultSet result = DB.getResultSet("select * from sections where id = "+id+" AND (isDelete<>1);");
-        result.first();
-        String title = result.getString("title");
-        DB.closeCon();
+        ResultSet result = null;
+        String title = "";
+        try{
+            result = DB.getResultSet("select * from sections where id = "+id+" AND (isDelete<>1);");
+            result.first();
+            title = result.getString("title");
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return title;
     }
     
     public static String getSectionParent(String id) throws SQLException{
-        ResultSet result = DB.getResultSet("select * from sections where id = "+id+" AND (isDelete<>1);");
         String title = "";
-        if(id.equals("0")){
-            title = "0";
-        }else{
-            result.first();
-            title = result.getString("title");
+        ResultSet result = null;
+        try{
+            result = DB.getResultSet("select * from sections where id = "+id+" AND (isDelete<>1);");
+            if(result.isBeforeFirst()){
+                if(id.equals("0")){
+                    title = "0";
+                }else{
+                    result.first();
+                    title = result.getString("title");
+                }
+            }
         }
-        result.close();
-        DB.closeCon();
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return title;
     }
     
@@ -265,34 +297,46 @@ public class SectionModel {
     }
     
     public SectionModel getOneSection(String id) throws SQLException{
-        ResultSet result = DB.getResultSet("select * from sections where id = "+id+";");
-        result.first();
-        SectionModel temp = new SectionModel();
-        temp.setId(result.getInt("id"));
-        temp.setParentId(result.getInt("parentId"));
-        temp.setIsDelete(result.getInt("isDelete"));
-        temp.setTitle(result.getString("title"));
-        temp.setUserAccess(result.getString("userAccess"));
-        temp.setGroupAccess(result.getString("groupAccess"));
-        temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        SectionModel temp = null;
+        try{
+            result = DB.getResultSet("select * from sections where id = "+id+";");
+            result.first();
+            temp = new SectionModel();
+            temp.setId(result.getInt("id"));
+            temp.setParentId(result.getInt("parentId"));
+            temp.setIsDelete(result.getInt("isDelete"));
+            temp.setTitle(result.getString("title"));
+            temp.setUserAccess(result.getString("userAccess"));
+            temp.setGroupAccess(result.getString("groupAccess"));
+            temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return temp;
     }
     
     public SectionModel getSectionForBreadCrumbs(String id) throws SQLException{
-        ResultSet result = DB.getResultSet("select * from sections where id = "+id+" AND (isDelete<>1);");
-        result.first();
-        SectionModel temp = new SectionModel();
-        temp.setId(result.getInt("id"));
-        temp.setParentId(result.getInt("parentId"));
-        temp.setIsDelete(result.getInt("isDelete"));
-        temp.setTitle(result.getString("title"));
-        temp.setUserAccess(result.getString("userAccess"));
-        temp.setGroupAccess(result.getString("groupAccess"));
-        temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        SectionModel temp = null;
+        try{
+            result = DB.getResultSet("select * from sections where id = "+id+" AND (isDelete<>1);");
+            result.first();
+            temp = new SectionModel();
+            temp.setId(result.getInt("id"));
+            temp.setParentId(result.getInt("parentId"));
+            temp.setIsDelete(result.getInt("isDelete"));
+            temp.setTitle(result.getString("title"));
+            temp.setUserAccess(result.getString("userAccess"));
+            temp.setGroupAccess(result.getString("groupAccess"));
+            temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return temp;
     }
     

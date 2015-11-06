@@ -180,38 +180,81 @@ public class DocumentModel {
     }
     
     public List<DocumentModel> getDocumentRow(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ResultSet result = DB.getResultSet("select * from docs where parentId = "+id+";");
-        List<DocumentModel> documentList = new LinkedList<>();
-        while (result.next()) { 
-            DocumentModel temp = new DocumentModel();
-            temp.setId(result.getInt("id"));
-            temp.setParentId(result.getString("parentId"));
-            temp.setTitle(result.getString("title"));
-            temp.setPath(result.getString("path"));
-            temp.setClientId(result.getString("clientId"));
-            temp.setValid(result.getInt("valid"));
-            //temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
-            temp.setIsDelete(result.getInt("isDelete"));
-            temp.setDate(result.getString("date").replace(",","."));
-            temp.setDate(temp.date.replace("/", "."));
-            temp.setAccess(result.getString("access"));
-            temp.setAccessGroup(result.getString("groups"));
-            temp.setUploader(result.getString("uploader"));
-            temp.setType(result.getString("type").replace(",",", "));
-            temp.setTags(result.getString("tags").replace(",",", "));
-            documentList.add(temp);
-        } 
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        List<DocumentModel> documentList = null;
+        try{
+            result = DB.getResultSet("select * from docs where parentId = "+id+";");
+            documentList = new LinkedList<>();
+            while (result.next()) { 
+                DocumentModel temp = new DocumentModel();
+                temp.setId(result.getInt("id"));
+                temp.setParentId(result.getString("parentId"));
+                temp.setTitle(result.getString("title"));
+                temp.setPath(result.getString("path"));
+                temp.setClientId(result.getString("clientId"));
+                temp.setValid(result.getInt("valid"));
+                //temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
+                temp.setIsDelete(result.getInt("isDelete"));
+                temp.setDate(result.getString("date").replace(",","."));
+                temp.setDate(temp.date.replace("/", "."));
+                temp.setAccess(result.getString("access"));
+                temp.setAccessGroup(result.getString("groups"));
+                temp.setUploader(result.getString("uploader"));
+                temp.setType(result.getString("type").replace(",",", "));
+                temp.setTags(result.getString("tags").replace(",",", "));
+                documentList.add(temp);
+            } 
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
     return documentList;
     }
     
     
     public List<DocumentModel> getAllDocuments() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ResultSet result = DB.getResultSet("select * from docs;");
-        List<DocumentModel> documentList = new LinkedList<>();
-        while (result.next()) { 
-            DocumentModel temp = new DocumentModel();
+        ResultSet result = null;
+        List<DocumentModel> documentList = null;
+        try{
+            result = DB.getResultSet("select * from docs;");
+            documentList = new LinkedList<>();
+            while (result.next()) { 
+                DocumentModel temp = new DocumentModel();
+                temp.setId(result.getInt("id"));
+                temp.setParentId(result.getString("parentId"));
+                temp.setClientId(result.getString("clientId"));
+                temp.setDate(result.getString("date"));
+                temp.setTitle(result.getString("title"));
+                temp.setPath(result.getString("path"));
+                temp.setValid(result.getInt("valid"));
+                temp.setDate(result.getString("date").replace(",","."));
+                temp.setDate(temp.date.replace("/", "."));
+                temp.setIsDelete(result.getInt("isDelete"));
+                //temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
+                temp.setAccess(result.getString("access"));
+                temp.setAccessGroup(result.getString("groups"));
+                temp.setUploader(result.getString("uploader"));
+                temp.setType(result.getString("type").replace(",",", "));
+                temp.setTags(result.getString("tags").replace(",",", "));
+                documentList.add(temp);
+            } 
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
+    return documentList;
+    }
+    
+    
+    public DocumentModel getOneDocument(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ResultSet result = null;
+        DocumentModel temp = null;
+        try{
+            result = DB.getResultSet("select * from docs where id='"+id+"';");
+            result.first();
+            temp = new DocumentModel();
             temp.setId(result.getInt("id"));
             temp.setParentId(result.getString("parentId"));
             temp.setClientId(result.getString("clientId"));
@@ -219,45 +262,20 @@ public class DocumentModel {
             temp.setTitle(result.getString("title"));
             temp.setPath(result.getString("path"));
             temp.setValid(result.getInt("valid"));
+            temp.setIsDelete(result.getInt("isDelete"));
             temp.setDate(result.getString("date").replace(",","."));
             temp.setDate(temp.date.replace("/", "."));
-            temp.setIsDelete(result.getInt("isDelete"));
             //temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
             temp.setAccess(result.getString("access"));
             temp.setAccessGroup(result.getString("groups"));
             temp.setUploader(result.getString("uploader"));
             temp.setType(result.getString("type").replace(",",", "));
             temp.setTags(result.getString("tags").replace(",",", "));
-            documentList.add(temp);
-        } 
-        result.close();
-        DB.closeCon();
-    return documentList;
-    }
-    
-    
-    public DocumentModel getOneDocument(String id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ResultSet result = DB.getResultSet("select * from docs where id='"+id+"';");
-        result.first();
-        DocumentModel temp = new DocumentModel();
-        temp.setId(result.getInt("id"));
-        temp.setParentId(result.getString("parentId"));
-        temp.setClientId(result.getString("clientId"));
-        temp.setDate(result.getString("date"));
-        temp.setTitle(result.getString("title"));
-        temp.setPath(result.getString("path"));
-        temp.setValid(result.getInt("valid"));
-        temp.setIsDelete(result.getInt("isDelete"));
-        temp.setDate(result.getString("date").replace(",","."));
-        temp.setDate(temp.date.replace("/", "."));
-        //temp.setParentName(SectionModel.getParent(temp.parentId.toString()));
-        temp.setAccess(result.getString("access"));
-        temp.setAccessGroup(result.getString("groups"));
-        temp.setUploader(result.getString("uploader"));
-        temp.setType(result.getString("type").replace(",",", "));
-        temp.setTags(result.getString("tags").replace(",",", "));
-        result.close();
-        DB.closeCon();
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
     return temp;
     }
     
@@ -289,11 +307,17 @@ public class DocumentModel {
     }
     
     public Integer getNextAI() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ResultSet result = DB.getResultSet("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA =  \"oblenergo\" AND TABLE_NAME =  \"docs\";");
-        result.first();
-        Integer ai = result.getInt("AUTO_INCREMENT");
-        result.close();
-        DB.closeCon();
+        ResultSet result = null;
+        Integer ai = null;
+        try{
+            result = DB.getResultSet("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA =  \"oblenergo\" AND TABLE_NAME =  \"docs\";");
+            result.first();
+            ai = result.getInt("AUTO_INCREMENT");
+        }
+        finally{
+            result.close();
+            DB.closeCon();
+        }
         return ai;
     }
 }
