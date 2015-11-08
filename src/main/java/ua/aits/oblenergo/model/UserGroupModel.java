@@ -82,15 +82,6 @@ public class UserGroupModel {
                 temp.setId(result.getInt("id"));
                 temp.setTitle(result.getString("title"));
                 temp.setUserId(result.getString("userId"));
-                if(!temp.userId.equals("")){
-                    String[] temporary = temp.userId.split(",");
-                    String names = "";
-                    for(String str : temporary) {
-                        names += UserModel.getUsersName(str) + ", ";
-                    }
-                    names = Helpers.removeComas(names);
-                    temp.setUsers(names);
-                }
                 groupList.add(temp);
             } 
         }
@@ -98,6 +89,18 @@ public class UserGroupModel {
             result.close();
             DB.closeCon();
         }
+        for(UserGroupModel temp : groupList){
+            if(!temp.userId.equals("")){
+                String[] temporary = temp.userId.split(",");
+                String names = "";
+                for(String str : temporary) {
+                    names += UserModel.getUsersName(str) + ", ";
+                }
+                names = Helpers.removeComas(names);
+                temp.setUsers(names);
+            }
+        }
+        DB.closeCon();
         return groupList;
     }
     
@@ -137,6 +140,7 @@ public class UserGroupModel {
             temp.setId(result.getInt("id"));
             temp.setTitle(result.getString("title"));
             temp.setUserId(result.getString("userId"));
+            DB.closeCon();
             if(!temp.userId.equals("")){
                 String[] temporary = temp.userId.split(",");
                 String names = "";

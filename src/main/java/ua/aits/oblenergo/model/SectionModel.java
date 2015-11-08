@@ -123,7 +123,6 @@ public class SectionModel {
                 temp.setTitle(result.getString("title"));
                 temp.setUserAccess(result.getString("userAccess"));
                 temp.setGroupAccess(result.getString("groupAccess"));
-                temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
                 if(!temp.userAccess.equals("")){
                     String[] temporary = temp.userAccess.split(",");
                     String names = "";
@@ -151,6 +150,10 @@ public class SectionModel {
         }
         finally{
             result.close();
+            DB.closeCon();
+        }
+        for(SectionModel temp : sections){
+            temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
             DB.closeCon();
         }
         return sections;
@@ -170,34 +173,39 @@ public class SectionModel {
                 temp.setTitle(result.getString("title"));
                 temp.setUserAccess(result.getString("userAccess"));
                 temp.setGroupAccess(result.getString("groupAccess"));
-                temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
-                if(!temp.userAccess.equals("")){
-                    String[] temporary = temp.userAccess.split(",");
-                    String names = "";
-                    for(String str : temporary) {
-                        try{
-                            names += UserModel.getUsersName(str) + ", ";
-                        }catch(Exception e){}
-                    }
-                    names = Helpers.removeComas(names);
-                    temp.setUsers(names);
-                }
-                if(!temp.groupAccess.equals("")){
-                    String[] temporary = temp.groupAccess.split(",");
-                    String title = "";
-                    for(String str : temporary) {
-                        try{
-                            title += UserGroupModel.getGroupTitle(str) + ", ";
-                        }catch(Exception e){}
-                    }
-                    title = Helpers.removeComas(title);
-                    temp.setGroups(title);
-                }
                 sections.add(temp);
             }
         }
         finally{
             result.close();
+            DB.closeCon();
+        }
+        for(SectionModel temp : sections){
+            temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+            DB.closeCon();
+            if(!temp.userAccess.equals("")){
+                String[] temporary = temp.userAccess.split(",");
+                String names = "";
+                for(String str : temporary) {
+                    try{
+                        names += UserModel.getUsersName(str) + ", ";
+                    }catch(Exception e){}
+                }
+                names = Helpers.removeComas(names);
+                temp.setUsers(names);
+            }
+            DB.closeCon();
+            if(!temp.groupAccess.equals("")){
+                String[] temporary = temp.groupAccess.split(",");
+                String title = "";
+                for(String str : temporary) {
+                    try{
+                        title += UserGroupModel.getGroupTitle(str) + ", ";
+                    }catch(Exception e){}
+                }
+                title = Helpers.removeComas(title);
+                temp.setGroups(title);
+            }
             DB.closeCon();
         }
         return sections;
@@ -217,12 +225,15 @@ public class SectionModel {
                 temp.setIsDelete(result.getInt("isDelete"));
                 temp.setUserAccess(result.getString("userAccess"));
                 temp.setGroupAccess(result.getString("groupAccess"));
-                temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
                 menuList.add(temp);
             } 
         }
         finally{
             result.close();
+            DB.closeCon();
+        }
+        for(SectionModel temp : menuList){
+            temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
             DB.closeCon();
         }
     return menuList;
@@ -242,12 +253,15 @@ public class SectionModel {
                 temp.setIsDelete(result.getInt("isDelete"));
                 temp.setUserAccess(result.getString("userAccess"));
                 temp.setGroupAccess(result.getString("groupAccess"));
-                temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
                 menuList.add(temp);
             } 
         }
         finally{
             result.close();
+            DB.closeCon();
+        }
+        for(SectionModel temp : menuList){
+            temp.setDocuments(Documents.getDocumentRow(temp.id.toString()));
             DB.closeCon();
         }
     return menuList;
@@ -309,12 +323,13 @@ public class SectionModel {
             temp.setTitle(result.getString("title"));
             temp.setUserAccess(result.getString("userAccess"));
             temp.setGroupAccess(result.getString("groupAccess"));
-            temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
         }
         finally{
             result.close();
             DB.closeCon();
         }
+        temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+        DB.closeCon();
         return temp;
     }
     
@@ -331,12 +346,13 @@ public class SectionModel {
             temp.setTitle(result.getString("title"));
             temp.setUserAccess(result.getString("userAccess"));
             temp.setGroupAccess(result.getString("groupAccess"));
-            temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
         }
         finally{
             result.close();
             DB.closeCon();
         }
+        temp.setParentName(SectionModel.getSectionParent(temp.parentId.toString()));
+        DB.closeCon();
         return temp;
     }
     

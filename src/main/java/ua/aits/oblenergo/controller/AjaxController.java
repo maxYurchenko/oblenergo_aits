@@ -236,9 +236,11 @@ public class AjaxController {
         request.setCharacterEncoding("UTF-8");
         UserModel user = new UserModel();
         if(user.isExistsUser(request.getParameter("login"), request.getParameter("password"))) {
+            DB.closeCon();
             return "true";
         }
         else {
+            DB.closeCon();
             return "false";
         }
     }
@@ -275,9 +277,11 @@ public class AjaxController {
         UserModel user = new UserModel();
         if(user.isExistsUser(request.getParameter("login"))) {
             //if (user.isExistsUser(request.getParameter("login")))
+            DB.closeCon();
             return "true";
         }
         else {
+            DB.closeCon();
             return "false";
         }
     }
@@ -295,6 +299,7 @@ public class AjaxController {
     String nextAI(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
         String temp = document.getNextAI().toString();
+        DB.closeCon();
         return temp;
     }
         
@@ -303,9 +308,11 @@ public class AjaxController {
     String checkGroupName(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
         if(userGroup.checkAvailability(request.getParameter("title"))) {
+            DB.closeCon();
             return "true";
         }
         else {
+            DB.closeCon();
             return "false";
         }
     }
@@ -343,6 +350,7 @@ public class AjaxController {
                         + "onclick=\"getChildDocuments("+currentSection.id+")\">"+currentSection.title+"<ul style=\"display: none;\"></ul></li>\n";
             }
         }
+        DB.closeCon();
         return new ResponseEntity<>(html, responseHeaders, HttpStatus.CREATED);
     }
         
