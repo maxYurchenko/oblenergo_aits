@@ -46,6 +46,13 @@ public class SinglePageController {
                  modelAndView.addObject("groups", userGroup.getAllGroups());
                  return modelAndView;
 	}
+	
+    @RequestMapping(value = {"/500", "/oblenergo/500"})
+	public ModelAndView error500(HttpServletRequest request,
+   		 HttpServletResponse response)  {
+   	 ModelAndView model = new ModelAndView("/error/500");
+   	 return model;
+    }
     
     @RequestMapping(value = {"/login","/login/","/oblenergo/login","/oblenergo/login/"})
     public ModelAndView login(HttpServletRequest request,
