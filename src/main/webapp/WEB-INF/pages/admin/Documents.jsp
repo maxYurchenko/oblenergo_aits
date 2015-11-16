@@ -36,7 +36,7 @@
                                     <th>Тип документа</th>
                                     <th></th>
                                     <th style="width: 20px;"></th>
-                                    <c:if test="${user.role == 2}">
+                                    <c:if test="${user.role != 0}">
                                         <th class="text-center vcenter" style="width: 90px;">Відображати</th>
                                         <th class="text-center vcenter" style="width: 90px;">Дійсний</th>
                                     </c:if>
@@ -51,7 +51,7 @@
                                     <th data-column-index="5" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1">типам документа</th>
                                     <th style="width: 25px;"></th>
                                     <th style="width: 20px;"></th>
-                                    <c:if test="${user.role == 2}">
+                                    <c:if test="${user.role != 0}">
                                         <th style="width: 70px;"></th>
                                         <th></th>
                                     </c:if>
@@ -70,7 +70,7 @@
                                             <th data-column-index="5" class="sorting" tabindex="0" aria-controls="table-pagination" rowspan="1" colspan="1" onclick="showDocument('${document.path}','${document.id}')">${document.type}</th>
                                             <th><a target='_blank' download href="${Constants.URL}${document.path}"><img style="width: 20px;" src="${Constants.URL}img/dl.png"></a></th>
                                             <th><a href="${Constants.URL}admin/editDocument/${document.id}"><img title="${document.users}" style="width: 20px;" src="${Constants.URL}img/edit.png"></a></th>
-                                            <c:if test="${user.role == 2}">
+                                            <c:if test="${user.role != 0}">
                                                 <th class="publishCheckboxBlock vcenter text-center invisibleText" id="publishCheckboxBlock${document.id}" 
                                                     value="${document.id}">${document.isDelete}
                                                     <c:choose>
@@ -84,7 +84,7 @@
                                                     </c:choose>
                                                 </th>
                                             </c:if>
-                                            <c:if test="${user.role == 2}">
+                                            <c:if test="${user.role != 0}">
                                                 <th class="validCheckboxBlock vcenter invisibleText text-center" id="validCheckboxBlock${document.id}" 
                                                     value="${document.id}">${document.valid}
                                                     <c:choose>
