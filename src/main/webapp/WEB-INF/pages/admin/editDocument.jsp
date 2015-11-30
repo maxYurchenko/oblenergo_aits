@@ -6,6 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <t:mainHeader>
@@ -37,8 +38,16 @@
                 <div  class="col-md-2">
                     <label class="greenText" for="tlt">Чи дійсний документ:<span class="red-star">*</span></label>
                                                 <select id="isValid" name="isValid" class="selectpicker">
-                                                    <option value="1">Дійсний</option>
-                                                    <option value="0">Не дійсний</option>
+                                                    <c:choose>
+                                                        <c:when test="${document.valid == 1}">
+                                                            <option value="1">Дійсний</option>
+                                                            <option value="0">Не дійсний</option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option value="0">Не дійсний</option>
+                                                            <option value="1">Дійсний</option>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </select>
                 </div>
                                                     <div class="col-md-4 z-indexBig">
@@ -196,6 +205,9 @@
                                 <input type="file" name="file" style="display:none" />
                             </form>
                                                     </div>
+                                                <hr>
+                                                <c:set var="temp" value="${fn:split(document.path, '/')}" />
+                                <h4>${temp[1]}</h4>
                                                 </div>
                                     </div>
                                                 <hr>

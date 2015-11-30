@@ -74,7 +74,7 @@
 	</body>
 <script charset="UTF-8">
     var sectionId = null;
-    var dateCounter = 4;
+    var dateCounter = 3;
     var sortAsc = 0;
     var isSort = 0;
     var table;

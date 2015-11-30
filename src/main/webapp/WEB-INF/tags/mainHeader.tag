@@ -5,7 +5,8 @@
 --%>
 <%@tag description="Index Page Template" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:useBean id="Constants" class="ua.aits.oblenergo.functions.Constants" scope="session"/>
 <html>
     <head>
